@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './Class-room';
+import ClassRoom from './Class-room';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ClassRoom />
   </React.StrictMode>,
   document.getElementById('root')
 );
