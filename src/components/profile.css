@@ -1,0 +1,20 @@
+.container{
+    display: flex;
+    margin-bottom: 3vh;
+}
+
+.avatar{
+    display: inline-block;
+    width: 10vh;
+    height: 10vh;
+    border-radius: 50%;
+    background: gray;
+}
+
+.userData{
+    display: flex;
+    flex-direction: column;
+    margin-left: 1vw;
+    font-size: 2rem;
+    color: white;
+}

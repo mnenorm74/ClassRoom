@@ -2,8 +2,8 @@ import React from 'react';
 import '../class-room.css';
 import MenuItem from "./menuItem";
 import {useState} from 'react'
-import MainPage from "../pages/mainPage";
-import SecondPage from "../pages/secondPage";
+import Page from "../pageProvider";
+import Profile from "../components/profile";
 
 function Menu() {
     const [isRotate, rotate] = useState(false);
@@ -18,10 +18,11 @@ function Menu() {
     return (
         <div id="menu">
             <div id="itemContainer">
-                <MenuItem text={"Главная"} link={MainPage}/>
-                <MenuItem text={"Хранилище"} link={SecondPage}/>
-                <MenuItem text={"Новости"}/>
-                <MenuItem text={"Расписание"}/>
+                <Profile/>
+                <MenuItem text={"Главная"} link={Page.MainPage}/>
+                <MenuItem text={"Новости"} link={Page.NewsPage}/>
+                <MenuItem text={"Расписание"} link={Page.SchedulePage}/>
+                <MenuItem text={"Хранилище"} link={Page.StoragePage}/>
             </div>
             {collapseButton}
         </div>
