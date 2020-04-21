@@ -1,12 +1,13 @@
 import React from "react";
+import ReactDOM from "react-dom";
 
 function MenuItem({link, text}) {
     return (
         <button onClick={event => {
-            let container = document.querySelector('#pageContainer');
-            container.innerHTML = '';
-            console.dir(link);
-            container.insertAdjacentHTML('afterbegin',(link))
+            ReactDOM.render(
+                link(),
+                document.getElementById('pageContainer')
+            );
         }}><i className="fa fa-file-o"/> {text}</button>
     )
 }

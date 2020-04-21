@@ -3,6 +3,7 @@ import '../class-room.css';
 import MenuItem from "./menuItem";
 import {useState} from 'react'
 import MainPage from "../pages/mainPage";
+import SecondPage from "../pages/secondPage";
 
 function Menu() {
     const [isRotate, rotate] = useState(false);
@@ -18,7 +19,7 @@ function Menu() {
         <div id="menu">
             <div id="itemContainer">
                 <MenuItem text={"Главная"} link={MainPage}/>
-                <MenuItem text={"Хранилище"}/>
+                <MenuItem text={"Хранилище"} link={SecondPage}/>
                 <MenuItem text={"Новости"}/>
                 <MenuItem text={"Расписание"}/>
             </div>
