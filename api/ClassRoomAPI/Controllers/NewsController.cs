@@ -30,10 +30,11 @@ namespace ClassRoomAPI.Controllers
 
         [HttpPost]
         [Produces("application/json")]
-        public IActionResult Post([FromBody] News value)
+        public IActionResult Post([FromBody] News value, [FromHeader] Guid Authorization)
         {
             var news = new News(value);
             news.Id = Guid.NewGuid();
+            news.AuthorId = Authorization;
             //добавляем в БД
             return Created("/schedules", news);
         }
@@ -88,12 +89,30 @@ namespace ClassRoomAPI.Controllers
                 {
                     news.Comments.ToList().Remove(comm);
                     news.Comments.ToList().Add(comment);
+                    break;
                 }
             }
             //сохранить изменения
             return new ObjectResult(comment);
         }
 
+        [HttpDelete("{id}/comments/{Commid}")]
+        [Produces("application/json")]
+        public IActionResult Delete(Guid id, Guid CommId)
+        {
+            //найти по id новость в БД
+            var news = new News() { Id = id, AuthorId = Guid.NewGuid(), Content = "..", Date = DateTime.Now, Title = "..", Comments = new List<Comment>() };
+            foreach (var comm in news.Comments)
+            {
+                if (comm.Id == CommId)
+                {
+                    news.Comments.ToList().Remove(comm);
+                    break;
+                }
+            }
+            //сохранить изменения
+            return NoContent();
+        }
 
     }
 }

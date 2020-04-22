@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using ClassRoomAPI.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -12,37 +13,40 @@ namespace ClassRoomAPI.Controllers
     [Route("[controller]")]
     public class UsersController : Controller
     {
-        // GET: /<controller>
-        [HttpGet]
-        public async Task<ActionResult<User>> Get()
+        [HttpGet("current")]
+        public IActionResult Get([FromHeader] Guid Authorization)
         {
-            var user = new User() { Id = 1, Age = 20, Name="Fedot" };
+            //получить из бд юзера по Guid в заголовке
+            var user = new User() { Id = Guid.NewGuid(), Fullname="Fedot", Username="SuperFedot1999", Avatar = new byte[0]};
             return new ObjectResult(user);
         }
 
-        // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody] User value)
         {
+            var user = new User(value);
+            user.Id = Guid.NewGuid();
+            //добавить в бд
+            return new ObjectResult(user);
         }
 
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpPatch("{id}")]
+        [Produces("application/json")]
+        public IActionResult Patch(Guid id, [FromBody] User value)
         {
+            //найти юзера в бд по id и удалить
+            var user = new User() { Id = id, Username = "...", Fullname = "...", Avatar = new byte[0] };
+            user.Update(value);
+            //добавить измененного юзера
+            return new ObjectResult(user);
         }
 
-        // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        [Produces("application/json")]
+        public IActionResult Delete(Guid id)
         {
+            //удалить из базы по id
+            return NoContent();
         }
     }
 }
