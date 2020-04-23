@@ -13,6 +13,7 @@ namespace ClassRoomAPI
     {
         public static void Main(string[] args)
         {
+            Database.Create();
             CreateHostBuilder(args).Build().Run();
         }
 
