@@ -10,7 +10,7 @@ function Menu() {
     let collapseButton = <button className="collapseButton" onClick={event => {
         let element = event.target;
         let menu = document.querySelector('#menu');
-        menu.style.left = !isRotate ? '0' : '-15vw'
+        menu.style.left = !isRotate ? '0' : '-17vw'
         element.style.transform = !isRotate ? 'rotate(180deg)' : 'rotate(0deg)';
         rotate(!isRotate);
     }}/>
@@ -18,10 +18,10 @@ function Menu() {
         <div id="menu">
             <div id="itemContainer">
                 <Profile/>
-                <MenuItem text={"Главная"} link={Page.MainPage} img='main'/>
-                <MenuItem text={"Новости"} link={Page.NewsPage} img='news'/>
-                <MenuItem text={"Расписание"} link={Page.SchedulePage} img='schedule'/>
-                <MenuItem text={"Хранилище"} link={Page.StoragePage} img='storage'/>
+                <MenuItem text={"Главная"} link={Page.MainPage} img='../icons/insert_drive_file-white-18dp.svg'/>
+                <MenuItem text={"Новости"} link={Page.NewsPage} img='../icons/insert_drive_file-white-18dp.svg'/>
+                <MenuItem text={"Расписание"} link={Page.SchedulePage} img='../icons/insert_drive_file-white-18dp.svg'/>
+                <MenuItem text={"Хранилище"} link={Page.StoragePage} img='../icons/insert_drive_file-white-18dp.svg'/>
             </div>
             {collapseButton}
         </div>

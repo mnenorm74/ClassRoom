@@ -2,9 +2,10 @@
     all: unset;
     position: absolute;
     top: 13vh;
-    right: 2%;
+    right: -1vw;
     width: 5vh;
     height: 5vh;
+    box-shadow: 0 0 0 2vh white;
     background-image: url("./menu/keyboard_arrow_right-white-18dp.svg");
     background-size: cover;
     background-color: #FFE082;
@@ -29,23 +30,8 @@
 #itemContainer {
     display: flex;
     flex-direction: column;
-    margin-right: 5vw;
     margin-top: 3vh;
 }
-
-#itemContainer > button {
-    all: unset;
-    padding: 5px;
-    font-size: 2rem;
-    color: white;
-    background: transparent;
-    cursor: pointer;
-}
-
-#itemContainer > button:hover {
-    background-color: #16a085;
-}
-
 
 .mainContent {
     /*    background-color: wheat;*/

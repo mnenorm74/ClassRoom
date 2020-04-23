@@ -1,16 +1,37 @@
-.main{
-    background-image: url("../icons/insert_drive_file-white-18dp.svg");
-    background-size: cover;
+.navMenuItem {
+    all: unset;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    font-size: 2rem;
+    color: white;
+    background: transparent;
+    cursor: pointer;
 }
 
-.news{
+.navMenuItem:hover {
+    background: linear-gradient(90deg, #31243A -97.53%, rgba(74, 144, 226, 0) 100%);;
+}
+.itemName{
+
+}
+
+.ico {
+    display: inline;
+    width: 2rem;
+    height: 2rem;
+    margin-right: 1vw;
+}
+
+.news {
     background-image: url("../icons/language-white-18dp.svg");
 }
 
-.schedule{
+.schedule {
     background-image: url("../icons/calendar_today-white-18dp.svg");
 }
 
-.storage{
+.storage {
     background-image: url("../icons/cloud-white-18dp.svg");
 }
