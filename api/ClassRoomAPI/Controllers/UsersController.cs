@@ -17,8 +17,21 @@ namespace ClassRoomAPI.Controllers
         public IActionResult Get([FromHeader] Guid Authorization)
         {
             //получить из бд юзера по Guid в заголовке
-            var user = new User() { Id = Guid.NewGuid(), Fullname="Fedot", Username="SuperFedot1999", Avatar = new byte[0]};
+            var user = new CurrentUser() { Id = Authorization, Name="Fedot", Surname="Ivanov", Avatar = new byte[0]};
             return new ObjectResult(user);
+        }
+
+        [HttpGet]
+        public IActionResult Get1([FromHeader] Guid Authorization)
+        {
+            var result = new List<User>();
+            //найти в бд по id пользователя его группу
+            //получить из бд всех юзеров по группе
+            for (var i = 0; i < 20; i++)
+            {
+                result.Add(new User() { Id = Guid.NewGuid(), Name="", Surname="", Patronymic="",Email="${i}", Username="", Avatar=new byte[0], GroupId=Guid.NewGuid()});
+            }
+            return new ObjectResult(result);
         }
 
         [HttpPost]
@@ -35,7 +48,7 @@ namespace ClassRoomAPI.Controllers
         public IActionResult Patch(Guid id, [FromBody] User value)
         {
             //найти юзера в бд по id и удалить
-            var user = new User() { Id = id, Username = "...", Fullname = "...", Avatar = new byte[0] };
+            var user = new User() { Id = id, Username = "...", Name = "...", Avatar = new byte[0], Email="", GroupId=Guid.NewGuid(), Patronymic="", Surname="" };
             user.Update(value);
             //добавить измененного юзера
             return new ObjectResult(user);

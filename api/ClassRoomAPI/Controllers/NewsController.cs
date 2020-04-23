@@ -16,10 +16,10 @@ namespace ClassRoomAPI.Controllers
         // GET: /news
         [HttpGet]
         [Produces("application/json")]
-        public IActionResult Get()
+        public IActionResult Get(int page, int count)
         {
             var news = new List<News>();
-            for (var i = 0; i < 20; i++)
+            for (var i = 0; i < count; i++)
             {
                 //данные берать из отсортированной по дате БД, страницами
                 news.Add(new News() { Id = Guid.NewGuid(), AuthorId = Guid.NewGuid(), Title = $"{i}", Content = "", Date = DateTime.Now, Comments = new List<Comment>() });

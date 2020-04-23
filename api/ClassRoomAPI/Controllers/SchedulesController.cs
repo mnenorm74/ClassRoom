@@ -14,36 +14,92 @@ namespace ClassRoomAPI.Controllers
     [Route("[controller]")]
     public class SchedulesController : Controller
     {
-        // GET: /schedules
+        // GET: /schedules?startDate={}&count={}
         [HttpGet]
         [Produces("application/json")]
-        public IActionResult Get()
+        public IActionResult Get(string startDate, int count)
         {
             var days = new List<ScheduleDay>();
-            var today = DateTime.Today;
-            for (var i = 0; i < 7; i++)
+            var parseDate = startDate.Split('-', '/', '\\', '.').Select(e => int.Parse(e)).ToList();
+            var date = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
+            for (var i = 0; i < count; i++)
             {
                 //данные берать из БД
-                days.Add(new ScheduleDay() {Id = Guid.NewGuid(), Date = today.AddDays(i), Lessons = new List<Lesson>()});
+                if (true) //если есть в бд
+                {
+                    days.Add(new ScheduleDay() { Id = Guid.NewGuid(), Date = date.AddDays(i), Lessons = new List<Lesson>() });
+                }
+                else
+                {
+                    days.Add(new ScheduleDay());
+                }
             }
 
             return new ObjectResult(days);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{date}")]
         [Produces("application/json")]
-        public IActionResult Get(Guid id)
+        public IActionResult Get(string date)
         {
-            var result = new List<ScheduleDay>();
-            //ищем в БД по id
-            return new ObjectResult(new ScheduleDay() { Id = Guid.NewGuid() });
+            var parseDate = date.Split('-', '/', '\\', '.').Select(e => int.Parse(e)).ToList();
+            var dateTime = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
+            //ищем в БД по дате
+            if (false) //если нет в бд
+            {
+                return new ObjectResult(new ScheduleDay());
+            }
+            return new ObjectResult(new ScheduleDay() { Id = Guid.NewGuid(), Date = dateTime }); ;
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] ScheduleDay value)
+        [Produces("application/json")]
+        public IActionResult Post([FromBody] Lesson value)
         {
-            //добавляем в БД
-            return Created("/schedules", value.Id);
+            var lesson = new Lesson(value);
+            lesson.Id = Guid.NewGuid();
+            //находим в БД schedule с нужной датой
+            var schedule = new ScheduleDay() { Id = Guid.NewGuid(), Date = value.Date, Lessons = new List<Lesson>() };
+            schedule.Lessons.ToList().Add(lesson);
+            //обнавляем значение в бд
+            return Created("/schedules", lesson);
+        }
+
+        [HttpPatch("{date}/{id}")]
+        [Produces("application/json")]
+        public IActionResult Patch(string date, Guid id, [FromBody] Lesson value)
+        {
+            var lessonRes = new Lesson(value);
+            lessonRes.Id = id;
+            //найти нужный день в бд по дате
+            var schedule = new ScheduleDay() { Id = Guid.NewGuid(), Date = lessonRes.Date, Lessons = new List<Lesson>() };
+            foreach(var lesson in schedule.Lessons.ToList())
+            {
+                if(lesson.Id == id)
+                {
+                    lesson.Update(lessonRes);
+                    break;
+                }
+            }
+            //обновить данные в бд (или удалить старого и добавить нового?)
+            return new ObjectResult(lessonRes);
+        }
+
+        [HttpDelete("{date}/{id}")]
+        [Produces("application/json")]
+        public IActionResult Delete(Guid id, bool all, string date)
+        {
+            if(all)
+            {
+                //искать во всей базе все lesson с данным id и удалять
+            }
+            else
+            {
+                var parseDate = date.Split('-', '/', '\\', '.').Select(e => int.Parse(e)).ToList();
+                var dateTime = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
+                //найти в бд по дате и удалить из lessonov по id
+            } 
+            return NoContent();
         }
     }
 
