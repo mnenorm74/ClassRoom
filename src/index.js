@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './cssDirectory/index.css';
 import ClassRoom from './Class-room';
 import * as serviceWorker from './serviceWorker';
 

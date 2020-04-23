@@ -1,5 +1,5 @@
 import React from 'react';
-import './class-room.css';
+import './cssDirectory/class-room.css';
 import Menu from './menu/menu'
 import Page from "./pageProvider";
 

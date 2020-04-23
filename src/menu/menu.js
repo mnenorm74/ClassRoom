@@ -1,9 +1,9 @@
 import React from 'react';
-import '../class-room.css';
+import '../cssDirectory/class-room.css';
 import MenuItem from "./menuItem";
 import {useState} from 'react'
 import Page from "../pageProvider";
-import Profile from "../components/profile";
+import Profile from "../components/Profile/profile";
 
 function Menu() {
     const [isRotate, rotate] = useState(false);
