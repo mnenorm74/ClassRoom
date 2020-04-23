@@ -1,14 +1,15 @@
 import React from "react";
+import './menuItems.css'
 import ReactDOM from "react-dom";
 
-function MenuItem({link, text}) {
+function MenuItem({link, text, img}) {
     return (
-        <button onClick={event => {
+        <button className='button' onClick={event => {
             ReactDOM.render(
                 link(),
                 document.getElementById('pageContainer')
             );
-        }}><i className="fa fa-file-o"/> {text}</button>
+        }}><i className={img}/>{text}</button>
     )
 }
 

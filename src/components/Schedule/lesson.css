@@ -3,10 +3,24 @@
     width: 3vh;
     height: 3vh;
     text-align: center;
-    background: #83A7C9;
     border-radius: 50%;
 }
 
 .lesson{
     display: flex;
+    margin-bottom: 1vh;
+}
+
+.lecture{
+    background: #F8D9AF;
+}
+
+.practice{
+    background: #8ED0FF;
+}
+.lab{
+    background: #FF7043;
+}
+.seminar{
+    background: #9CCC65;
 }

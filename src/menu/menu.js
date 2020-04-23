@@ -13,17 +13,15 @@ function Menu() {
         menu.style.left = !isRotate ? '0' : '-15vw'
         element.style.transform = !isRotate ? 'rotate(180deg)' : 'rotate(0deg)';
         rotate(!isRotate);
-    }
-
-    }></button>
+    }}/>
     return (
         <div id="menu">
             <div id="itemContainer">
                 <Profile/>
-                <MenuItem text={"Главная"} link={Page.MainPage}/>
-                <MenuItem text={"Новости"} link={Page.NewsPage}/>
-                <MenuItem text={"Расписание"} link={Page.SchedulePage}/>
-                <MenuItem text={"Хранилище"} link={Page.StoragePage}/>
+                <MenuItem text={"Главная"} link={Page.MainPage} img='main'/>
+                <MenuItem text={"Новости"} link={Page.NewsPage} img='news'/>
+                <MenuItem text={"Расписание"} link={Page.SchedulePage} img='schedule'/>
+                <MenuItem text={"Хранилище"} link={Page.StoragePage} img='storage'/>
             </div>
             {collapseButton}
         </div>

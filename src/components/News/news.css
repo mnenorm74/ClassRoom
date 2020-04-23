@@ -3,7 +3,7 @@
     flex-direction: column;
     border: solid 1px #979797;
     margin-bottom: 5vh;
-    padding: 1vh;
+    padding: 0 1vh 1vh;
 }
 
 .info {

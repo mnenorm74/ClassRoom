@@ -1,0 +1,16 @@
+.main{
+    background-image: url("../icons/insert_drive_file-white-18dp.svg");
+    background-size: cover;
+}
+
+.news{
+    background-image: url("../icons/language-white-18dp.svg");
+}
+
+.schedule{
+    background-image: url("../icons/calendar_today-white-18dp.svg");
+}
+
+.storage{
+    background-image: url("../icons/cloud-white-18dp.svg");
+}
