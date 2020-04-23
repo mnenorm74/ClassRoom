@@ -14,7 +14,8 @@ function Menu() {
         element.style.transform = !isRotate ? 'rotate(180deg)' : 'rotate(0deg)';
         rotate(!isRotate);
     }
-    }>></button>
+
+    }></button>
     return (
         <div id="menu">
             <div id="itemContainer">

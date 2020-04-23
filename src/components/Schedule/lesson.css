@@ -1,0 +1,12 @@
+.lessonOrder{
+    display: inline-block;
+    width: 3vh;
+    height: 3vh;
+    text-align: center;
+    background: #83A7C9;
+    border-radius: 50%;
+}
+
+.lesson{
+    display: flex;
+}

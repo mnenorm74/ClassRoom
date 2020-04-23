@@ -5,31 +5,22 @@
     right: 2%;
     width: 5vh;
     height: 5vh;
-    background-color: #2ecc71;
+    background-image: url("./menu/keyboard_arrow_right-white-18dp.svg");
+    background-size: cover;
+    background-color: #FFE082;
     border-radius: 50%;
     cursor: pointer;
-    text-align: center;
-    font-weight: bolder;
-    font-size: 3.5vh;
-    color: white;
     transition: all 0.5s;
-    vertical-align: middle;
-}
-
-.textSpan {
-    display: inline-block;
-    vertical-align: middle;
 }
 
 .collapseButton:hover {
-    background-color: #27ae60;
-
+    background-color: #FFD54F;
 }
 
 #menu {
     position: fixed;
     left: -17vw;
-    background-color: yellowgreen;
+    background: linear-gradient(244.01deg, #DFB2F3 12.24%, #CBAEEB 36.93%, #241D8C 117.57%);
     height: 100vh;
     width: 20vw;
     transition: all 0.5s;
@@ -42,7 +33,7 @@
     margin-top: 10vh;
 }
 
-#itemContainer>button {
+#itemContainer > button {
     all: unset;
     padding: 5px;
     font-size: 2rem;
@@ -52,22 +43,23 @@
     /* transition: all 0.1s; */
 }
 
-#itemContainer>button:hover {
+#itemContainer > button:hover {
     background-color: #16a085;
 }
 
 
 .mainContent {
-    background-color: wheat;
+    /*    background-color: wheat;*/
     height: 100vh;
     width: 100vw;
 }
 
-#pageContainer{
-    background-color: teal;
+#pageContainer {
+    /*    background-color: teal;*/
     margin-left: 25vw;
     width: 75vw;
     height: 100vh;
+    overflow: hidden;
 }
 
 body {

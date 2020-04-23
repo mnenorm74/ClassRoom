@@ -1,13 +1,16 @@
 import React from 'react';
 import './class-room.css';
 import Menu from './menu/menu'
+import Page from "./pageProvider";
 
 function App() {
     return (
         <div className="class-room">
             <Menu/>
             <div className="mainContent">
-                <div id="pageContainer"/>
+                <div id="pageContainer">
+                    <Page.MainPage/>
+                </div>
             </div>
         </div>
     );
