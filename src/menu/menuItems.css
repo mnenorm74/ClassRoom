@@ -3,7 +3,7 @@
     text-align: right;
     display: flex;
     align-items: center;
-    padding: 5px;
+    padding: 0.5vh;
     font-size: 2rem;
     color: white;
     background: transparent;
@@ -11,7 +11,7 @@
 }
 
 .navMenuItem:hover {
-    background: linear-gradient(90deg, #31243A -97.53%, rgba(74, 144, 226, 0) 100%);;
+    background: linear-gradient(90deg, #31243A -97%, rgba(74, 144, 226, 0) 100%);;
 }
 .itemName{
 

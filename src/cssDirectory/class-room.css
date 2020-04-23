@@ -21,7 +21,7 @@
 #menu {
     position: fixed;
     left: -17vw;
-    background: linear-gradient(244.01deg, #DFB2F3 12.24%, #CBAEEB 36.93%, #241D8C 117.57%);
+    background: linear-gradient(244deg, #DFB2F3 12%, #CBAEEB 37%, #241D8C 117%);
     height: 100vh;
     width: 20vw;
     transition: all 0.5s;
