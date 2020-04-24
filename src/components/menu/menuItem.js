@@ -1,7 +1,7 @@
 import React from "react";
 import './menuItems.css'
 import ReactDOM from "react-dom";
-import Page from "../pageProvider";
+import Page from "../../pages/pageProvider";
 import Logo from './logoContainer'
 
 function MenuItem({link, text, img}) {

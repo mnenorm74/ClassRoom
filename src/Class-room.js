@@ -1,7 +1,7 @@
 import React from 'react';
 import './cssDirectory/class-room.css';
-import Menu from './menu/menu'
-import Page from "./pageProvider";
+import Menu from './components/menu/menu'
+import Page from "./pages/pageProvider";
 
 function App() {
     return (
