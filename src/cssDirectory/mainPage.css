@@ -1,5 +1,6 @@
 #scheduleModule {
     display: flex;
+    max-width: max-content;
     flex-direction: row;
     overflow-x: hidden;
     background: #F6F6FB;

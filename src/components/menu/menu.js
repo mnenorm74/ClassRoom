@@ -1,18 +1,21 @@
 import React from 'react';
 import '../../cssDirectory/class-room.css';
+import './menu.css'
 import MenuItem from "./menuItem";
 import {useState} from 'react'
 import Page from "../../pages/pageProvider";
 import Profile from "../Profile/profile";
 
 function Menu() {
-    const [isRotate, rotate] = useState(false);
+    const [isMoveOut, moveOut] = useState(false);
     let collapseButton = <button className="collapseButton" onClick={event => {
         let element = event.target;
-        let menu = document.querySelector('#menu');
-        menu.style.left = !isRotate ? '0' : '-17vw'
-        element.style.transform = !isRotate ? 'rotate(180deg)' : 'rotate(0deg)';
-        rotate(!isRotate);
+        let menu = document.querySelector('#menuContainer');
+        menu.style.left = !isMoveOut ? '-17vw' : '0'
+        document.querySelector('#pageContainer').style.marginLeft = !isMoveOut ? '8vw' : '25vw';
+        document.querySelector('#pageContainer').style.width = !isMoveOut ? '92vw' : '75vw';
+        element.style.transform = !isMoveOut ? 'rotate(-180deg)' : 'rotate(0deg)';
+        moveOut(!isMoveOut);
     }}/>
     return (
         <div id="menu">

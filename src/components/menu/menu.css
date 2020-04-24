@@ -1,0 +1,31 @@
+#menu{
+    background: linear-gradient(244deg, #DFB2F3 12%, #CBAEEB 37%, #241D8C 117%);
+    width: 100%;
+    height: 100%;
+    padding-top: 3vh;
+}
+
+#itemContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.collapseButton {
+    all: unset;
+    position: absolute;
+    top: 13vh;
+    right: -1vw;
+    width: 5vh;
+    height: 5vh;
+    box-shadow: 0 0 0 2vh white;
+    background-image: url("./keyboard_arrow_left-white-18dp.svg");
+    background-size: cover;
+    background-color: #FFE082;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.collapseButton:hover {
+    background-color: #FFD54F;
+}

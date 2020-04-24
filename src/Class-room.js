@@ -1,18 +1,18 @@
 import React from 'react';
-import './cssDirectory/class-room.css';
 import Menu from './components/menu/menu'
 import Page from "./pages/pageProvider";
+import './cssDirectory/class-room.css';
 
 function App() {
     return (
-        <div className="class-room">
-            <Menu/>
-            <div className="mainContent">
-                <div id="pageContainer">
-                    <Page.MainPage/>
-                </div>
+        <>
+            <div id="menuContainer">
+                <Menu/>
             </div>
-        </div>
+            <div id="pageContainer">
+                <Page.MainPage/>
+            </div>
+        </>
     );
 }
 
