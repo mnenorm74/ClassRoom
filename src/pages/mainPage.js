@@ -5,9 +5,28 @@ import News from "../components/News/newsDB";
 import '../cssDirectory/mainPage.css';
 
 function MainPage() {
+    let isDown = false;
+    let elem;
+
+    function sliderMousedown(e) {
+        elem = document.querySelector('#scheduleModule')
+        isDown = true;
+    }
+
+    function sliderMouseup() {
+        isDown = false;
+    }
+
+    function sliderMousemove(e) {
+        if (!isDown) return;
+        e.preventDefault();
+        elem.scrollLeft -= e.movementX
+    }
+
     return (
         <>
-            <div id="scheduleModule" onWheel={scrollHorizontally}>
+            <div id="scheduleModule" onMouseDown={sliderMousedown} onMouseUp={sliderMouseup}
+                 onMouseMove={sliderMousemove}>
                 <ScheduleDay day='ПН 20.04'/>
                 <ScheduleDay day='ВТ 21.04'/>
                 <ScheduleDay day='СР 22.04'/>
@@ -26,13 +45,6 @@ function MainPage() {
             </div>
         </>
     )
-}
-
-function scrollHorizontally(e) {
-    e = window.event || e;
-    let delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-    document.getElementById('scheduleModule').scrollLeft -= (delta * 40);
-
 }
 
 export default MainPage
