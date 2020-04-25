@@ -3,7 +3,7 @@ import Menu from './components/menu/menu'
 import Page from "./pages/pageProvider";
 import './cssDirectory/class-room.css';
 
-function App() {
+function ClassRoom() {
     return (
         <>
             <div id="menuContainer">
@@ -16,4 +16,4 @@ function App() {
     );
 }
 
-export default App;
+export default ClassRoom;
