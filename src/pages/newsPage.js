@@ -5,13 +5,13 @@ import '../cssDirectory/newsPage.css';
 
 function NewsPage() {
     return (
-        <div id="news">
-            <NewsItem author={News[0].author} pubDate={News[0].pubDate} article={News[0].article}/>
-            <NewsItem author={News[0].author} pubDate={News[0].pubDate} article={News[0].article}/>
-            <NewsItem author={News[0].author} pubDate={News[0].pubDate} article={News[0].article}/>
-            <NewsItem author={News[0].author} pubDate={News[0].pubDate} article={News[0].article}/>
-            <NewsItem author={News[0].author} pubDate={News[0].pubDate} article={News[0].article}/>
-        </div>
+        <>
+            <div id="news">
+                {News.map(news => (
+                    <NewsItem author={news.author} pubDate={news.pubDate} article={news.article}/>
+                ))}
+            </div>
+        </>
     )
 }
 
