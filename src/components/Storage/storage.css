@@ -1,0 +1,28 @@
+#storageContainer {
+    width: 15vh;
+    height: 15vh;
+}
+
+#folderIcon{
+    height: 10vh;
+    width: 10vh;
+    border-radius: 50%;
+    background-color: #31243A;
+}
+
+#fileIcon{
+    height: 10vh;
+    width: 10vh;
+    border-radius: 50%;
+    background-color: #8ED0FF;
+}
+
+#storageTableContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 20vh;
+}
+
+
+
