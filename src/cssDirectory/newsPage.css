@@ -1,0 +1,22 @@
+#news {
+    overflow-y: auto;
+    padding: 0 1vh 1vw;
+    width: auto;
+    height: 100vh;
+    margin: 6vh 4vw 0 0;
+}
+
+#news::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #e4c3f2;
+}
+
+#news::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+#news::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #c4a6e6;
+}
