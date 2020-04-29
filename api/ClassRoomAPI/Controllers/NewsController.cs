@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ClassRoomAPI.Models;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ClassRoomAPI.Controllers
 {
@@ -13,18 +14,21 @@ namespace ClassRoomAPI.Controllers
     [Route("[controller]")]
     public class NewsController : Controller
     {
-        // GET: /news
+        private readonly IMongoCollection<News> newsCollection;
+        public NewsController(IMongoDatabase db)
+        {
+            newsCollection = db.GetCollection<News>("news");
+        }
+
         [HttpGet]
         [Produces("application/json")]
         public IActionResult Get(int page, int count)
         {
-            var news = new List<News>();
-            for (var i = 0; i < count; i++)
-            {
-                //данные берать из отсортированной по дате БД, страницами
-                news.Add(new News() { Id = Guid.NewGuid(), AuthorId = Guid.NewGuid(), Title = $"{i}", Content = "", Date = DateTime.Now, Comments = new List<Comment>() });
-            }
-
+            var news = newsCollection.Find(n => true)
+                    .SortBy(n => n.Date)
+                    .Skip((page - 1) * count)
+                    .Limit(count)
+                    .ToList();
             return new ObjectResult(news);
         }
 
@@ -34,8 +38,8 @@ namespace ClassRoomAPI.Controllers
         {
             var news = new News(value);
             news.Id = Guid.NewGuid();
-            news.AuthorId = Authorization;
-            //добавляем в БД
+            news.AuthorId = Authorization; //возможно иначе?
+            newsCollection.InsertOne(news);
             return Created("/schedules", news);
         }
 
