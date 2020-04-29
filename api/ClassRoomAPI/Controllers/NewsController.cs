@@ -15,9 +15,11 @@ namespace ClassRoomAPI.Controllers
     public class NewsController : Controller
     {
         private readonly IMongoCollection<News> newsCollection;
+        private readonly IMongoCollection<Comment> commentsCollection;
         public NewsController(IMongoDatabase db)
         {
             newsCollection = db.GetCollection<News>("news");
+            commentsCollection = db.GetCollection<Comment>("comments");
         }
 
         [HttpGet]
@@ -43,24 +45,34 @@ namespace ClassRoomAPI.Controllers
             return Created("/schedules", news);
         }
 
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         [Produces("application/json")]
-        public IActionResult Put(Guid id, [FromBody] News value, [FromHeader] Guid Authorization)
+        public IActionResult Patch(Guid id, [FromBody] News value, [FromHeader] Guid Authorization)
         {
-            var news = new News(value);
-            news.Id = id;
-            news.AuthorId = Authorization;
-            news.Comments = new List<Comment>();
-            //заменить в БД по Id
-            return new ObjectResult(news);
+            var arr = new List<UpdateDefinition<News>>();
+            var update = Builders<News>.Update;
+            if (value.Title != null)
+            {
+                arr.Add(update.Set(n => n.Title, value.Title));
+            }
+            if (value.Content != null)
+            {
+                arr.Add(update.Set(n => n.Content, value.Content));
+            }
+            if (value.Date != DateTime.MinValue)
+            {
+                arr.Add(update.Set(n => n.Date, value.Date));
+            }
+            newsCollection.UpdateOne(n => n.Id == id, update.Combine(arr));
+            
+            return new ObjectResult(newsCollection.Find(n => n.Id == id).FirstOrDefault());
         }
 
-        // DELETE api/<controller>/5
         [HttpDelete("{id}")]
         [Produces("application/json")]
         public IActionResult Delete(Guid id)
         {
-            //удалить из базы по id
+            newsCollection.DeleteOne(n => n.Id == id);
             return NoContent();
         }
 
@@ -69,12 +81,11 @@ namespace ClassRoomAPI.Controllers
         public IActionResult Post(Guid id, [FromBody] Comment value, [FromHeader] Guid Authorization)
         {
             var comment = new Comment(value);
-            comment.AuthorId = Authorization;
             comment.Id = Guid.NewGuid();
-            //найти по id новость в БД
-            var news = new News() { Id = id, AuthorId = Guid.NewGuid(), Content = "..", Date = DateTime.Now, Title = "..", Comments = new List<Comment>() };
-            news.Comments.ToList().Add(comment);
-            //сохранить изменения
+            comment.AuthorId = Authorization;  //возможно иначе?
+            commentsCollection.InsertOne(comment);
+            var update = Builders<News>.Update.Push(n=>n.Comments, comment.Id);
+            newsCollection.UpdateOne(n => n.Id == id, update);
             return Created("/news/{id}/comments", comment);
         }
 
@@ -82,39 +93,20 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Put(Guid id, Guid CommId, [FromBody] Comment value, [FromHeader] Guid Authorization)
         {
-            var comment = new Comment(value);
-            comment.AuthorId = Authorization;
-            comment.Id = CommId;
-            //найти по id новость в БД
-            var news = new News() { Id = id, AuthorId = Guid.NewGuid(), Content = "..", Date = DateTime.Now, Title = "..", Comments = new List<Comment>() };
-            foreach (var comm in news.Comments)
-            {
-                if(comm.Id == CommId)
-                {
-                    news.Comments.ToList().Remove(comm);
-                    news.Comments.ToList().Add(comment);
-                    break;
-                }
-            }
-            //сохранить изменения
-            return new ObjectResult(comment);
+            //проверить на существование
+            var update = Builders<Comment>.Update.Set(c => c.Content, value.Content).Set(c => c.Date, value.Date);
+            commentsCollection.UpdateOne(c => c.Id == CommId, update);
+            return new ObjectResult(commentsCollection.Find(c => c.Id == CommId).FirstOrDefault());
         }
 
         [HttpDelete("{id}/comments/{Commid}")]
         [Produces("application/json")]
         public IActionResult Delete(Guid id, Guid CommId)
         {
-            //найти по id новость в БД
-            var news = new News() { Id = id, AuthorId = Guid.NewGuid(), Content = "..", Date = DateTime.Now, Title = "..", Comments = new List<Comment>() };
-            foreach (var comm in news.Comments)
-            {
-                if (comm.Id == CommId)
-                {
-                    news.Comments.ToList().Remove(comm);
-                    break;
-                }
-            }
-            //сохранить изменения
+            //проверить на существование
+            commentsCollection.DeleteOne(c => c.Id == CommId);
+            var update = Builders<News>.Update.Pull(n => n.Comments, CommId);
+            newsCollection.UpdateOne(n => n.Id == id, update);
             return NoContent();
         }
 

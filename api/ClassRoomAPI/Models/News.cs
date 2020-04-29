@@ -14,7 +14,7 @@ namespace ClassRoomAPI.Models
             Content = news.Content;
             Date = news.Date;
             AuthorId = news.AuthorId;
-            Comments = new List<Comment>(news.Comments);
+            Comments = new List<Guid>(news.Comments);
         }
         public News()
         {
@@ -24,6 +24,22 @@ namespace ClassRoomAPI.Models
         public string Content { get; set; }
         public DateTime Date { get; set; }
         public Guid AuthorId { get; set; }
-        public IEnumerable<Comment> Comments { get; set; } = new List<Comment>();
+        public IEnumerable<Guid> Comments { get; set; } = new List<Guid>();
+
+        public void Update(News news)
+        {
+            if (news.Title != Title && news.Title != null)
+            {
+                Title = news.Title;
+            }
+            if (news.Content != Content && news.Content != null)
+            {
+                Content = news.Content;
+            }
+            if (news.Date != Date && news.Date != DateTime.MinValue)
+            {
+                Date = news.Date;
+            }
+        }
     }
 }
