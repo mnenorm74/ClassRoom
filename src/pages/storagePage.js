@@ -1,50 +1,42 @@
 import React from 'react';
-import StorageElements from "../components/Storage/storageDB";
-import StorageTableItem from "../components/Storage/storageTableItem";
-import StorageItem from "../components/Storage/storageItem";
+import StorageContentTable from "../components/Storage/StorageContentTable";
+import StorageContentIcons from "../components/Storage/StorageContentIcons";
 import '../cssDirectory/storagePage.css';
 
 
-function StoragePage() {
+const StoragePage = () =>{
     return (
         <>
-            <div id='header'>
+            <div id="header">
                 <p id="title">Последние загрузки</p>
-                <button id="viewTypeButton" onClick={StoragePage}></button>
+                <button id="viewTypeButton" onClick={revertDisplay}></button>
             </div>
-            {iconsView()}
+            <div id="table">
+                {StorageContentTable()}
+            </div>
+            <div id="icons">
+                {StorageContentIcons()}
+            </div>
             <p id="title">Текущий семестр</p>
             <p id="title">Архив</p>
         </>
-    )
-}
+    );
 
-function iconsView() {
-    return (
-        <div id="storage">
-            {StorageElements.map(element => (
-                <StorageItem type={element.type} name={element.name} owner={element.owner} date={element.date}/>
-            ))}
-        </div>
-    )
-}
+    function revertDisplay() {
+        let tableStorage = document.getElementById('table');
+        let iconStorage = document.getElementById('icons');
 
-function tableView() {
-    return (
-        <>
-            <div id="tableHeader">
-                <p>имя</p>
-                <p>владелец</p>
-                <p>дата</p>
-            </div>
-            <div id="tableStorage">
-                {StorageElements.slice(0, 6).map(element => (
-                    <StorageTableItem type={element.type} name={element.name} owner={element.owner}
-                                      date={element.date}/>
-                ))}
-            </div>
-        </>
-    )
+        if (tableStorage.style.display == 'none')
+        {
+            tableStorage.style.display = 'inline';
+            iconStorage.style.display = 'none';
+        }
+        else
+        {
+            tableStorage.style.display = 'none';
+            iconStorage.style.display = 'inline';
+        }
+    }
 }
 
 export default StoragePage
