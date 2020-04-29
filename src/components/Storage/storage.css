@@ -8,6 +8,8 @@
     width: 10vh;
     border-radius: 50%;
     background-color: #31243A;
+    background-image: url("./folderIcon.png");
+    background-size: cover;
 }
 
 #fileIcon{
@@ -15,6 +17,8 @@
     width: 10vh;
     border-radius: 50%;
     background-color: #8ED0FF;
+    background-image: url("./fileIcon.png");
+    background-size: cover;
 }
 
 #storageTableContainer {
@@ -26,6 +30,32 @@
 
 #icons{
     display: none;
+}
+
+#folderTableIcon{
+    height: 3vh;
+    width: 3vh;
+    border-radius: 50%;
+    background-color: #31243A;
+    background-image: url("./folderIcon.png");
+    background-size: cover;
+    margin-right: 1vw;
+}
+
+#fileTableIcon{
+    height: 3vh;
+    width: 3vh;
+    border-radius: 50%;
+    background-color: #8ED0FF;
+    background-image: url("./fileIcon.png");
+    background-size: cover;
+    margin-right: 1vw;
+}
+
+#tableName{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 
