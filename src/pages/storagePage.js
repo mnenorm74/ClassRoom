@@ -2,6 +2,8 @@ import React from 'react';
 import StorageContentTable from "../components/Storage/StorageContentTable";
 import StorageContentIcons from "../components/Storage/StorageContentIcons";
 import '../cssDirectory/storagePage.css';
+import ReactDOM from "react-dom";
+import Page from "./pageProvider";
 
 
 const StoragePage = () =>{
@@ -17,8 +19,18 @@ const StoragePage = () =>{
             <div id="icons">
                 {StorageContentIcons()}
             </div>
-            <p id="title">Текущий семестр</p>
-            <p id="title">Архив</p>
+            <p id="title" onClick={() => {
+                ReactDOM.render(
+                    Page.StorageSemesterPage(),
+                    document.getElementById('pageContainer')
+                );
+            }}>Текущий семестр</p>
+            <p id="title" onClick={() => {
+                ReactDOM.render(
+                    Page.StorageArchivePage(),
+                    document.getElementById('pageContainer')
+                );
+            }}>Архив</p>
         </>
     );
 
