@@ -8,7 +8,7 @@ import Page from "./pageProvider";
 
 const StoragePage = () =>{
     return (
-        <>
+        <div id="storageContent">
             <div id="header">
                 <p id="title">Последние загрузки</p>
                 <button id="viewTypeButton" onClick={revertDisplay}></button>
@@ -31,7 +31,7 @@ const StoragePage = () =>{
                     document.getElementById('pageContainer')
                 );
             }}>Архив</p>
-        </>
+        </div>
     );
 
     function revertDisplay() {
