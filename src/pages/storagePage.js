@@ -1,27 +1,33 @@
 import React from 'react';
 import StorageContentTable from "../components/Storage/StorageContentTable";
 import StorageContentIcons from "../components/Storage/StorageContentIcons";
+import revertDisplay from "../components/Storage/storageViews";
 import '../cssDirectory/storagePage.css';
 import ReactDOM from "react-dom";
 import Page from "./pageProvider";
+import StorageElements from "../components/Storage/storageDB";
 
 
-const StoragePage = () =>{
+function StoragePage() {
+    let isTable = true;
     return (
         <div id="storageContent">
             <div id="header">
                 <p id="title">Последние загрузки</p>
-                <button id="viewTypeButton" onClick={revertDisplay}></button>
+                <button id="viewTypeButton" onClick={() => {
+                    revertDisplay();
+                    isTable = !isTable;
+                }}/>
             </div>
             <div id="table">
-                {StorageContentTable()}
+                {StorageContentTable(StorageElements.slice(0, 6))}
             </div>
             <div id="icons">
-                {StorageContentIcons()}
+                {StorageContentIcons(StorageElements.slice(0, 16))}
             </div>
             <p id="title" onClick={() => {
                 ReactDOM.render(
-                    Page.StorageSemesterPage(),
+                    Page.StorageSemesterPage(isTable),
                     document.getElementById('pageContainer')
                 );
             }}>Текущий семестр</p>
@@ -33,22 +39,6 @@ const StoragePage = () =>{
             }}>Архив</p>
         </div>
     );
-
-    function revertDisplay() {
-        let tableStorage = document.getElementById('table');
-        let iconStorage = document.getElementById('icons');
-
-        if (tableStorage.style.display == 'none')
-        {
-            tableStorage.style.display = 'inline';
-            iconStorage.style.display = 'none';
-        }
-        else
-        {
-            tableStorage.style.display = 'none';
-            iconStorage.style.display = 'inline';
-        }
-    }
 }
 
 export default StoragePage

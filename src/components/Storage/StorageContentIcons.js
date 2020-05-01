@@ -1,11 +1,10 @@
-import StorageElements from "./storageDB";
 import StorageItem from "./storageItem";
 import React from "react";
 
-function StorageContentIcons(){
+function StorageContentIcons(elements){
     return (
         <div id="storage">
-            {StorageElements.map(element => (
+            {elements.map(element => (
                 <StorageItem type={element.type} name={element.name} owner={element.owner} date={element.date}/>
             ))}
         </div>

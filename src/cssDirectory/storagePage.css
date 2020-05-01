@@ -24,6 +24,8 @@
     width: 5vh;
     margin-top: 5vh;
     border-radius: 50%;
+    background-image: url("../components/Storage/View.svg");
+    background-size: cover;
 }
 
 #tableHeader{
@@ -52,4 +54,42 @@
 #storageContent::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
     background-color: #c4a6e6;
+}
+
+#toMainStoragePageButton{
+    height: 5vh;
+    width: 5vh;
+    border-radius: 50%;
+    margin-right: 2vw;
+    background-image: url("../components/Storage/Back.svg");
+    background-size: cover;
+}
+
+#addToStorageButton{
+    height: 5vh;
+    width: 5vh;
+    border-radius: 50%;
+    background-image: url("../components/Storage/Plus.svg");
+    background-size: cover;
+}
+
+#viewButton{
+    height: 5vh;
+    width: 5vh;
+    border-radius: 50%;
+    margin-right: 2vw;
+    background-image: url("../components/Storage/View.svg");
+    background-size: cover;
+}
+
+#leftHeaderPart{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#rightHeaderPart{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
