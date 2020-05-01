@@ -7,6 +7,7 @@ import StorageElements from "../components/Storage/storageDB";
 import StorageContentIcons from "../components/Storage/StorageContentIcons";
 import revertDisplay from "../components/Storage/storageViews";
 
+//TODO: получать текущий семестр из даты или как-то по-другому
 let currentSemester = "6";
 
 function StorageSemesterPage(isTable) {
