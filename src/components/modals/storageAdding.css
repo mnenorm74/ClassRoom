@@ -1,0 +1,55 @@
+#storageModal{
+    z-index: 9999;
+    position: absolute;
+    top: 18vh;
+    left: 20vw;
+    background-color: #ffffff;
+    width: 30vw;
+    height: 50vh;
+    flex-direction: column;
+    align-items: center;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3%;
+    display: none;
+}
+
+#headerText{
+    text-align: center;
+    color: #49B8F7;
+}
+
+#subtitle{
+    margin-left: 10%;
+}
+
+#radio{
+    margin-left: 10%;
+}
+
+#folderAdding{
+    display: flex;
+    flex-direction: column;
+}
+
+#folderName{
+    margin-left: 10%;
+    width: 80%;
+}
+
+#modalHeader{
+    padding-left: 10%;
+    padding-right: 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#closeModalButton{
+    width: 2vh;
+    height: 2vh;
+    background-image: url("./Exit.svg");
+    background-color: white;
+    border: none;
+}

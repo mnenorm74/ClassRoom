@@ -6,6 +6,7 @@ import './cssDirectory/class-room.css';
 function ClassRoom() {
     return (
         <>
+            <div id="background"></div>
             <div id="menuContainer">
                 <Menu/>
             </div>

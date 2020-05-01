@@ -93,3 +93,7 @@
     flex-direction: row;
     align-items: center;
 }
+
+#modal{
+    display: none;
+}
