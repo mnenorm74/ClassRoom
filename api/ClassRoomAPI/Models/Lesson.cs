@@ -31,7 +31,7 @@ namespace ClassRoomAPI.Models
 
         public void Update(Lesson lesson)
         {
-            if (lesson.Date != Date && lesson.Date != null)
+            if (lesson.Date != Date && lesson.Date != DateTime.MinValue)
             {
                 Date = lesson.Date;
             }
