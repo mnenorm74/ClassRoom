@@ -5,7 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using ClassRoomAPI.Models;
 using Microsoft.AspNetCore.Mvc;
-
+using MongoDB.Driver;
 
 namespace ClassRoomAPI.Controllers
 {
@@ -13,25 +13,26 @@ namespace ClassRoomAPI.Controllers
     [Route("[controller]")]
     public class UsersController : Controller
     {
+        private readonly IMongoCollection<User> usersCollection;
+        public UsersController(IMongoDatabase db)
+        {
+            usersCollection = db.GetCollection<User>("users");
+        }
+
         [HttpGet("current")]
         public IActionResult Get([FromHeader] Guid Authorization)
         {
             //получить из бд юзера по Guid в заголовке
-            var user = new CurrentUser() { Id = Authorization, Name="Fedot", Surname="Ivanov", Avatar = new byte[0]};
-            return new ObjectResult(user);
+            return new ObjectResult(usersCollection.Find(a => a.Id == Authorization).FirstOrDefault());
         }
 
         [HttpGet]
         public IActionResult Get1([FromHeader] Guid Authorization)
         {
-            var result = new List<User>();
             //найти в бд по id пользователя его группу
             //получить из бд всех юзеров по группе
-            for (var i = 0; i < 20; i++)
-            {
-                result.Add(new User() { Id = Guid.NewGuid(), Name="", Surname="", Patronymic="",Email="${i}", Username="", Avatar=new byte[0], GroupId=Guid.NewGuid()});
-            }
-            return new ObjectResult(result);
+            var group = usersCollection.Find(a => a.Id == Authorization).FirstOrDefault().GroupId;
+            return new ObjectResult(usersCollection.Find(a => a.GroupId == group).ToList());
         }
 
         [HttpPost]
@@ -39,6 +40,7 @@ namespace ClassRoomAPI.Controllers
         {
             var user = new User(value);
             user.Id = Guid.NewGuid();
+            usersCollection.InsertOne(user);
             //добавить в бд
             return new ObjectResult(user);
         }
@@ -59,6 +61,7 @@ namespace ClassRoomAPI.Controllers
         public IActionResult Delete(Guid id)
         {
             //удалить из базы по id
+            usersCollection.DeleteOne(a => a.Id == id);
             return NoContent();
         }
     }

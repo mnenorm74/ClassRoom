@@ -5,6 +5,8 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using ClassRoomAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,7 +16,15 @@ namespace ClassRoomAPI.Controllers
     [Route("[controller]")]
     public class SchedulesController : Controller
     {
+
+        private readonly IMongoCollection<ScheduleDay> schedulesCollection;
+        public SchedulesController(IMongoDatabase db)
+        {
+            schedulesCollection = db.GetCollection<ScheduleDay>("schedules");
+        }
+
         // GET: /schedules?startDate={}&count={}
+
         [HttpGet]
         [Produces("application/json")]
         public IActionResult Get(string startDate, int count)
@@ -22,20 +32,10 @@ namespace ClassRoomAPI.Controllers
             var days = new List<ScheduleDay>();
             var parseDate = startDate.Split('-', '/', '\\', '.').Select(e => int.Parse(e)).ToList();
             var date = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
-            for (var i = 0; i < count; i++)
-            {
-                //данные берать из БД
-                if (true) //если есть в бд
-                {
-                    days.Add(new ScheduleDay() { Id = Guid.NewGuid(), Date = date.AddDays(i), Lessons = new List<Lesson>() });
-                }
-                else
-                {
-                    days.Add(new ScheduleDay());
-                }
-            }
-
-            return new ObjectResult(days);
+            return new ObjectResult(schedulesCollection.Find(a => a.Date >= date)
+                .SortBy(a => a.Date)
+                .Limit(count)
+                .ToList());
         }
 
         [HttpGet("{date}")]
@@ -44,12 +44,8 @@ namespace ClassRoomAPI.Controllers
         {
             var parseDate = date.Split('-', '/', '\\', '.').Select(e => int.Parse(e)).ToList();
             var dateTime = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
-            //ищем в БД по дате
-            if (false) //если нет в бд
-            {
-                return new ObjectResult(new ScheduleDay());
-            }
-            return new ObjectResult(new ScheduleDay() { Id = Guid.NewGuid(), Date = dateTime }); ;
+            return new ObjectResult(schedulesCollection.Find(a => a.Date == dateTime)
+                .FirstOrDefault());
         }
 
         [HttpPost]
@@ -59,10 +55,13 @@ namespace ClassRoomAPI.Controllers
             var lesson = new Lesson(value);
             lesson.Id = Guid.NewGuid();
             //находим в БД schedule с нужной датой
-            var schedule = new ScheduleDay() { Id = Guid.NewGuid(), Date = value.Date, Lessons = new List<Lesson>() };
-            schedule.Lessons.ToList().Add(lesson);
-            //обнавляем значение в бд
-            return Created("/schedules", lesson);
+
+            var filter = Builders<ScheduleDay>.Filter.Eq("Date", value.Date);
+            // параметр обновления
+            var update = Builders<ScheduleDay>.Update.AddToSet("Lessons", value);
+            var result = schedulesCollection.UpdateOne(filter, update);
+            //ПРОВЕРИТЬ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            return new ObjectResult(result);
         }
 
         [HttpPatch("{date}/{id}")]
@@ -91,6 +90,8 @@ namespace ClassRoomAPI.Controllers
         {
             if(all)
             {
+                var update = Builders<ScheduleDay>.Update.Pull("Lessons.Id", id); //НАДО ПРОВЕРЯТЬ
+                var result = schedulesCollection.UpdateOneAsync(a => a.Lessons.Contains(id), update);
                 //искать во всей базе все lesson с данным id и удалять
             }
             else
