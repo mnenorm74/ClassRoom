@@ -8,8 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace ClassRoomAPI.Controllers
 {
     [ApiController]
@@ -32,10 +30,19 @@ namespace ClassRoomAPI.Controllers
             var days = new List<ScheduleDay>();
             var parseDate = startDate.Split('-', '/', '\\', '.').Select(e => int.Parse(e)).ToList();
             var date = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
-            return new ObjectResult(schedulesCollection.Find(a => a.Date >= date)
-                .SortBy(a => a.Date)
-                .Limit(count)
-                .ToList());
+            for(var i = 0; i < count; i++)
+            {
+                var day = schedulesCollection.Find(a => a.Date == date.AddDays(i)).FirstOrDefault();
+                if(day != null)
+                {
+                     days.Add(day);
+                }
+                else
+                {
+                    days.Add(new ScheduleDay() { Id = Guid.NewGuid(), Date = date.AddDays(i), Lessons = new List<Lesson>() });
+                }
+            }
+            return new ObjectResult(days);
         }
 
         [HttpGet("{date}")]
@@ -44,8 +51,9 @@ namespace ClassRoomAPI.Controllers
         {
             var parseDate = date.Split('-', '/', '\\', '.').Select(e => int.Parse(e)).ToList();
             var dateTime = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
-            return new ObjectResult(schedulesCollection.Find(a => a.Date == dateTime)
-                .FirstOrDefault());
+            //проверка если не найден
+            var result = schedulesCollection.Find(a => a.Date == dateTime).FirstOrDefault();
+            return new ObjectResult(result);
         }
 
         [HttpPost]
@@ -54,51 +62,110 @@ namespace ClassRoomAPI.Controllers
         {
             var lesson = new Lesson(value);
             lesson.Id = Guid.NewGuid();
-            //находим в БД schedule с нужной датой
+            schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), Date = lesson.CreateDate, Lessons = new List<Lesson>() });
+            var update = Builders<ScheduleDay>.Update.Push(s => s.Lessons, lesson);
+            UpdateAll(lesson, update, true);
+            //schedulesCollection.UpdateOne(s => s.Date == lesson.Date, update);
+            //var a = schedulesCollection.Find(a => a.Date == lesson.CreateDate.AddDays(7)).FirstOrDefault();
+            return Created("/schedules", lesson);
+        }
 
-            var filter = Builders<ScheduleDay>.Filter.Eq("Date", value.Date);
-            // параметр обновления
-            var update = Builders<ScheduleDay>.Update.AddToSet("Lessons", value);
-            var result = schedulesCollection.UpdateOne(filter, update);
-            //ПРОВЕРИТЬ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            return new ObjectResult(result);
+        private void UpdateAll(Lesson lesson, UpdateDefinition<ScheduleDay> update, bool needCreate)
+        {
+            var date = new DateTime();
+            switch (lesson.RepeatCount)
+            {
+                case 1:
+                    {
+                        if (needCreate)
+                        {
+                            schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), Date = lesson.CreateDate, Lessons = new List<Lesson>() });
+                        }
+                        schedulesCollection.UpdateOne(s => s.Date == lesson.CreateDate, update);
+                        break;
+                    }
+                case 7:
+                    {
+                        for (var i = 0; i < 30; i++)
+                        {
+                            if (needCreate)
+                            {
+                                schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), Date = lesson.CreateDate.AddDays(7 * i), Lessons = new List<Lesson>() });
+                            }
+                            date = lesson.CreateDate.AddDays(7 * i);
+                            schedulesCollection.UpdateOne(s => s.Date == date, update);
+                        }
+                        break;
+                    }
+                case 14:
+                    {
+                        for (var i = 0; i < 15; i++)
+                        {
+                            if (needCreate)
+                            {
+                                schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), Date = lesson.CreateDate.AddDays(14 * i), Lessons = new List<Lesson>() });
+                            }
+                            date = lesson.CreateDate.AddDays(14 * i);
+                            schedulesCollection.UpdateOne(s => s.Date == date, update);
+                        }
+                        break;
+                    }
+                case 30:
+                    {
+
+                        for (var i = 0; i < 7; i++)
+                        {
+                            if (needCreate)
+                            {
+                                schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), Date = lesson.CreateDate.AddMonths(i), Lessons = new List<Lesson>() });
+                            }
+                            date = lesson.CreateDate.AddMonths(i);
+                            schedulesCollection.UpdateOne(s => s.Date == date, update);
+                        }
+                        break;
+                    }
+                    //иначе ошибка
+            }
         }
 
         [HttpPatch("{date}/{id}")]
         [Produces("application/json")]
-        public IActionResult Patch(string date, Guid id, [FromBody] Lesson value)
+        public IActionResult Patch(string date, Guid id, bool all, [FromBody] Lesson value)
         {
-            var lessonRes = new Lesson(value);
-            lessonRes.Id = id;
-            //найти нужный день в бд по дате
-            var schedule = new ScheduleDay() { Id = Guid.NewGuid(), Date = lessonRes.Date, Lessons = new List<Lesson>() };
-            foreach(var lesson in schedule.Lessons.ToList())
+            var parseDate = date.Split('-', '/', '\\', '.').Select(e => int.Parse(e)).ToList();
+            var dateTime = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
+            var delete = Builders<ScheduleDay>.Update.PullFilter(d =>d.Lessons, l=>l.Id == id);
+            var lesson = schedulesCollection.Find(n => n.Date == dateTime).FirstOrDefault().Lessons.Where(l=>l.Id == id).FirstOrDefault();
+            lesson.Update(value);
+            var push = Builders<ScheduleDay>.Update.Push(d => d.Lessons, lesson);
+            if (all)
             {
-                if(lesson.Id == id)
-                {
-                    lesson.Update(lessonRes);
-                    break;
-                }
+                UpdateAll(lesson, delete, false);
+                UpdateAll(lesson, push, false);
             }
-            //обновить данные в бд (или удалить старого и добавить нового?)
-            return new ObjectResult(lessonRes);
+            else
+            {
+                schedulesCollection.UpdateOne(n => n.Date == dateTime, delete);
+                schedulesCollection.UpdateOne(n => n.Date == dateTime, push);
+            }
+            return new ObjectResult(lesson);
         }
 
         [HttpDelete("{date}/{id}")]
         [Produces("application/json")]
-        public IActionResult Delete(Guid id, bool all, string date)
+        public IActionResult Delete(Guid id, string date, bool all)
         {
-            if(all)
+            var parseDate = date.Split('-', '/', '\\', '.').Select(e => int.Parse(e)).ToList();
+            var dateTime = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
+            var lesson = schedulesCollection.Find(n => n.Date == dateTime).FirstOrDefault().Lessons.Where(l => l.Id == id).FirstOrDefault();
+            var delete = Builders<ScheduleDay>.Update.PullFilter(d => d.Lessons, l => l.Id == id);
+            if (all)
             {
-                var update = Builders<ScheduleDay>.Update.Pull("Lessons.Id", id); //НАДО ПРОВЕРЯТЬ
-                var result = schedulesCollection.UpdateOneAsync(a => a.Lessons.Contains(id), update);
-                //искать во всей базе все lesson с данным id и удалять
+                UpdateAll(lesson, delete, true);
             }
             else
             {
-                var parseDate = date.Split('-', '/', '\\', '.').Select(e => int.Parse(e)).ToList();
-                var dateTime = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
-                //найти в бд по дате и удалить из lessonov по id
+                schedulesCollection.UpdateOne(n => n.Date == dateTime, delete);
             } 
             return NoContent();
         }

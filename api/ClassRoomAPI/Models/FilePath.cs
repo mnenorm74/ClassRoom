@@ -7,6 +7,7 @@ namespace ClassRoomAPI.Models
 {
     public class FilePath
     {
+        public Guid Id { get; set; }
         public string Path { get; set; }
         public bool IsFile { get; set; }
         public DateTime CreateDate { get; set; }

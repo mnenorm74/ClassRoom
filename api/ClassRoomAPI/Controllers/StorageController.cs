@@ -34,11 +34,11 @@ namespace ClassRoomAPI.Controllers
         }
 
         [HttpGet("{path}")]
-        public IActionResult Get(string path)
+        public IActionResult Get(string? path = "")
         {
-            var decodePath = Base64Decode(path);
+            var decodePath = Base64Decode(path).Trim();
             var fileInf = new FileInfo(storageDirectory + decodePath);
-            fileInf.
+            //fileInf.
             if (fileInf.Exists)
             {
                 var bytesFile = System.IO.File.ReadAllBytes(fileInf.FullName);
@@ -52,7 +52,7 @@ namespace ClassRoomAPI.Controllers
                 var files = dirInfo.GetFiles();
                 var directories = dirInfo.GetDirectories();
                 // или найти в базе все пути к файлам ??
-                var paths = filesCollection.Find(p => dirInfo.FullName.Contains(p.Path)).ToList();
+                var paths = filesCollection.Find(p => p.Path.StartsWith(decodePath) && !p.Path.Contains("/")).ToList();
                 foreach(var file in files)
                 {
                     var splitPath = file.FullName.Split("storage\\");
@@ -84,23 +84,33 @@ namespace ClassRoomAPI.Controllers
         {
             var decodePath = Base64Decode(path);
             var fileInf = new FileInfo(storageDirectory + decodePath);
-            if(file != null && Directory.Exists(fileInf.Directory.FullName))
+            var dirInfo = new DirectoryInfo(storageDirectory + decodePath);
+            if (file != null && Directory.Exists(fileInf.Directory.FullName))
             {
-                using (var fstream = new FileInfo(file.FileName).Create())
-                {
-                    file.CopyTo(fstream);
-                }
-                file.OpenReadStream();
+                var fileS = new FileStream(storageDirectory + decodePath, FileMode.Create);
+                file.CopyTo(fileS);
+                //using (var fstream = new FileInfo(file.FileName).Create())
+                //{
+                //    file.CopyTo(fstream);
+                //}
+                //file.OpenReadStream();
                 //System.IO.File.WriteAllBytes(storageDirectory + decodePath, file);
                 var newFile = new FilePath() { Path = decodePath, IsFile = true, CreateDate = DateTime.Now };
                 filesCollection.InsertOne(newFile);
                 return Created("/storage/"+path, newFile);
             }
+            else if(Directory.Exists(dirInfo.Parent.FullName))
+            {
+                dirInfo.Create();
+                var newDir = new FilePath() { Path = decodePath, IsFile = false, CreateDate = DateTime.Now };
+                filesCollection.InsertOne(newDir);
+                return Created("/storage/" + path, newDir);
+            }
             return BadRequest();
         }
 
-        //[HttpPost]
-        //public IActionResult Post([FromBody]string path)
+        //[HttpPost("{path}")]
+        //public IActionResult Post(string path)
         //{
         //    var decodePath = Base64Decode(path);
         //    var dirInfo = new DirectoryInfo(storageDirectory + decodePath);
@@ -118,6 +128,7 @@ namespace ClassRoomAPI.Controllers
         [HttpDelete("{path}")]
         public IActionResult Delete(string path)
         {
+            //проверка на удаление корня
             var decodePath = Base64Decode(path);
             var fileInf = new FileInfo(storageDirectory + decodePath);
             var dirInfo = new DirectoryInfo(storageDirectory + decodePath);

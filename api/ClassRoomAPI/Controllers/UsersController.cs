@@ -14,25 +14,26 @@ namespace ClassRoomAPI.Controllers
     public class UsersController : Controller
     {
         private readonly IMongoCollection<User> usersCollection;
+        private readonly IMongoCollection<Group> groupsCollection;
         public UsersController(IMongoDatabase db)
         {
             usersCollection = db.GetCollection<User>("users");
+            groupsCollection = db.GetCollection<Group>("groups");
         }
 
         [HttpGet("current")]
-        public IActionResult Get([FromHeader] Guid Authorization)
+        public IActionResult GetCurrent([FromHeader] Guid Authorization)
         {
-            //получить из бд юзера по Guid в заголовке
-            return new ObjectResult(usersCollection.Find(a => a.Id == Authorization).FirstOrDefault());
+            var user = usersCollection.Find(a => a.Id == Authorization).FirstOrDefault();
+            return new ObjectResult(new CurrentUser() { Id = user.Id, Name = user.Name, Surname = user.Surname, Avatar = user.Avatar });
         }
 
         [HttpGet]
-        public IActionResult Get1([FromHeader] Guid Authorization)
+        public IActionResult Get([FromHeader] Guid Authorization)
         {
-            //найти в бд по id пользователя его группу
-            //получить из бд всех юзеров по группе
-            var group = usersCollection.Find(a => a.Id == Authorization).FirstOrDefault().GroupId;
-            return new ObjectResult(usersCollection.Find(a => a.GroupId == group).ToList());
+            var currUser = usersCollection.Find(a => a.Id == Authorization).FirstOrDefault();
+            var users = usersCollection.Find(a => a.GroupId == currUser.GroupId).ToList();
+            return new ObjectResult(users);
         }
 
         [HttpPost]
@@ -41,18 +42,43 @@ namespace ClassRoomAPI.Controllers
             var user = new User(value);
             user.Id = Guid.NewGuid();
             usersCollection.InsertOne(user);
-            //добавить в бд
+            var update = Builders<Group>.Update.Push(g => g.Users, user.Id);
+            groupsCollection.UpdateOne(g => g.GroupId == user.GroupId, update);
             return new ObjectResult(user);
         }
-
+        
         [HttpPatch("{id}")]
         [Produces("application/json")]
         public IActionResult Patch(Guid id, [FromBody] User value)
         {
-            //найти юзера в бд по id и удалить
-            var user = new User() { Id = id, Username = "...", Name = "...", Avatar = new byte[0], Email="", GroupId=Guid.NewGuid(), Patronymic="", Surname="" };
-            user.Update(value);
-            //добавить измененного юзера
+            var arr = new List<UpdateDefinition<User>>();
+            var update = Builders<User>.Update;
+            if (value.Avatar != null)
+            {
+                arr.Add(update.Set(n => n.Avatar, value.Avatar));
+            }
+            if (value.Name != null)
+            {
+                arr.Add(update.Set(n => n.Name, value.Name));
+            }
+            if (value.Surname != null)
+            {
+                arr.Add(update.Set(n => n.Surname, value.Surname));
+            }
+            if (value.Patronymic != null)
+            {
+                arr.Add(update.Set(n => n.Patronymic, value.Patronymic));
+            }
+            if (value.Username != null)
+            {
+                arr.Add(update.Set(n => n.Username, value.Username));
+            }
+            if (value.Email != null)
+            {
+                arr.Add(update.Set(n => n.Email, value.Email));
+            }
+            usersCollection.UpdateOne(n => n.Id == id, update.Combine(arr));
+            var user = usersCollection.Find(u => u.Id == id).FirstOrDefault();
             return new ObjectResult(user);
         }
 
@@ -60,7 +86,12 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Delete(Guid id)
         {
-            //удалить из базы по id
+            var user = usersCollection.Find(u => u.Id == id).FirstOrDefault();
+            if(groupsCollection.Find(g=>g.GroupId == user.GroupId).FirstOrDefault() != null)
+            {
+                var update = Builders<Group>.Update.Pull(g => g.Users, id);
+                groupsCollection.UpdateOne(g => g.GroupId == user.GroupId, update);
+            }
             usersCollection.DeleteOne(a => a.Id == id);
             return NoContent();
         }
