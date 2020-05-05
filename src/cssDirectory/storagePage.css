@@ -24,7 +24,7 @@
     width: 5vh;
     margin-top: 5vh;
     border-radius: 50%;
-    background-image: url("../components/Storage/View.svg");
+    background-image: url("../icons/View.svg");
     background-size: cover;
 }
 
@@ -61,7 +61,7 @@
     width: 5vh;
     border-radius: 50%;
     margin-right: 2vw;
-    background-image: url("../components/Storage/Back.svg");
+    background-image: url("../icons/Back.svg");
     background-size: cover;
 }
 
@@ -69,7 +69,7 @@
     height: 5vh;
     width: 5vh;
     border-radius: 50%;
-    background-image: url("../components/Storage/Plus.svg");
+    background-image: url("../icons/Plus.svg");
     background-size: cover;
 }
 
@@ -78,7 +78,7 @@
     width: 5vh;
     border-radius: 50%;
     margin-right: 2vw;
-    background-image: url("../components/Storage/View.svg");
+    background-image: url("../icons/View.svg");
     background-size: cover;
 }
 

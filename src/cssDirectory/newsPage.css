@@ -1,9 +1,8 @@
 #news {
     overflow-y: auto;
-    padding: 0 1vh 1vw;
     width: auto;
     height: 100vh;
-    margin: 6vh 4vw 0 0;
+    margin: 2vh 4vw 0 0;
 }
 
 #news::-webkit-scrollbar-track {
@@ -19,4 +18,26 @@
 #news::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
     background-color: #c4a6e6;
+}
+
+#newsHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 10vh;
+    margin-top: 2vh;
+}
+
+#newsAdding{
+    border-radius: 50%;
+    width: 5vh;
+    height: 5vh;
+    background-image: url("../icons/Plus.svg");
+    background-size: cover;
+}
+
+#newsContent{
+    display: flex;
+    flex-direction: column;
 }

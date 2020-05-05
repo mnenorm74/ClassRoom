@@ -8,7 +8,7 @@
     width: 10vh;
     border-radius: 50%;
     background-color: #31243A;
-    background-image: url("./folderIcon.png");
+    background-image: url("../../icons/folderIcon.png");
     background-size: cover;
 }
 
@@ -17,7 +17,7 @@
     width: 10vh;
     border-radius: 50%;
     background-color: #8ED0FF;
-    background-image: url("./fileIcon.png");
+    background-image: url("../../icons/fileIcon.png");
     background-size: cover;
 }
 
@@ -37,7 +37,7 @@
     width: 3vh;
     border-radius: 50%;
     background-color: #31243A;
-    background-image: url("./folderIcon.png");
+    background-image: url("../../icons/folderIcon.png");
     background-size: cover;
     margin-right: 1vw;
 }
@@ -47,7 +47,7 @@
     width: 3vh;
     border-radius: 50%;
     background-color: #8ED0FF;
-    background-image: url("./fileIcon.png");
+    background-image: url("../../icons/fileIcon.png");
     background-size: cover;
     margin-right: 1vw;
 }
