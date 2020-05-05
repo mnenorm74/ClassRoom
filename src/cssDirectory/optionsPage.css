@@ -1,0 +1,53 @@
+#optionsContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 90vh;
+    margin: 5vh 2vw 5vh 0;
+}
+
+#optionContainer{
+    display: flex;
+    flex-direction: row;
+}
+
+#optionHeader{
+    flex-basis: 20%;
+    font-size: 3vh;
+}
+
+#optionInput{
+    flex-basis: 70%;
+    font-size: 3vh;
+    margin-bottom: 3vh;
+}
+
+#passwordContainer{
+    display: flex;
+    flex-direction: row;
+}
+
+#passwordFields{
+    display: flex;
+    flex-direction: column;
+    flex-basis: 70%;
+}
+
+#photoAdding{
+    margin-bottom: 3vh;
+    height: 10vh;
+    flex-basis: 70%;
+    border-style: dashed;
+    background-color: white;
+    border-color: rgba(161, 161, 161, 0.91);
+    font-size: 3vh;
+    color: rgba(161, 161, 161, 0.91);
+    display: flex;
+    flex-direction: row;
+    background-image: url("../icons/Cloud.svg");
+    background-repeat: no-repeat;
+}
+
+#addingHeader{
+    margin-left: 15%;
+}
