@@ -2,6 +2,7 @@ import React from 'react';
 import '../../cssDirectory/class-room.css';
 import './menu.css'
 import MenuItem from "./menuItem";
+import menuOption from "./menuOption";
 import {useState} from 'react'
 import Page from "../../pages/pageProvider";
 import Profile from "../Profile/profile";
@@ -22,11 +23,16 @@ function Menu() {
             <div id="itemContainer">
                 <Profile/>
                 <MenuItem text={"Главная"} link={Page.MainPage} img='../icons/insert_drive_file-white-18dp.svg'/>
+                <MenuItem text={"Хранилище"} link={Page.StoragePage} img='../icons/insert_drive_file-white-18dp.svg'/>
                 <MenuItem text={"Новости"} link={Page.NewsPage} img='../icons/insert_drive_file-white-18dp.svg'/>
                 <MenuItem text={"Расписание"} link={Page.SchedulePage} img='../icons/insert_drive_file-white-18dp.svg'/>
-                <MenuItem text={"Хранилище"} link={Page.StoragePage} img='../icons/insert_drive_file-white-18dp.svg'/>
+                <MenuItem text={"Список группы"} link={Page.GroupListPage} img='../icons/insert_drive_file-white-18dp.svg'/>
             </div>
             {collapseButton}
+            <div id="menuOptions">
+                {menuOption("Настройки", Page.OptionsPage)}
+                {menuOption("Выход", Page.AuthorizationPage)}
+            </div>
         </div>
     )
 }
