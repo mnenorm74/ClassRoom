@@ -19,6 +19,9 @@ function MenuItem({link, text, img}) {
         case Page.StoragePage:
             icon = Logo.storageLogo
             break
+        case Page.GroupListPage:
+            icon = Logo.groupListLogo
+            break
     }
     return (
         <div className='navMenuItem' onClick={event => {
