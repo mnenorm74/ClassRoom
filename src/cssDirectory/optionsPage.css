@@ -11,9 +11,10 @@
     flex-direction: row;
 }
 
-#optionHeader{
+.optionHeader{
     flex-basis: 20%;
     font-size: 3vh;
+    cursor: default;
 }
 
 #optionInput{
@@ -50,4 +51,9 @@
 
 #addingHeader{
     margin-left: 15%;
+}
+
+#deletingAccountButton{
+    background: none;
+    font-size: 3vh;
 }

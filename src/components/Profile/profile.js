@@ -1,13 +1,13 @@
 import React from 'react';
 import './profile.css'
+import CurrentUser from "../../СurrentUserInfoDB";
 
 function Profile() {
     return (
         <div className="container">
             <div className="avatar"/>
             <div className="userData">
-                <span>Test</span>
-                <span>Test</span>
+                <span>{CurrentUser.Name}</span>
             </div>
         </div>
     )

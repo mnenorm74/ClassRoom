@@ -9,6 +9,7 @@
     height: 10vh;
     border-radius: 50%;
     background: gray;
+    margin-left: 0.5vw;
 }
 
 .userData{
@@ -17,4 +18,5 @@
     margin-left: 1vw;
     font-size: 2rem;
     color: white;
+    justify-content: center;
 }
