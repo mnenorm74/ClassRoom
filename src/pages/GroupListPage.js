@@ -3,11 +3,11 @@ import '../cssDirectory/groupListPage.css';
 import GroupUser from "../components/group/groupUser";
 import GroupUsers from "../components/group/groupDB"
 
-function GroupListPage(){
-    return(
+function GroupListPage() {
+    return (
         <div id="groupListContent">
             {GroupUsers.map(user => (
-                <GroupUser name={user.name} email={user.email} isGroupLeader={user.isGroupLeader}/>
+                <GroupUser name={`${user.Surname} ${user.Name} ${user.Patronymic}`} email={user.Email}/>
             ))}
         </div>
     )
