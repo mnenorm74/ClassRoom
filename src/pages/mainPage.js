@@ -38,10 +38,9 @@ function MainPage() {
                 <ScheduleDay day='СР 29.04'/>
             </div>
             <div id="newsModule">
-                <NewsItem author={News[0].author} pubDate={News[0].pubDate} article={News[0].article}/>
-                <NewsItem author={News[0].author} pubDate={News[0].pubDate} article={News[0].article}/>
-                <NewsItem author={News[0].author} pubDate={News[0].pubDate} article={News[0].article}/>
-                <NewsItem author={News[0].author} pubDate={News[0].pubDate} article={News[0].article}/>
+                {News.map(news => (
+                    <NewsItem author={news.author} pubDate={news.pubDate} article={news.article}/>
+                ))}
             </div>
         </>
     )
