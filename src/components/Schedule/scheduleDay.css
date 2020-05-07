@@ -16,3 +16,8 @@
     /* Для Сафари и Хрома */
     -webkit-user-select: none;
 }
+
+#dayContainer > p{
+    margin: 1vh;
+    font-style: italic;
+}
