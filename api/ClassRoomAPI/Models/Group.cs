@@ -10,6 +10,7 @@ namespace ClassRoomAPI.Models
         {
             GroupId = group.GroupId;
             GroupLeaderId = group.GroupLeaderId;
+            GroupName = group.GroupName;
             Users = group.Users;
         }
         public Group()
@@ -18,6 +19,7 @@ namespace ClassRoomAPI.Models
         }
         public Guid GroupId { get; set; }
         public Guid GroupLeaderId { get; set; }
+        public string GroupName { get; set; }
         public IEnumerable<Guid> Users { get; set; }
     }
 }

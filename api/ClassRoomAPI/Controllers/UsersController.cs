@@ -29,6 +29,7 @@ namespace ClassRoomAPI.Controllers
         }
 
         [HttpGet]
+        [Produces("application/json")]
         public IActionResult Get([FromHeader] Guid Authorization)
         {
             var currUser = usersCollection.Find(a => a.Id == Authorization).FirstOrDefault();
@@ -36,7 +37,22 @@ namespace ClassRoomAPI.Controllers
             return new ObjectResult(users);
         }
 
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /users
+        ///     {
+        ///        username="string",
+        ///        name: "string",
+        ///        surname: "string",
+        ///        patronymic: "string",
+        ///        avatar: image (byte[] ?)
+        ///        groupId: "Guid",
+        ///        email="string"
+        ///     }
+        /// </remarks>
         [HttpPost]
+        [Produces("application/json")]
         public IActionResult Post([FromBody] User value)
         {
             var user = new User(value);
@@ -46,7 +62,20 @@ namespace ClassRoomAPI.Controllers
             groupsCollection.UpdateOne(g => g.GroupId == user.GroupId, update);
             return new ObjectResult(user);
         }
-        
+
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PATCH /users/{id}
+        ///     {
+        ///        username="string",
+        ///        name: "string",
+        ///        surname: "string",
+        ///        patronymic: "string",
+        ///        avatar: image (byte[] ?),
+        ///        email="string"
+        ///     }
+        /// </remarks>
         [HttpPatch("{id}")]
         [Produces("application/json")]
         public IActionResult Patch(Guid id, [FromBody] User value)

@@ -19,8 +19,18 @@ namespace ClassRoomAPI.Controllers
             groupsCollection = db.GetCollection<Group>("groups");
         }
 
-
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /groups
+        ///     {
+        ///        "groupLeaderId": "guid",
+        ///        "groupName": "string"
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost]
+        [Produces("application/json")]
         public IActionResult Post([FromBody] Group value)
         {
             var group = new Group(value);

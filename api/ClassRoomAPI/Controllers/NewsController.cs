@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using ClassRoomAPI.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
-
+using Microsoft.AspNetCore.Http;
 
 namespace ClassRoomAPI.Controllers
 {
+    [Produces("application/json")]
     [ApiController]
     [Route("[controller]")]
     public class NewsController : Controller
@@ -22,8 +23,8 @@ namespace ClassRoomAPI.Controllers
             commentsCollection = db.GetCollection<Comment>("comments");
         }
 
-        [HttpGet]
         [Produces("application/json")]
+        [HttpGet]
         public IActionResult Get(int page, int count)
         {
             var news = newsCollection.Find(n => true)
@@ -34,17 +35,41 @@ namespace ClassRoomAPI.Controllers
             return new ObjectResult(news);
         }
 
+
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /news
+        ///     {
+        ///        "title": "string",
+        ///        "content": "string",
+        ///        "date": "DateTime"
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost]
         [Produces("application/json")]
         public IActionResult Post([FromBody] News value, [FromHeader] Guid Authorization)
         {
             var news = new News(value);
             news.Id = Guid.NewGuid();
-            news.AuthorId = Authorization; //возможно иначе?
+            news.AuthorId = Authorization; 
+            //возможно иначе?
             newsCollection.InsertOne(news);
             return Created("/schedules", news);
         }
 
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PATCH /news/{id}
+        ///     {
+        ///        "title": "string",
+        ///        "content": "string",
+        ///        "date": "DateTime"
+        ///     }
+        ///
+        /// </remarks>
         [HttpPatch("{id}")]
         [Produces("application/json")]
         public IActionResult Patch(Guid id, [FromBody] News value, [FromHeader] Guid Authorization)
@@ -76,6 +101,16 @@ namespace ClassRoomAPI.Controllers
             return NoContent();
         }
 
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /news/{id}/comments
+        ///     {
+        ///        "content": "string",
+        ///        "date": "DateTime"
+        ///     }
+        ///
+        /// </remarks>
         [HttpPost("{id}/comments")]
         [Produces("application/json")]
         public IActionResult Post(Guid id, [FromBody] Comment value, [FromHeader] Guid Authorization)
@@ -89,6 +124,16 @@ namespace ClassRoomAPI.Controllers
             return Created("/news/{id}/comments", comment);
         }
 
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT /news/{id}/comments/{CommId}
+        ///     {
+        ///        "content": "string",
+        ///        "date": "DateTime"
+        ///     }
+        ///
+        /// </remarks>
         [HttpPut("{id}/comments/{Commid}")]
         [Produces("application/json")]
         public IActionResult Put(Guid id, Guid CommId, [FromBody] Comment value, [FromHeader] Guid Authorization)

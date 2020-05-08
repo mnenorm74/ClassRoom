@@ -21,8 +21,6 @@ namespace ClassRoomAPI.Controllers
             schedulesCollection = db.GetCollection<ScheduleDay>("schedules");
         }
 
-        // GET: /schedules?startDate={}&count={}
-
         [HttpGet]
         [Produces("application/json")]
         public IActionResult Get(string startDate, int count)
@@ -56,6 +54,21 @@ namespace ClassRoomAPI.Controllers
             return new ObjectResult(result);
         }
 
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /schedules
+        ///     {
+        ///        createDate: "DateTime"
+        ///        startTime: "10:15"
+        ///        endTime: "12:00"
+        ///        title: "string"
+        ///        audience:"string"
+        ///        teacher:"string"
+        ///        repeatCount: 1(один раз) или 7 (каждую неделю) или 14 (каждые 2 недели) или 30 (каждый месяц)
+        ///        type: "lect" или "lab" или "pract"
+        ///     }
+        /// </remarks>
         [HttpPost]
         [Produces("application/json")]
         public IActionResult Post([FromBody] Lesson value)
@@ -128,6 +141,19 @@ namespace ClassRoomAPI.Controllers
             }
         }
 
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PATCH /schedules/{date}/{id}?all={true}
+        ///     {
+        ///        startTime: "10:15"
+        ///        endTime: "12:00"
+        ///        title: "string"
+        ///        audience:"string"
+        ///        teacher:"string"
+        ///        type: "lect" или "lab" или "pract"
+        ///     }
+        /// </remarks>
         [HttpPatch("{date}/{id}")]
         [Produces("application/json")]
         public IActionResult Patch(string date, Guid id, bool all, [FromBody] Lesson value)

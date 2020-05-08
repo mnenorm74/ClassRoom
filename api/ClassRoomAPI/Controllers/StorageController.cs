@@ -34,11 +34,11 @@ namespace ClassRoomAPI.Controllers
         }
 
         [HttpGet("{path}")]
-        public IActionResult Get(string? path = "")
+        [Produces("application/json")]
+        public IActionResult Get(string path)
         {
             var decodePath = Base64Decode(path).Trim();
             var fileInf = new FileInfo(storageDirectory + decodePath);
-            //fileInf.
             if (fileInf.Exists)
             {
                 var bytesFile = System.IO.File.ReadAllBytes(fileInf.FullName);
@@ -70,16 +70,26 @@ namespace ClassRoomAPI.Controllers
 
 
         [HttpGet("last")]
+        [Produces("application/json")]
         public IActionResult Get(int count)
         {
-            var result = filesCollection.Find(p => p.IsFile)
+            var result = filesCollection.Find(p => p.IsFile == true)
                     .SortBy(n => n.CreateDate)
                     .Limit(count)
                     .ToList();
             return new ObjectResult(result);
         }
 
+        /// <remarks>
+        /// Sample request:
+        ///     POST /storage/{path}, 
+        ///     path - путь зашифрованный с помощью base64.
+        ///     
+        ///     Если путь заканчивается на файл: IFormFile.
+        ///     Если путь заканчиваетсяна каталог: без тела.
+        /// </remarks>
         [HttpPost("{path}")]
+        [Produces("application/json")]
         public IActionResult Post(string path, IFormFile file)
         {
             var decodePath = Base64Decode(path);
@@ -89,12 +99,6 @@ namespace ClassRoomAPI.Controllers
             {
                 var fileS = new FileStream(storageDirectory + decodePath, FileMode.Create);
                 file.CopyTo(fileS);
-                //using (var fstream = new FileInfo(file.FileName).Create())
-                //{
-                //    file.CopyTo(fstream);
-                //}
-                //file.OpenReadStream();
-                //System.IO.File.WriteAllBytes(storageDirectory + decodePath, file);
                 var newFile = new FilePath() { Path = decodePath, IsFile = true, CreateDate = DateTime.Now };
                 filesCollection.InsertOne(newFile);
                 return Created("/storage/"+path, newFile);
@@ -109,23 +113,8 @@ namespace ClassRoomAPI.Controllers
             return BadRequest();
         }
 
-        //[HttpPost("{path}")]
-        //public IActionResult Post(string path)
-        //{
-        //    var decodePath = Base64Decode(path);
-        //    var dirInfo = new DirectoryInfo(storageDirectory + decodePath);
-        //    if (Directory.Exists(dirInfo.Parent.FullName))
-        //    {
-        //        dirInfo.Create();
-        //        var newDir = new FilePath() { Path = decodePath, IsFile = false, CreateDate = DateTime.Now };
-        //        filesCollection.InsertOne(newDir);
-        //        return Created("/storage/" + path, newDir);
-        //    }
-        //    return BadRequest();
-        //}
-
-
         [HttpDelete("{path}")]
+        [Produces("application/json")]
         public IActionResult Delete(string path)
         {
             //проверка на удаление корня
@@ -140,7 +129,7 @@ namespace ClassRoomAPI.Controllers
             }
             else if(dirInfo.Exists)
             {
-                filesCollection.DeleteMany(f => f.Path.StartsWith(decodePath));
+                filesCollection.DeleteOne(f => f.Path.StartsWith(decodePath));
                 dirInfo.Delete(true);
                 return NoContent();
             }

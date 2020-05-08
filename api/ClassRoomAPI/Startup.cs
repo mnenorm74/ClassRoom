@@ -13,6 +13,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System.IO;
 
 namespace ClassRoomAPI
 {
@@ -25,15 +28,30 @@ namespace ClassRoomAPI
             IMongoDatabase database = client.GetDatabase("ClassRoomDB");
             services.AddSingleton(database);
             services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+
+            
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            //if (env.IsDevelopment())
-            //{
-            app.UseDeveloperExceptionPage();
-            //}
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
 
             //app.UseHttpsRedirection();
 
