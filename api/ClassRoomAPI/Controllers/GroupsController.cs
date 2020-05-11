@@ -44,9 +44,21 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Delete(Guid id)
         {
-            //если пустая
-            groupsCollection.DeleteOne(a => a.GroupId == id);
+            var delete = groupsCollection.DeleteOne(g => g.GroupId == id);
+            if(delete.DeletedCount == 0)
+            {
+                return NotFound("Group with this id not found");
+            }
             return NoContent();
+        }
+
+        //для тестов
+        [HttpGet]
+        [Produces("application/json")]
+        public IActionResult Get()
+        {
+            var result = groupsCollection.Find(g => true).ToList();
+            return new ObjectResult(result);
         }
     }
 }

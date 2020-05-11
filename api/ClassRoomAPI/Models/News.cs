@@ -24,24 +24,24 @@ namespace ClassRoomAPI.Models
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
         public Guid AuthorId { get; set; }
         public IEnumerable<Guid> Comments { get; set; } = new List<Guid>();
 
-        public void Update(News news)
-        {
-            if (news.Title != Title && news.Title != null)
-            {
-                Title = news.Title;
-            }
-            if (news.Content != Content && news.Content != null)
-            {
-                Content = news.Content;
-            }
-            if (news.Date != Date && news.Date != DateTime.MinValue)
-            {
-                Date = news.Date;
-            }
-        }
+        //public void Update(News news)
+        //{
+        //    if (news.Title != Title && news.Title != null)
+        //    {
+        //        Title = news.Title;
+        //    }
+        //    if (news.Content != Content && news.Content != null)
+        //    {
+        //        Content = news.Content;
+        //    }
+        //    if (news.Date != Date && news.Date != DateTime.MinValue)
+        //    {
+        //        Date = news.Date;
+        //    }
+        //}
     }
 }

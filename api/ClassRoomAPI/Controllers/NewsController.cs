@@ -27,8 +27,12 @@ namespace ClassRoomAPI.Controllers
         [HttpGet]
         public IActionResult Get(int page, int count)
         {
+            if(page <= 0 || count < 0)
+            {
+                return UnprocessableEntity("Invalid query parameters: page < 1 or count < 0");
+            }
             var news = newsCollection.Find(n => true)
-                    .SortBy(n => n.Date)
+                    .SortByDescending(n => n.Date)
                     .Skip((page - 1) * count)
                     .Limit(count)
                     .ToList();
@@ -52,9 +56,6 @@ namespace ClassRoomAPI.Controllers
         public IActionResult Post([FromBody] News value, [FromHeader] Guid Authorization)
         {
             var news = new News(value);
-            news.Id = Guid.NewGuid();
-            news.AuthorId = Authorization; 
-            //возможно иначе?
             newsCollection.InsertOne(news);
             return Created("/schedules", news);
         }
@@ -88,7 +89,11 @@ namespace ClassRoomAPI.Controllers
             {
                 arr.Add(update.Set(n => n.Date, value.Date));
             }
-            newsCollection.UpdateOne(n => n.Id == id, update.Combine(arr));
+            var updateResult = newsCollection.UpdateOne(n => n.Id == id, update.Combine(arr));
+            if(updateResult.MatchedCount == 0)
+            {
+                return NotFound("News with this id not found");
+            }
             
             return new ObjectResult(newsCollection.Find(n => n.Id == id).FirstOrDefault());
         }
@@ -97,7 +102,11 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Delete(Guid id)
         {
-            newsCollection.DeleteOne(n => n.Id == id);
+            var delete = newsCollection.DeleteOne(n => n.Id == id);
+            if (delete.DeletedCount == 0)
+            {
+                return NotFound("News with this id not found");
+            }
             return NoContent();
         }
 
@@ -113,14 +122,19 @@ namespace ClassRoomAPI.Controllers
         /// </remarks>
         [HttpPost("{id}/comments")]
         [Produces("application/json")]
-        public IActionResult Post(Guid id, [FromBody] Comment value, [FromHeader] Guid Authorization)
+        public IActionResult Post(Guid id, [FromBody] Comment value, [FromHeader] Guid MyHeader)
         {
             var comment = new Comment(value);
             comment.Id = Guid.NewGuid();
-            comment.AuthorId = Authorization;  //возможно иначе?
-            commentsCollection.InsertOne(comment);
+            comment.AuthorId = MyHeader;  //возможно иначе?
+            
             var update = Builders<News>.Update.Push(n=>n.Comments, comment.Id);
-            newsCollection.UpdateOne(n => n.Id == id, update);
+            var updateRes = newsCollection.UpdateOne(n => n.Id == id, update);
+            if(updateRes.MatchedCount == 0)
+            {
+                return NotFound("News with this id not found");
+            }
+            commentsCollection.InsertOne(comment);
             return Created("/news/{id}/comments", comment);
         }
 
@@ -134,24 +148,31 @@ namespace ClassRoomAPI.Controllers
         ///     }
         ///
         /// </remarks>
-        [HttpPut("{id}/comments/{Commid}")]
+        [HttpPut("{id}/comments/{CommId}")]
         [Produces("application/json")]
         public IActionResult Put(Guid id, Guid CommId, [FromBody] Comment value, [FromHeader] Guid Authorization)
         {
-            //проверить на существование
             var update = Builders<Comment>.Update.Set(c => c.Content, value.Content).Set(c => c.Date, value.Date);
-            commentsCollection.UpdateOne(c => c.Id == CommId, update);
+            var updateRes = commentsCollection.UpdateOne(c => c.Id == CommId, update);
+            if(updateRes.MatchedCount == 0)
+            {
+                return NotFound("Comment with this id not found");
+            }
+
             return new ObjectResult(commentsCollection.Find(c => c.Id == CommId).FirstOrDefault());
         }
 
-        [HttpDelete("{id}/comments/{Commid}")]
+        [HttpDelete("{id}/comments/{CommId}")]
         [Produces("application/json")]
         public IActionResult Delete(Guid id, Guid CommId)
         {
-            //проверить на существование
-            commentsCollection.DeleteOne(c => c.Id == CommId);
+            var deleteRes = commentsCollection.DeleteOne(c => c.Id == CommId);
             var update = Builders<News>.Update.Pull(n => n.Comments, CommId);
-            newsCollection.UpdateOne(n => n.Id == id, update);
+            var updateRes = newsCollection.UpdateOne(n => n.Id == id, update);
+            if(updateRes.MatchedCount == 0 || deleteRes.DeletedCount == 0)
+            {
+                return NotFound("News or comment with this id not found");
+            }
             return NoContent();
         }
 

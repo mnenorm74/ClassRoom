@@ -20,7 +20,7 @@ namespace ClassRoomAPI.Models
         }
         public Guid Id { get; set; }
         public string Content { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
         public Guid AuthorId { get; set; }
     }
 }

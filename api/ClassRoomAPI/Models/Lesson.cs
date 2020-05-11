@@ -30,7 +30,7 @@ namespace ClassRoomAPI.Models
         public string Title { get; set; }
         public string Audience { get; set; }
         public string Teacher { get; set; }
-        public int RepeatCount { get; set; }
+        public int RepeatCount { get; set; } = 1;
         public string Type { get; set; }
 
         public void Update(Lesson lesson)
