@@ -104,3 +104,10 @@
     background-size: cover;
     display: none;
 }
+
+#storageElements{
+    overflow-y: auto;
+    width: auto;
+    height: 100vh;
+    margin-top: 10vh;
+}

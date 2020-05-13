@@ -7,6 +7,7 @@ import StorageArchivePage from "./storageArchivePage"
 import GroupListPage from "./GroupListPage";
 import OptionsPage from "./OptionsPage";
 import AuthorizationPage from "./AuthorizationPage";
+import StorageContentPage from "./StorageContentPage";
 
 const Page = {
     MainPage,
@@ -15,9 +16,10 @@ const Page = {
     StoragePage,
     StorageSemesterPage,
     StorageArchivePage,
+    StorageContentPage,
     GroupListPage,
     OptionsPage,
     AuthorizationPage
-}
+};
 
 export default Page

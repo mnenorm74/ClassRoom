@@ -1,11 +1,21 @@
 import React from 'react';
 import './storage.css'
+import ReactDOM from "react-dom";
+import Page from "../../pages/pageProvider";
+import StorageElements from "../Storage/storageDB"
 
-function storageItem({type, name, owner, date}) {
+function storageItem({type, name, owner, date, content, pageElements}) {
     let iconType = type === "folder" ? "folderIcon" : "fileIcon";
     return (
         <div id="storageContainer">
-            <div id={iconType}></div>
+            <div id={iconType} onClick={() => {
+                if (type === "folder") {
+                    ReactDOM.render(
+                        Page.StorageContentPage(content, pageElements),
+                        document.getElementById('pageContainer')
+                    );
+                }
+            }}/>
             <div id="name">{name}</div>
         </div>
     );
