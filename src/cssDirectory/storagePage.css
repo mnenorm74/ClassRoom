@@ -17,6 +17,7 @@
     flex-direction: row;
     justify-content: space-between;
     margin-right: 20vh;
+    align-items: center;
 }
 
 #viewTypeButton{
@@ -92,4 +93,14 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+#goBackButton{
+    height: 5vh;
+    width: 5vh;
+    border-radius: 50%;
+    margin-right: 2vw;
+    background-image: url("../icons/Back.svg");
+    background-size: cover;
+    display: none;
 }

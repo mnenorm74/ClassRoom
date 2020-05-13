@@ -1,11 +1,14 @@
 #storageContainer {
-    width: 15vh;
-    height: 15vh;
+    width: 20vh;
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #folderIcon{
-    height: 10vh;
-    width: 10vh;
+    height: 15vh;
+    width: 15vh;
     border-radius: 50%;
     background-color: #31243A;
     background-image: url("../../icons/folderIcon.png");
@@ -13,49 +16,12 @@
 }
 
 #fileIcon{
-    height: 10vh;
-    width: 10vh;
+    height: 15vh;
+    width: 15vh;
     border-radius: 50%;
     background-color: #8ED0FF;
     background-image: url("../../icons/fileIcon.png");
     background-size: cover;
-}
-
-#storageTableContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-right: 20vh;
-}
-
-#icons{
-    display: none;
-}
-
-#folderTableIcon{
-    height: 3vh;
-    width: 3vh;
-    border-radius: 50%;
-    background-color: #31243A;
-    background-image: url("../../icons/folderIcon.png");
-    background-size: cover;
-    margin-right: 1vw;
-}
-
-#fileTableIcon{
-    height: 3vh;
-    width: 3vh;
-    border-radius: 50%;
-    background-color: #8ED0FF;
-    background-image: url("../../icons/fileIcon.png");
-    background-size: cover;
-    margin-right: 1vw;
-}
-
-#tableName{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
 }
 
 
