@@ -4,7 +4,8 @@ import '../components/ScheduleFull/scheduleFull.css'
 
 
 function SchedulePage() {
-    return (<>
+    return (
+        <>
             <p className={'title'}>СР, 8 апреля 2020</p>
             <div id={'scheduleComponentContainer'}>
                 <button className={'arrowButton'}/>
