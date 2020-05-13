@@ -1,6 +1,6 @@
 .navMenuItem {
     all: unset;
-    text-align: right;
+    text-align: left;
     display: flex;
     align-items: center;
     padding: 0.5vh;
@@ -12,9 +12,6 @@
 
 .navMenuItem:hover {
     background: linear-gradient(90deg, #31243A -97%, rgba(74, 144, 226, 0) 100%);;
-}
-.itemName{
-
 }
 
 .ico {

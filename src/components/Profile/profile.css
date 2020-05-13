@@ -1,22 +1,22 @@
 .container{
     display: flex;
-    margin-bottom: 8vh;
+    justify-content: flex-start;
+    width: 100%;
 }
 
 .avatar{
     display: inline-block;
-    width: 10vh;
-    height: 10vh;
+    width: 8vh;
+    height: 8vh;
     border-radius: 50%;
     background: gray;
-    margin-left: 0.5vw;
 }
 
 .userData{
     display: flex;
     flex-direction: column;
-    margin-left: 1vw;
-    font-size: 2rem;
+    margin-left: 0.5vw;
+    font-size: 1.8rem;
     color: white;
     justify-content: center;
 }

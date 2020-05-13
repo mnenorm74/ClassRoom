@@ -36,10 +36,16 @@
 #menuOptions{
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    font-size: 1.3rem;
     color: white;
-    padding: 1vh;
-    font-size: 3vh;
+    padding-left: 0.5vw;
     margin-bottom: 3vh;
     cursor: pointer;
+}
+
+#applicationLogo{
+    background-repeat: no-repeat;
+    background-image: url("../../icons/ApplicationLogo.svg");
+    height: 8vh;
+    margin-bottom: 5vh;
 }
