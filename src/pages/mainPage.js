@@ -39,7 +39,7 @@ function MainPage() {
             </div>
             <div id="newsModule">
                 {News.map(news => (
-                    <NewsItem author={news.author} pubDate={news.pubDate} article={news.article}/>
+                    <NewsItem author={news.author} pubDate={news.pubDate} article={news.article} comments={news.comments}/>
                 ))}
             </div>
         </>
