@@ -10,6 +10,14 @@ function NewsItem({author, pubDate, article}) {
                 <div className='infoItem newsText'>{pubDate}</div>
             </div>
             <p className='newsArticle newsText'>{article}</p>
+            <div id="commentsContainer">
+
+            </div>
+            <div id="commentsAdding">
+                <div id="commentOwnerPhoto"></div>
+                <input id="commentAddingField" placeholder="Добавить комментарий"></input>
+                <button id="commentSendButton"></button>
+            </div>
         </div>
     )
 }
