@@ -6,9 +6,7 @@ import './cssDirectory/class-room.css';
 function ClassRoom() {
     return (
         <>
-            <div id="menuContainer">
-                <Menu/>
-            </div>
+            <Menu/>
             <div id="pageContainer">
                 <Page.MainPage/>
             </div>

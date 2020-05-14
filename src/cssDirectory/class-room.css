@@ -1,15 +1,11 @@
-#menuContainer {
-    position: fixed;
-    left: 0;
-    height: 100vh;
-    width: 15vw;
-    transition: all 0.5s;
+#root{
+    display: flex;
 }
 
 #pageContainer {
-    position: relative;
-    margin-left: 18vw;
+    display: inline-block;
     width: 82vw;
+    margin-left: 4vw;
     height: 100vh;
     overflow: hidden;
     transition: all 0.5s;
