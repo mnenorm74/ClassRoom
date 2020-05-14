@@ -35,12 +35,13 @@
 
 #menuOptions{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     font-size: 1.3rem;
     color: white;
     padding-left: 0.5vw;
     margin-bottom: 3vh;
     cursor: pointer;
+    align-items: flex-end;
 }
 
 #applicationLogo{

@@ -32,8 +32,8 @@ function Menu() {
             {collapseButton}
             <div id="menuOptions">
                 <Profile/>
-                {menuOption("Настройки", Page.OptionsPage)}
-                {menuOption("Выход", Page.AuthorizationPage)}
+                {/*{menuOption("Настройки", Page.OptionsPage)}
+                {menuOption("Выход", Page.AuthorizationPage)}*/}
             </div>
         </div>
     )

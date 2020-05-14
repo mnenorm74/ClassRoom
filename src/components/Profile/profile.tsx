@@ -1,15 +1,21 @@
 import React from 'react';
 import './profile.css'
 import CurrentUser from "../../СurrentUserInfoDB";
+import Logo from '../menu/logoContainer'
 
 function Profile() {
     return (
-        <div className="container">
-            <div className="avatar"/>
+        <>
+            <img className='avatar' src={Logo.teaPot} alt=""/>
             <div className="userData">
                 <span>{CurrentUser.Name}</span>
+                <span>{CurrentUser.Surname}</span>
             </div>
-        </div>
+            <div className='optionsContainer'>
+                <img className='optionsLogo' src={Logo.settingsLogo} alt=""/>
+                <img className='optionsLogo' src={Logo.logOutLogo} alt=""/>
+            </div>
+        </>
     )
 }
 
