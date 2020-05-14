@@ -4,10 +4,10 @@ import '../cssDirectory/storagePage.css';
 import ReactDOM from "react-dom";
 import Page from "./pageProvider";
 
-function StorageContentPage(storageElements:any, pageElements?:any) {
-    let content = (typeof storageElements != "undefined")
+function StorageContentPage(pageElements:any, previousPageElements?:any) {
+    let content = (typeof pageElements != "undefined")
         ? (<div id="icons">
-            {StorageContentIcons(storageElements)}
+            {StorageContentIcons(pageElements)}
         </div>)
         : (<div id="icons">
         </div>);
@@ -15,9 +15,9 @@ function StorageContentPage(storageElements:any, pageElements?:any) {
     return (<div id="storageElements">
             <div id="navigation">
                 <button id="toMainStoragePageButton" onClick={() => {
-                    if (typeof pageElements != "undefined") {
+                    if (typeof previousPageElements != "undefined") {
                         ReactDOM.render(
-                            Page.StorageContentPage(pageElements),
+                            Page.StorageContentPage(previousPageElements),
                             document.getElementById('pageContainer')
                         )
                     } else {
