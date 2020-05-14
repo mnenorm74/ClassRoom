@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-function menuOption(name: string, link: ()=>JSX.Element) {
+function menuOption(name: string, link: () => JSX.Element) {
     return (
         <div className='menuOption' onClick={() => {
             ReactDOM.render(
