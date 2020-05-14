@@ -1,14 +1,13 @@
 #root{
     display: flex;
+    height: 100vh;
 }
 
 #pageContainer {
     display: inline-block;
     width: 82vw;
     margin-left: 4vw;
-    height: 100vh;
     overflow: hidden;
-    transition: all 0.5s;
 }
 
 body {

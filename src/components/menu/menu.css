@@ -11,26 +11,6 @@
     flex-direction: column;
 }
 
-.collapseButton {
-    all: unset;
-    position: absolute;
-    top: 13vh;
-    right: -1vw;
-    width: 5vh;
-    height: 5vh;
-    box-shadow: 0 0 0 2vh white;
-    background-image: url("../../icons/keyboard_arrow_left-white-18dp.svg");
-    background-size: cover;
-    background-color: #FFE082;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.5s;
-}
-
-.collapseButton:hover {
-    background-color: #FFD54F;
-}
-
 #menuOptions{
     display: flex;
     flex-direction: row;
