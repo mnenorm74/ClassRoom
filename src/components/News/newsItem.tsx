@@ -1,9 +1,9 @@
 import React from 'react';
 import './news.css'
-import News from "./newsDB";
 import Comment from "./comment";
+import {IComment} from "../../projectTypes";
 
-function NewsItem({author, pubDate, article, comments}) {
+function NewsItem({author, pubDate, article, comments}: { author: string, pubDate: string, article: string, comments: IComment[] }) {
     let newsComments = typeof comments == "undefined"
         ? <div id="commentsContainer">
         </div>
@@ -21,9 +21,9 @@ function NewsItem({author, pubDate, article, comments}) {
             <p className='newsArticle newsText'>{article}</p>
             {newsComments}
             <div id="commentsAdding">
-                <div id="commentOwnerPhoto"></div>
-                <input id="commentAddingField" placeholder="Добавить комментарий"></input>
-                <button id="commentSendButton"></button>
+                <div id="commentOwnerPhoto"/>
+                <input id="commentAddingField" placeholder="Добавить комментарий"/>
+                <button id="commentSendButton"/>
             </div>
         </div>
     )

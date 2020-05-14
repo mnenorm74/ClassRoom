@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 import Page from "./pageProvider";
 import StorageElements from "../components/Storage/storageDB";
 
-function StoragePage(storageElements) {
+function StoragePage(storageElements?: any[]) {
     if (typeof storageElements == "undefined") {
         storageElements = StorageElements;
     }

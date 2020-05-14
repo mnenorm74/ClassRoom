@@ -4,7 +4,7 @@ import {LessonList, LessonType} from "./lessonStuff";
 import './scheduleDay.css'
 
 
-function ScheduleDay({day}) {
+function ScheduleDay({day}:{day:string}) {
     return (
         <div id='dayContainer'>
             <p>{day}</p>

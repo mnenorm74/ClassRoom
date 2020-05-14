@@ -1,7 +1,7 @@
 import React from 'react';
 import './groupUser.css'
 
-function GroupUser({name, email, isGroupLeader}) {
+function GroupUser({name, email, isGroupLeader}:{name:string, email:string, isGroupLeader?:boolean}) {
     return(
         <div id='userContainer'>
             <div id="photoContainer">

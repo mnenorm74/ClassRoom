@@ -2,7 +2,7 @@ import React from 'react';
 import {LessonType} from "./lessonStuff";
 import './lesson.css'
 
-function Lesson({order, name, type}) {
+function Lesson({order, name, type}:{order:string, name:string, type:string}) {
     let style = 'lessonOrder '
     switch (type) {
         case LessonType.Lecture:

@@ -7,11 +7,11 @@ function NewsPage() {
     return (
         <div id="newsContent">
             <div id="newsHeader">
-                <button id="newsAdding"></button>
+                <button id="newsAdding"/>
             </div>
             <div id="news">
                 {News.map(news => (
-                    <NewsItem author={news.author} pubDate={news.pubDate} article={news.article} comments={news.comments}/>
+                    <NewsItem author={news.author} pubDate={news.pubDate} article={news.article} comments={news.comments!}/>
                 ))}
             </div>
         </div>

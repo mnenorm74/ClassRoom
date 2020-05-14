@@ -2,11 +2,11 @@ import React from 'react';
 import "./comment.css"
 import GroupUsers from "../group/groupDB";
 
-function Comment(comment) {
-    let author = (GroupUsers.filter(user => user.Id == comment.AuthorId))[0];
+function Comment(comment: { AuthorId: string, Content: string, Date: string }) {
+    let author = (GroupUsers.filter(user => user.Id === comment.AuthorId))[0];
     return (
         <div id="commentContainer">
-            <div id="commentPhoto"></div>
+            <div id="commentPhoto"/>
             <div id="commentBody">
                 <span id="commentAuthor">{`${author.Name} ${author.Surname}`}</span>
                 <span id="commentContent">{comment.Content}</span>

@@ -1,7 +1,8 @@
 import StorageItem from "./storageItem";
 import React from "react";
+import {IStorageContentIcon} from '../../projectTypes'
 
-function StorageContentIcons(elements) {
+function StorageContentIcons(elements: IStorageContentIcon[]) {
     return (
         <div id="storage">
             {elements.map(element => (

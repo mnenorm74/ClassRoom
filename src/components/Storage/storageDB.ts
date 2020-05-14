@@ -1,6 +1,6 @@
-import React from "react";
+import {IStorageContentIcon} from "../../projectTypes";
 
-const StorageElements = [
+const StorageElements:IStorageContentIcon[] = [
     {
         type: "folder", name: "1 семестр", owner: "Наталья Рогачева", date: "08.04.2020", semester: "1",
         content: [{type: "file", name: "1.docx", owner: "Наталья Рогачева", date: "08.04.2020", semester: "4"},

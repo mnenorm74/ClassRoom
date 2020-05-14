@@ -6,10 +6,10 @@ import '../cssDirectory/mainPage.css';
 
 function MainPage() {
     let isDown = false;
-    let elem;
+    let elem: HTMLElement;
 
-    function sliderMousedown(e) {
-        elem = document.querySelector('#scheduleModule')
+    function sliderMousedown() {
+        elem = document.querySelector('#scheduleModule') as HTMLElement
         isDown = true;
     }
 
@@ -17,7 +17,7 @@ function MainPage() {
         isDown = false;
     }
 
-    function sliderMousemove(e) {
+    function sliderMousemove(e: React.MouseEvent) {
         if (!isDown) return;
         e.preventDefault();
         elem.scrollLeft -= e.movementX
@@ -39,7 +39,7 @@ function MainPage() {
             </div>
             <div id="newsModule">
                 {News.map(news => (
-                    <NewsItem author={news.author} pubDate={news.pubDate} article={news.article} comments={news.comments}/>
+                    <NewsItem author={news.author} pubDate={news.pubDate} article={news.article} comments={news.comments!}/>
                 ))}
             </div>
         </>

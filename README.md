@@ -19,7 +19,7 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 ### Добавление страниц
 
 1. Создать компонент в `src/pages/`
-2. Добавить в `Page` в `src/pageProvider.js`
+2. Добавить в `Page` в `src/pageProvider.ts`
 
 
 

@@ -18,11 +18,11 @@ function StorageArchivePage() {
                     <p id="title">Архив</p>
                 </div>
                 <div id="rightHeaderPart">
-                    <button id="addToStorageButton"></button>
+                    <button id="addToStorageButton"/>
                 </div>
             </div>
             <div id="icons">
-                {StorageContentIcons(StorageElements)}
+                {StorageContentIcons(StorageElements!)}
             </div>
         </div>
     )

@@ -2,9 +2,9 @@ import React from 'react';
 import './storage.css'
 import ReactDOM from "react-dom";
 import Page from "../../pages/pageProvider";
-import StorageElements from "../Storage/storageDB"
+import {IStorageContentIconPaged} from "../../projectTypes";
 
-function storageItem({type, name, owner, date, content, pageElements}) {
+function storageItem({type, name, owner, date, content, pageElements}:IStorageContentIconPaged) {
     let iconType = type === "folder" ? "folderIcon" : "fileIcon";
     return (
         <div id="storageContainer">

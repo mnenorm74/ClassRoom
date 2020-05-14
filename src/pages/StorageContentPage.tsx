@@ -4,7 +4,7 @@ import '../cssDirectory/storagePage.css';
 import ReactDOM from "react-dom";
 import Page from "./pageProvider";
 
-function StorageContentPage(storageElements, pageElements) {
+function StorageContentPage(storageElements:any, pageElements?:any) {
     let content = (typeof storageElements != "undefined")
         ? (<div id="icons">
             {StorageContentIcons(storageElements)}

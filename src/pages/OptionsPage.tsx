@@ -11,18 +11,18 @@ function OptionsPage(){
         <div id="optionsContent">
             <div id="optionContainer">
                 <span className="optionHeader">E-mail</span>
-                <input id="optionInput" placeholder={userData.Email}></input>
+                <input id="optionInput" placeholder={userData.Email}/>
             </div>
             <div id="optionContainer">
                 <span className="optionHeader">Логин</span>
-                <input type="text" id="optionInput" placeholder={userData.Username}></input>
+                <input type="text" id="optionInput" placeholder={userData.Username}/>
             </div>
             <div id="passwordContainer">
                 <span className="optionHeader">Изменить пароль</span>
                 <div id="passwordFields">
-                    <input type="password" placeholder="Старый пароль" id="optionInput"></input>
-                    <input type="password" placeholder="Новый пароль" id="optionInput"></input>
-                    <input type="password" placeholder="Новый пароль" id="optionInput"></input>
+                    <input type="password" placeholder="Старый пароль" id="optionInput"/>
+                    <input type="password" placeholder="Новый пароль" id="optionInput"/>
+                    <input type="password" placeholder="Новый пароль" id="optionInput"/>
                 </div>
             </div>
             <div id="optionContainer">
