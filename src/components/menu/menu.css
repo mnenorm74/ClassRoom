@@ -1,5 +1,5 @@
 #menu{
-    background-color: #BA68C8;
+    background: linear-gradient(244deg, #DFB2F3 12%, #CBAEEB 37%, #241D8C 117%);
     padding-top: 3vh;
     display: inline-flex;
     flex-direction: column;
