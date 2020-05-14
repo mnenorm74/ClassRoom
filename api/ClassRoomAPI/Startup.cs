@@ -16,6 +16,9 @@ using MongoDB.Driver;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
+using AspNetCore.Identity.Mongo.Model;
+using AspNetCore.Identity.Mongo;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClassRoomAPI
 {
@@ -27,6 +30,24 @@ namespace ClassRoomAPI
             MongoClient client = new MongoClient(connectionString);
             IMongoDatabase database = client.GetDatabase("ClassRoomDB");
             services.AddSingleton(database);
+            services.AddIdentityMongoDbProvider<MongoUser>(identity =>
+            {
+                identity.Password.RequireDigit = false;
+                identity.Password.RequireLowercase = false;
+                identity.Password.RequireNonAlphanumeric = false;
+                identity.Password.RequireUppercase = false;
+                identity.Password.RequiredLength = 1;
+                identity.Password.RequiredUniqueChars = 0;
+            },
+                mongo =>
+                {
+                    mongo.ConnectionString = connectionString;
+                }
+            );
+
+            services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
+            services.AddSingleton<IAuthorizationHandler, HasClaimHandler>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -56,6 +77,9 @@ namespace ClassRoomAPI
             //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             //app.UseAuthorization();
 

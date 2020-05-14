@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using AspNetCore.Identity.Mongo.Model;
 using ClassRoomAPI.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 
@@ -14,11 +17,21 @@ namespace ClassRoomAPI.Controllers
     public class UsersController : Controller
     {
         private readonly IMongoCollection<User> usersCollection;
+        private readonly RoleManager<MongoRole> _roleManager;
+        private readonly UserManager<MongoUser> _userManager;
         private readonly IMongoCollection<Group> groupsCollection;
         public UsersController(IMongoDatabase db)
         {
             usersCollection = db.GetCollection<User>("users");
             groupsCollection = db.GetCollection<Group>("groups");
+        }
+
+        public async Task<ActionResult> Index(string id)
+        {
+            await _roleManager.CreateAsync(new MongoRole("Admin"));
+            var role = await _roleManager.FindByNameAsync("Admin");
+            await _roleManager.AddClaimAsync(role, new Claim("Permission", "ManageCourses"));
+            return View(_userManager.Users);
         }
 
         [HttpGet("current")]
