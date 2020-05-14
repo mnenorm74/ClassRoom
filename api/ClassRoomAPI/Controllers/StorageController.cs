@@ -37,7 +37,15 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Get(string path)
         {
-            var decodePath = Base64Decode(path).Trim();
+            var decodePath = "";
+            try
+            {
+                decodePath = Base64Decode(path).Trim();
+            }
+            catch (Exception e)
+            {
+                return UnprocessableEntity("Incorrect value of path: " + e.Message);
+            }
             var fileInf = new FileInfo(storageDirectory + decodePath);
             if (fileInf.Exists)
             {
@@ -48,24 +56,24 @@ namespace ClassRoomAPI.Controllers
             else if (Directory.Exists(storageDirectory + decodePath))
             {
                 var dirInfo = new DirectoryInfo(storageDirectory + decodePath);
-                var filePaths = new List<FilePath>();
-                var files = dirInfo.GetFiles();
-                var directories = dirInfo.GetDirectories();
+                //var filePaths = new List<FilePath>();
+                //var files = dirInfo.GetFiles();
+                //var directories = dirInfo.GetDirectories();
                 // или найти в базе все пути к файлам ??
                 var paths = filesCollection.Find(p => p.Path.StartsWith(decodePath) && !p.Path.Contains("/")).ToList();
-                foreach(var file in files)
-                {
-                    var splitPath = file.FullName.Split("storage\\");
-                    filePaths.Add(new FilePath() { Path = splitPath[1], CreateDate = file.CreationTime });
-                }
-                foreach (var dir in directories)
-                {
-                    var splitPath = dir.FullName.Split("storage\\");
-                    filePaths.Add(new FilePath() { Path = splitPath[1], CreateDate = dir.CreationTime });
-                }
+                //foreach(var file in files)
+                //{
+                //    var splitPath = file.FullName.Split("storage\\");
+                //    filePaths.Add(new FilePath() { Path = splitPath[1], CreateDate = file.CreationTime });
+                //}
+                //foreach (var dir in directories)
+                //{
+                //    var splitPath = dir.FullName.Split("storage\\");
+                //    filePaths.Add(new FilePath() { Path = splitPath[1], CreateDate = dir.CreationTime });
+                //}
                 return new ObjectResult(paths);
             }
-            return NotFound();
+            return NotFound("This directory or file was not found");
         }
 
 
@@ -73,6 +81,10 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Get(int count)
         {
+            if(count < 0)
+            {
+                return UnprocessableEntity("Incorrect value of count: " + count);
+            }
             var result = filesCollection.Find(p => p.IsFile == true)
                     .SortBy(n => n.CreateDate)
                     .Limit(count)
@@ -92,7 +104,15 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Post(string path, IFormFile file)
         {
-            var decodePath = Base64Decode(path);
+            var decodePath = "";
+            try
+            {
+                decodePath = Base64Decode(path).Trim();
+            }
+            catch (Exception e)
+            {
+                return UnprocessableEntity("Incorrect value of path: " + e.Message);
+            }
             var fileInf = new FileInfo(storageDirectory + decodePath);
             var dirInfo = new DirectoryInfo(storageDirectory + decodePath);
             if (file != null && Directory.Exists(fileInf.Directory.FullName))
@@ -110,15 +130,26 @@ namespace ClassRoomAPI.Controllers
                 filesCollection.InsertOne(newDir);
                 return Created("/storage/" + path, newDir);
             }
-            return BadRequest();
+            return BadRequest("This directory or file is invalid");
         }
 
         [HttpDelete("{path}")]
         [Produces("application/json")]
         public IActionResult Delete(string path)
         {
-            //проверка на удаление корня
-            var decodePath = Base64Decode(path);
+            var decodePath = "";
+            try
+            {
+                decodePath = Base64Decode(path).Trim();
+            }
+            catch (Exception e)
+            {
+                return UnprocessableEntity("Incorrect value of path: " + e.Message);
+            }
+            if(decodePath == "")
+            {
+                return BadRequest("Unable to delete root directory");
+            }
             var fileInf = new FileInfo(storageDirectory + decodePath);
             var dirInfo = new DirectoryInfo(storageDirectory + decodePath);
             if(fileInf.Exists)
@@ -133,7 +164,7 @@ namespace ClassRoomAPI.Controllers
                 dirInfo.Delete(true);
                 return NoContent();
             }
-            return NotFound();
+            return NotFound("This directory or file was not found");
         }
     }
 }

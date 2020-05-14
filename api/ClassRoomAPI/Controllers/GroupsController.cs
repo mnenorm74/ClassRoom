@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace ClassRoomAPI.Controllers
     [Route("[controller]")]
     public class GroupsController : Controller
     {
+        public static string storageDirectory = Directory.GetCurrentDirectory() + "\\..\\..\\storage\\";
+        public static string avatarsDirectory = Directory.GetCurrentDirectory() + "\\..\\..\\avatars\\";
         private readonly IMongoCollection<Group> groupsCollection;
         public GroupsController(IMongoDatabase db)
         {
@@ -37,6 +40,10 @@ namespace ClassRoomAPI.Controllers
             group.GroupId = Guid.NewGuid();
             group.Users = new List<Guid>();
             groupsCollection.InsertOne(group);
+            var storageDir = new DirectoryInfo(storageDirectory + group.GroupId);
+            var avatarsDir = new DirectoryInfo(avatarsDirectory + group.GroupId);
+            storageDir.Create();
+            avatarsDir.Create();
             return new ObjectResult(group);
         }
 
@@ -44,11 +51,16 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Delete(Guid id)
         {
-            var delete = groupsCollection.DeleteOne(g => g.GroupId == id);
-            if(delete.DeletedCount == 0)
+            var group = groupsCollection.Find(g => g.GroupId == id).FirstOrDefault();
+            if(group == null)
             {
                 return NotFound("Group with this id not found");
             }
+            groupsCollection.DeleteOne(g => g.GroupId == id);
+            var storageDir = new DirectoryInfo(storageDirectory + group.GroupId);
+            var avatarsDir = new DirectoryInfo(avatarsDirectory + group.GroupId);
+            storageDir.Delete();
+            avatarsDir.Delete();
             return NoContent();
         }
 
