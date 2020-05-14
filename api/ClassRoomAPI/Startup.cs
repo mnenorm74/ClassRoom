@@ -19,6 +19,7 @@ using System.IO;
 using AspNetCore.Identity.Mongo.Model;
 using AspNetCore.Identity.Mongo;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace ClassRoomAPI
 {
@@ -57,8 +58,14 @@ namespace ClassRoomAPI
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".ClassRoom.Session";
+                options.IdleTimeout = TimeSpan.FromSeconds(3600);
+                options.Cookie.IsEssential = true;
+            });
 
-            
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -75,6 +82,8 @@ namespace ClassRoomAPI
             });
 
             //app.UseHttpsRedirection();
+
+            app.UseSession();   // добавляем механизм работы с сессиями
 
             app.UseRouting();
 
