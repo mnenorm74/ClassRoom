@@ -5,12 +5,8 @@ using System.Text;
 
 namespace ClassRoomAPI.Models
 {
-    class AccountModel : MongoUser
+    public class AccountModel : MongoUser
     {
         public Guid userId { get; set; }
-        public AccountModel()
-        {
-
-        }
     }
 }

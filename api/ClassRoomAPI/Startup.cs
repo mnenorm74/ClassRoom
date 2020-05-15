@@ -42,7 +42,8 @@ namespace ClassRoomAPI
             },
                 mongo =>
                 {
-                    mongo.ConnectionString = connectionString;
+                    mongo.ConnectionString = "mongodb://localhost:27017/ClassRoomDB";
+                    mongo.UsersCollection = "usersAccounts";
                 }
             );
 
@@ -62,7 +63,7 @@ namespace ClassRoomAPI
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".ClassRoom.Session";
-                options.IdleTimeout = TimeSpan.FromSeconds(3600);
+                options.IdleTimeout = TimeSpan.FromSeconds(21600);
                 options.Cookie.IsEssential = true;
             });
 

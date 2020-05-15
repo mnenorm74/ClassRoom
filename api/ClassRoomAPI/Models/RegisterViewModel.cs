@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClassRoomAPI.Controllers
 {
@@ -23,5 +24,16 @@ namespace ClassRoomAPI.Controllers
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Surname { get; set; }
+        [Required]
+        public string Patronymic { get; set; }
+        public byte[] Avatar { get; set; } /*сделать дефолтную фотку*/
+
+        public Guid GroupId { get; set; }
+
     }
 }

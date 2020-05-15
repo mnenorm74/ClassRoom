@@ -19,42 +19,33 @@ namespace ClassRoomAPI.Controllers
     [Route("[controller]")]
     public class AccountController : Controller
     {
-        private readonly UserManager<AccountModel> _userManager;
+        private readonly UserManager<MongoUser> _userManager;
         private readonly IMongoCollection<User> usersCollection;
-        private readonly SignInManager<AccountModel> _signInManager;
-        //private readonly IEmailSender _emailSender;
-        private readonly ILogger _logger;
+        private readonly SignInManager<MongoUser> _signInManager;
 
         public AccountController(IMongoDatabase db,
-            UserManager<AccountModel> userManager,
-            SignInManager<AccountModel> signInManager,
-            //IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            UserManager<MongoUser> userManager,
+            SignInManager<MongoUser> signInManager)
         {
             usersCollection = db.GetCollection<User>("users");
             _userManager = userManager;
             _signInManager = signInManager;
-            //_emailSender = emailSender;
-            _logger = logger;
         }
 
         [TempData]
         public string ErrorMessage { get; set; }
 
-
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
         [HttpPost("login")]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public IActionResult Login([FromForm]LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false).Result;
+                var result = _signInManager.PasswordSignInAsync(model.Username, model.Password,
+                    model.RememberMe, lockoutOnFailure: false).Result;
                 if (result.Succeeded)
                 {
-                    //_logger.LogInformation("User logged in.");
                     HttpContext.Session.SetString("userId", usersCollection
                         .Find(a => a.Username == model.Username)
                         .FirstOrDefault()
@@ -64,52 +55,43 @@ namespace ClassRoomAPI.Controllers
                 }
                 else
                 {
-                    //ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return NoContent();
                 }
             }
-
-            // If we got this far, something failed, redisplay form
-            return NoContent();
+            return NotFound();
         }
 
         [HttpPost("register")]
-        //[AllowAnonymous]
-        // [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public IActionResult Register([FromForm]RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new AccountModel {userId = Guid.NewGuid(), UserName = model.Username, Email = model.Email };
+                var user = new MongoUser {UserName = model.Username, Email = model.Email };
                 var result = _userManager.CreateAsync(user, model.Password).Result;
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
-
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.EmailConfirmationLink(user.Id.ToString(), code, Request.Scheme);
-                    //await _emailSender.SendEmailAsync(model.Email, callbackUrl, "");
-
                     _signInManager.SignInAsync(user, isPersistent: false).Wait();
-                    HttpContext.Session.SetString("userId", user.userId.ToString());
-                    _logger.LogInformation("User created a new account with password.");
+                    HttpContext.Session.SetString("userId", usersCollection
+                        .Find(a => a.Username == model.Username)
+                        .FirstOrDefault()
+                        .Id
+                        .ToString());
                     return new ObjectResult(user);
                 }
-                //AddErrors(result);
             }
-
-            // If we got this far, something failed, redisplay form
             return NotFound();
         }
 
-        // [HttpPost("logout")]
-        // [ValidateAntiForgeryToken]
-        // public async Task<IActionResult> Logout()
-        // {
-        //     await _signInManager.SignOutAsync();
-        //     _logger.LogInformation("User logged out.");
-        //     return RedirectToAction(nameof(UsersController.Index), "User");
-        // }
+        [HttpPost("logout")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Logout()
+        {
+            _signInManager.SignOutAsync();
+            HttpContext.Session.Remove("userId");
+            return Ok();
+        }
 
         //[HttpPost("externallogin")]
         //[AllowAnonymous]
@@ -171,7 +153,7 @@ namespace ClassRoomAPI.Controllers
         //        {
         //            throw new ApplicationException("Error loading external login information during confirmation.");
         //        }
-        //        var user = new AccountModel { UserName = model.Email, Email = model.Email };
+        //        var user = new MongoUser { UserName = model.Email, Email = model.Email };
         //        var result = await _userManager.CreateAsync(user);
         //        if (result.Succeeded)
         //        {
