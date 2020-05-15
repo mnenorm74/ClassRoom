@@ -23,7 +23,7 @@ function Profile() {
                 <img className='optionsLogo' src={Logo.logOutLogo} alt="" onClick={() => {
                     ReactDOM.render(
                         Page.AuthorizationPage(),
-                        document.getElementById('pageContainer')
+                        document.getElementById('root')
                     );
                 }}/>
             </div>
