@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using AspNetCore.Identity.Mongo.Model;
 using ClassRoomAPI.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 
@@ -14,11 +18,26 @@ namespace ClassRoomAPI.Controllers
     public class UsersController : Controller
     {
         private readonly IMongoCollection<User> usersCollection;
+        private readonly RoleManager<MongoRole> _roleManager;
+        private readonly SignInManager<MongoUser> _signInManager;
+        private readonly UserManager<MongoUser> _userManager;
         private readonly IMongoCollection<Group> groupsCollection;
-        public UsersController(IMongoDatabase db)
+        public UsersController(IMongoDatabase db,
+            UserManager<MongoUser> userManager,
+            SignInManager<MongoUser> signInManager)
         {
             usersCollection = db.GetCollection<User>("users");
             groupsCollection = db.GetCollection<Group>("groups");
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+
+        public async Task<ActionResult> Index(string id)
+        {
+            await _roleManager.CreateAsync(new MongoRole("Admin"));
+            var role = await _roleManager.FindByNameAsync("Admin");
+            await _roleManager.AddClaimAsync(role, new Claim("Permission", "ManageCourses"));
+            return View(_userManager.Users);
         }
 
         [HttpGet("current")]
@@ -61,7 +80,7 @@ namespace ClassRoomAPI.Controllers
         /// </remarks>
         [HttpPost]
         [Produces("application/json")]
-        public IActionResult Post([FromBody] User value)
+        public IActionResult Post([FromForm]RegisterViewModel model)
         {
             var user = new User(value);
             user.Id = Guid.NewGuid();
@@ -72,6 +91,36 @@ namespace ClassRoomAPI.Controllers
                 return NotFound("Group with this id not found");
             }
             usersCollection.InsertOne(user);
+            var user = new User
+            {
+                GroupId = Guid.NewGuid(),
+                Name = model.Name,
+                Surname = model.Surname,
+                Avatar = model.Avatar != null ? model.Avatar : new byte[] { },
+                Username = model.Username,
+                Patronymic = model.Patronymic,
+                Email = model.Email,
+                Id = Guid.NewGuid()
+            };
+            usersCollection.InsertOne(user);
+            var update = Builders<Group>.Update.Push(g => g.Users, user.Id);
+            groupsCollection.UpdateOne(g => g.GroupId == user.GroupId, update);
+            if (ModelState.IsValid)
+            {
+                var userAccount = new MongoUser { UserName = model.Username, Email = model.Email };
+                var result = _userManager.CreateAsync(userAccount, model.Password).Result;
+                if (result.Succeeded)
+                {
+                    _signInManager.SignInAsync(userAccount, isPersistent: false).Wait();
+                    HttpContext.Session.SetString("userId", usersCollection
+                        .Find(a => a.Username == model.Username)
+                        .FirstOrDefault()
+                        .Id
+                        .ToString());
+                    //return new ObjectResult(user);
+                }
+                //AddErrors(result);
+            }
             return new ObjectResult(user);
         }
 

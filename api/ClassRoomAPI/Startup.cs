@@ -16,6 +16,10 @@ using MongoDB.Driver;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
+using AspNetCore.Identity.Mongo.Model;
+using AspNetCore.Identity.Mongo;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace ClassRoomAPI
 {
@@ -27,6 +31,25 @@ namespace ClassRoomAPI
             MongoClient client = new MongoClient(connectionString);
             IMongoDatabase database = client.GetDatabase("ClassRoomDB");
             services.AddSingleton(database);
+            services.AddIdentityMongoDbProvider<MongoUser>(identity =>
+            {
+                identity.Password.RequireDigit = false;
+                identity.Password.RequireLowercase = false;
+                identity.Password.RequireNonAlphanumeric = false;
+                identity.Password.RequireUppercase = false;
+                identity.Password.RequiredLength = 1;
+                identity.Password.RequiredUniqueChars = 0;
+            },
+                mongo =>
+                {
+                    mongo.ConnectionString = "mongodb://localhost:27017/ClassRoomDB";
+                    mongo.UsersCollection = "usersAccounts";
+                }
+            );
+
+            services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
+            services.AddSingleton<IAuthorizationHandler, HasClaimHandler>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -36,8 +59,14 @@ namespace ClassRoomAPI
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".ClassRoom.Session";
+                options.IdleTimeout = TimeSpan.FromSeconds(21600);
+                options.Cookie.IsEssential = true;
+            });
 
-            
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -55,7 +84,12 @@ namespace ClassRoomAPI
 
             //app.UseHttpsRedirection();
 
+            app.UseSession();   // добавляем механизм работы с сессиями
+
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             //app.UseAuthorization();
 
