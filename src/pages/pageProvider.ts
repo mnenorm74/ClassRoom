@@ -8,6 +8,8 @@ import GroupListPage from "./GroupListPage";
 import OptionsPage from "./OptionsPage";
 import AuthorizationPage from "./AuthorizationPage";
 import StorageContentPage from "./StorageContentPage";
+import UserAuthorizationPage from "./UserAuthorizationPage";
+import GroupAuthorizationPage from "./GroupAuthorizationPage";
 
 const Page = {
     MainPage,
@@ -19,7 +21,9 @@ const Page = {
     StorageContentPage,
     GroupListPage,
     OptionsPage,
-    AuthorizationPage
+    AuthorizationPage,
+    UserAuthorizationPage,
+    GroupAuthorizationPage
 };
 
 export default Page

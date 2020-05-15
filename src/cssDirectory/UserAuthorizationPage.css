@@ -1,0 +1,45 @@
+#userAuthorization{
+    width: 100%;
+    height: 100%;
+    background-color: #AA7FDF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#userAuthorizationWindow{
+    width: 35%;
+    height: 80%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#userAuthorizationWindowHeader{
+    margin-top: 5%;
+    font-size: 150%;
+    margin-bottom: 2%;
+}
+
+.userAuthorizationField{
+    width: 70%;
+    height: 5%;
+    margin-top: 3%;
+}
+
+#registerUserButton{
+    width: 70%;
+    margin-top: 5%;
+    height: 7%;
+    background-color: #746BDE;
+    color: white;
+}
+
+#toGroupAuthorizationForm{
+    background-image: url("../icons/Back.svg");
+    width: 4vh;
+    height: 4vh;
+    border-radius: 50%;
+    align-self: flex-start;
+}
