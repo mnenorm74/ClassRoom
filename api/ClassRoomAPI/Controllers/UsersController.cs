@@ -32,14 +32,6 @@ namespace ClassRoomAPI.Controllers
             _signInManager = signInManager;
         }
 
-        public async Task<ActionResult> Index(string id)
-        {
-            await _roleManager.CreateAsync(new MongoRole("Admin"));
-            var role = await _roleManager.FindByNameAsync("Admin");
-            await _roleManager.AddClaimAsync(role, new Claim("Permission", "ManageCourses"));
-            return View(_userManager.Users);
-        }
-
         [HttpGet("current")]
         public IActionResult GetCurrent([FromHeader] Guid MyHeader)
         {
@@ -82,18 +74,9 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Post([FromForm]RegisterViewModel model)
         {
-            var user = new User(value);
-            user.Id = Guid.NewGuid();
-            var update = Builders<Group>.Update.Push(g => g.Users, user.Id);
-            var updateRes = groupsCollection.UpdateOne(g => g.GroupId == user.GroupId, update);
-            if (updateRes.MatchedCount == 0)
-            {
-                return NotFound("Group with this id not found");
-            }
-            usersCollection.InsertOne(user);
             var user = new User
             {
-                GroupId = Guid.NewGuid(),
+                GroupId = model.GroupId,
                 Name = model.Name,
                 Surname = model.Surname,
                 Avatar = model.Avatar != null ? model.Avatar : new byte[] { },
@@ -102,9 +85,14 @@ namespace ClassRoomAPI.Controllers
                 Email = model.Email,
                 Id = Guid.NewGuid()
             };
-            usersCollection.InsertOne(user);
             var update = Builders<Group>.Update.Push(g => g.Users, user.Id);
-            groupsCollection.UpdateOne(g => g.GroupId == user.GroupId, update);
+            var updateRes = groupsCollection.UpdateOne(g => g.GroupId == user.GroupId, update);
+            if (updateRes.MatchedCount == 0)
+            {
+                return NotFound("Group with this id not found");
+            }
+            usersCollection.InsertOne(user);
+
             if (ModelState.IsValid)
             {
                 var userAccount = new MongoUser { UserName = model.Username, Email = model.Email };
