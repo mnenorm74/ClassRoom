@@ -3,8 +3,9 @@ import "../cssDirectory/AuthorizationPage.css"
 import ReactDOM from "react-dom";
 import Page from "./pageProvider";
 
-function AuthorizationPage() {
-    return (
+
+function AuthorizationPage(){
+    return(
         <div id="authorizationPage">
             <div id="authorizationWindow">
                 <span id="authorizationWindowHeader">ВХОД</span>
