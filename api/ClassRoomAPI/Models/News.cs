@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClassRoomAPI.EnteringModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,6 +17,12 @@ namespace ClassRoomAPI.Models
             Date = news.Date;
             AuthorId = news.AuthorId;
             Comments = new List<Guid>(news.Comments);
+        }
+        public News(NewsDTO news)
+        {
+            Title = news.Title;
+            Content = news.Content;
+            Date = news.Date;
         }
         public News()
         {

@@ -7,6 +7,7 @@ using ClassRoomAPI.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Microsoft.AspNetCore.Http;
+using ClassRoomAPI.EnteringModels;
 
 namespace ClassRoomAPI.Controllers
 {
@@ -53,9 +54,12 @@ namespace ClassRoomAPI.Controllers
         /// </remarks>
         [HttpPost]
         [Produces("application/json")]
-        public IActionResult Post([FromBody] News value, [FromHeader] Guid Authorization)
+        public IActionResult Post([FromBody] NewsDTO value)
         {
             var news = new News(value);
+            news.Id = Guid.NewGuid();
+            news.AuthorId = Guid.Parse(HttpContext.Session.GetString("userId"));
+            news.Comments = new List<Guid>();
             newsCollection.InsertOne(news);
             return Created("/schedules", news);
         }
@@ -73,8 +77,13 @@ namespace ClassRoomAPI.Controllers
         /// </remarks>
         [HttpPatch("{id}")]
         [Produces("application/json")]
-        public IActionResult Patch(Guid id, [FromBody] News value, [FromHeader] Guid Authorization)
+        public IActionResult Patch(Guid id, [FromBody] NewsDTO value)
         {
+            var session = HttpContext.Session.GetString("userId");
+            if (session == null || Guid.Parse(session) != newsCollection.Find(n => n.Id == id).FirstOrDefault().AuthorId)
+            {
+                return StatusCode(403);
+            }
             var arr = new List<UpdateDefinition<News>>();
             var update = Builders<News>.Update;
             if (value.Title != null)
@@ -102,6 +111,10 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Delete(Guid id)
         {
+            if (Guid.Parse(HttpContext.Session.GetString("userId")) != newsCollection.Find(n => n.Id == id).FirstOrDefault().AuthorId)
+            {
+                return Forbid();
+            }
             var delete = newsCollection.DeleteOne(n => n.Id == id);
             if (delete.DeletedCount == 0)
             {
@@ -122,12 +135,12 @@ namespace ClassRoomAPI.Controllers
         /// </remarks>
         [HttpPost("{id}/comments")]
         [Produces("application/json")]
-        public IActionResult Post(Guid id, [FromBody] Comment value, [FromHeader] Guid MyHeader)
+        public IActionResult Post(Guid id, [FromBody] CommentDTO value)
         {
             var comment = new Comment(value);
             comment.Id = Guid.NewGuid();
-            comment.AuthorId = MyHeader;  //возможно иначе?
-            
+            comment.AuthorId = Guid.Parse(HttpContext.Session.GetString("userId"));
+
             var update = Builders<News>.Update.Push(n=>n.Comments, comment.Id);
             var updateRes = newsCollection.UpdateOne(n => n.Id == id, update);
             if(updateRes.MatchedCount == 0)
@@ -150,8 +163,12 @@ namespace ClassRoomAPI.Controllers
         /// </remarks>
         [HttpPut("{id}/comments/{CommId}")]
         [Produces("application/json")]
-        public IActionResult Put(Guid id, Guid CommId, [FromBody] Comment value, [FromHeader] Guid Authorization)
+        public IActionResult Put(Guid id, Guid CommId, [FromBody] CommentDTO value)
         {
+            if (Guid.Parse(HttpContext.Session.GetString("userId")) != commentsCollection.Find(n => n.Id == CommId).FirstOrDefault().AuthorId)
+            {
+                return Forbid();
+            }
             var update = Builders<Comment>.Update.Set(c => c.Content, value.Content).Set(c => c.Date, value.Date);
             var updateRes = commentsCollection.UpdateOne(c => c.Id == CommId, update);
             if(updateRes.MatchedCount == 0)
@@ -166,6 +183,10 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Delete(Guid id, Guid CommId)
         {
+            if (Guid.Parse(HttpContext.Session.GetString("userId")) != commentsCollection.Find(n => n.Id == CommId).FirstOrDefault().AuthorId)
+            {
+                return Forbid();
+            }
             var deleteRes = commentsCollection.DeleteOne(c => c.Id == CommId);
             var update = Builders<News>.Update.Pull(n => n.Comments, CommId);
             var updateRes = newsCollection.UpdateOne(n => n.Id == id, update);

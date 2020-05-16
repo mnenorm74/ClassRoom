@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using ClassRoomAPI.EnteringModels;
 using ClassRoomAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
@@ -93,8 +94,12 @@ namespace ClassRoomAPI.Controllers
         /// </remarks>
         [HttpPost]
         [Produces("application/json")]
-        public IActionResult Post([FromBody] Lesson value)
+        public IActionResult Post([FromBody] LessonDTOPost value)
         {
+            if (false /*Guid.Parse(HttpContext.Session.GetString("userId")) != староста*/)
+            {
+                return Forbid();
+            }
             var lesson = new Lesson(value);
             lesson.Id = Guid.NewGuid();
             //if (schedulesCollection.CountDocuments(e => e.Date == lesson.CreateDate) == 0)
@@ -180,8 +185,12 @@ namespace ClassRoomAPI.Controllers
         /// </remarks>
         [HttpPatch("{date}/{id}")]
         [Produces("application/json")]
-        public IActionResult Patch(string date, Guid id, bool all, [FromBody] Lesson value)
+        public IActionResult Patch(string date, Guid id, bool all, [FromBody] LessonDTOPatch value)
         {
+            if (false /*Guid.Parse(HttpContext.Session.GetString("userId")) != староста*/)
+            {
+                return Forbid();
+            }
             var parseDate = new List<int>();
             //var dateTime = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
             var dateTime = new DateTime();
@@ -225,6 +234,10 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Delete(Guid id, string date, bool all)
         {
+            if (false /*Guid.Parse(HttpContext.Session.GetString("userId")) != староста*/)
+            {
+                return Forbid();
+            }
             var parseDate = new List<int>();
             //var dateTime = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
             var dateTime = new DateTime();

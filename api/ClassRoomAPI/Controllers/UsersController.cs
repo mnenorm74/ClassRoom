@@ -5,6 +5,7 @@ using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AspNetCore.Identity.Mongo.Model;
+using ClassRoomAPI.EnteringModels;
 using ClassRoomAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -33,9 +34,9 @@ namespace ClassRoomAPI.Controllers
         }
 
         [HttpGet("current")]
-        public IActionResult GetCurrent([FromHeader] Guid MyHeader)
+        public IActionResult GetCurrent()
         {
-            var user = usersCollection.Find(a => a.Id == MyHeader).FirstOrDefault();
+            var user = usersCollection.Find(a => a.Id == Guid.Parse(HttpContext.Session.GetString("userId"))).FirstOrDefault();
             if (user == null)
             {
                 return NotFound("User with this id not found");
@@ -45,9 +46,9 @@ namespace ClassRoomAPI.Controllers
 
         [HttpGet]
         [Produces("application/json")]
-        public IActionResult Get([FromHeader] Guid MyHeader)
+        public IActionResult Get()
         {
-            var currUser = usersCollection.Find(a => a.Id == MyHeader).FirstOrDefault();
+            var currUser = usersCollection.Find(a => a.Id == Guid.Parse(HttpContext.Session.GetString("userId"))).FirstOrDefault();
             if (currUser == null)
             {
                 return NotFound("User with this id not found");
@@ -76,7 +77,7 @@ namespace ClassRoomAPI.Controllers
         {
             var user = new User
             {
-                GroupId = model.GroupId,
+                GroupId = model.GroupId, //???
                 Name = model.Name,
                 Surname = model.Surname,
                 Avatar = model.Avatar != null ? model.Avatar : new byte[] { },
@@ -127,8 +128,12 @@ namespace ClassRoomAPI.Controllers
         /// </remarks>
         [HttpPatch("{id}")]
         [Produces("application/json")]
-        public IActionResult Patch(Guid id, [FromBody] User value)
+        public IActionResult Patch(Guid id, [FromBody] UserDTO value)
         {
+            if (Guid.Parse(HttpContext.Session.GetString("userId")) != id)
+            {
+                return Forbid();
+            }
             var arr = new List<UpdateDefinition<User>>();
             var update = Builders<User>.Update;
             if (value.Avatar != null)
@@ -172,6 +177,10 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Delete(Guid id)
         {
+            if (Guid.Parse(HttpContext.Session.GetString("userId")) != id)
+            {
+                return Forbid();
+            }
             var user = usersCollection.Find(u => u.Id == id).FirstOrDefault();
             if (user == null)
             {

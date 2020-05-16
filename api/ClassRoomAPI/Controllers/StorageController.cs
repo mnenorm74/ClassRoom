@@ -17,9 +17,11 @@ namespace ClassRoomAPI.Controllers
     {
         public static string storageDirectory = Directory.GetCurrentDirectory() + "\\..\\..\\storage\\";
         private readonly IMongoCollection<FilePath> filesCollection;
+        private readonly IMongoCollection<Models.Group> groupsCollection;
         public StorageController(IMongoDatabase db)
         {
             filesCollection = db.GetCollection<FilePath>("files");
+            groupsCollection = db.GetCollection<Models.Group>("groups");
         }
 
         public static string Base64Encode(string plainText)
@@ -38,24 +40,31 @@ namespace ClassRoomAPI.Controllers
         public IActionResult Get(string path)
         {
             var decodePath = "";
+            var currUser = Guid.Parse(HttpContext.Session.GetString("userId"));
+            var currGroup = groupsCollection.Find(g => g.Users.Contains(currUser)).FirstOrDefault();
+            var newPath = "";
+            FileInfo fileInf;
             try
             {
                 decodePath = Base64Decode(path).Trim();
+                newPath = storageDirectory + currGroup.GroupId + "\\" + decodePath;
+                fileInf = new FileInfo(newPath);
             }
             catch (Exception e)
             {
                 return UnprocessableEntity("Incorrect value of path: " + e.Message);
             }
-            var fileInf = new FileInfo(storageDirectory + decodePath);
+            
+            
             if (fileInf.Exists)
             {
                 var bytesFile = System.IO.File.ReadAllBytes(fileInf.FullName);
                 var fileType = "application/" + fileInf.Extension;
                 return File(bytesFile, fileType, fileInf.Name);
             }
-            else if (Directory.Exists(storageDirectory + decodePath))
+            else if (Directory.Exists(newPath))
             {
-                var dirInfo = new DirectoryInfo(storageDirectory + decodePath);
+                var dirInfo = new DirectoryInfo(newPath);
                 //var filePaths = new List<FilePath>();
                 //var files = dirInfo.GetFiles();
                 //var directories = dirInfo.GetDirectories();
@@ -105,28 +114,39 @@ namespace ClassRoomAPI.Controllers
         public IActionResult Post(string path, IFormFile file)
         {
             var decodePath = "";
+            var currUser = Guid.Parse(HttpContext.Session.GetString("userId"));
+            var currGroup = groupsCollection.Find(g => g.Users.Contains(currUser)).FirstOrDefault();
+            var newPath = "";
+            FileInfo fileInf;
+            DirectoryInfo dirInfo;
             try
             {
                 decodePath = Base64Decode(path).Trim();
+                newPath = storageDirectory + currGroup.GroupId + "\\" + decodePath;
+                fileInf = new FileInfo(newPath);
+                dirInfo = new DirectoryInfo(newPath);
             }
             catch (Exception e)
             {
                 return UnprocessableEntity("Incorrect value of path: " + e.Message);
             }
-            var fileInf = new FileInfo(storageDirectory + decodePath);
-            var dirInfo = new DirectoryInfo(storageDirectory + decodePath);
+            if(fileInf.Exists || (dirInfo.Exists && file == null))
+            {
+                return UnprocessableEntity("An object with this name already exists");
+            }
+            
             if (file != null && Directory.Exists(fileInf.Directory.FullName))
             {
-                var fileS = new FileStream(storageDirectory + decodePath, FileMode.Create);
+                var fileS = new FileStream(newPath, FileMode.Create);
                 file.CopyTo(fileS);
-                var newFile = new FilePath() { Path = decodePath, IsFile = true, CreateDate = DateTime.Now };
+                var newFile = new FilePath() { Path = currGroup.GroupId + "\\" + decodePath, IsFile = true, CreateDate = DateTime.Now };
                 filesCollection.InsertOne(newFile);
                 return Created("/storage/"+path, newFile);
             }
             else if(Directory.Exists(dirInfo.Parent.FullName))
             {
                 dirInfo.Create();
-                var newDir = new FilePath() { Path = decodePath, IsFile = false, CreateDate = DateTime.Now };
+                var newDir = new FilePath() { Path = currGroup.GroupId + "\\" + decodePath, IsFile = false, CreateDate = DateTime.Now };
                 filesCollection.InsertOne(newDir);
                 return Created("/storage/" + path, newDir);
             }
@@ -137,6 +157,10 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Delete(string path)
         {
+            if (false /*Guid.Parse(HttpContext.Session.GetString("userId")) != староста*/)
+            {
+                return Forbid();
+            }
             var decodePath = "";
             try
             {

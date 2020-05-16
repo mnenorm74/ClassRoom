@@ -36,8 +36,8 @@ namespace ClassRoomAPI.Controllers
         public string ErrorMessage { get; set; }
 
         [HttpPost("login")]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
         public IActionResult Login([FromForm]LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -55,40 +55,40 @@ namespace ClassRoomAPI.Controllers
                 }
                 else
                 {
-                    return NoContent();
+                    return Unauthorized();
                 }
             }
             return NotFound();
         }
 
-        [HttpPost("register")]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public IActionResult Register([FromForm]RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new MongoUser {UserName = model.Username, Email = model.Email };
-                var result = _userManager.CreateAsync(user, model.Password).Result;
-                if (result.Succeeded)
-                {
-                    _signInManager.SignInAsync(user, isPersistent: false).Wait();
-                    HttpContext.Session.SetString("userId", usersCollection
-                        .Find(a => a.Username == model.Username)
-                        .FirstOrDefault()
-                        .Id
-                        .ToString());
-                    return new ObjectResult(user);
-                }
-            }
-            return NotFound();
-        }
+        //[HttpPost("register")]
+        ////[AllowAnonymous]
+        ////[ValidateAntiForgeryToken]
+        //public IActionResult Register([FromForm]RegisterViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var user = new MongoUser {UserName = model.Username, Email = model.Email };
+        //        var result = _userManager.CreateAsync(user, model.Password).Result;
+        //        if (result.Succeeded)
+        //        {
+        //            _signInManager.SignInAsync(user, isPersistent: false).Wait();
+        //            HttpContext.Session.SetString("userId", usersCollection
+        //                .Find(a => a.Username == model.Username)
+        //                .FirstOrDefault()
+        //                .Id
+        //                .ToString());
+        //            return new ObjectResult(user);
+        //        }
+        //    }
+        //    return NotFound();
+        //}
 
         [HttpPost("logout")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public IActionResult Logout()
         {
-            _signInManager.SignOutAsync();
+            var a = _signInManager.SignOutAsync();
             HttpContext.Session.Remove("userId");
             return Ok();
         }

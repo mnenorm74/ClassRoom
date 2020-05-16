@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClassRoomAPI.EnteringModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,6 +11,17 @@ namespace ClassRoomAPI.Models
         public Lesson(Lesson lesson)
         {
             Id = lesson.Id;
+            CreateDate = lesson.CreateDate;
+            StartTime = lesson.StartTime;
+            EndTime = lesson.EndTime;
+            Title = lesson.Title;
+            Audience = lesson.Audience;
+            Teacher = lesson.Teacher;
+            Type = lesson.Type;
+            RepeatCount = lesson.RepeatCount;
+        }
+        public Lesson(LessonDTOPost lesson)
+        {
             CreateDate = lesson.CreateDate;
             StartTime = lesson.StartTime;
             EndTime = lesson.EndTime;
@@ -33,7 +45,7 @@ namespace ClassRoomAPI.Models
         public int RepeatCount { get; set; } = 1;
         public string Type { get; set; }
 
-        public void Update(Lesson lesson)
+        public void Update(LessonDTOPatch lesson)
         {
             if (lesson.StartTime != StartTime && lesson.StartTime != null)
             {
