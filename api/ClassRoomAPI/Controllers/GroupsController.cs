@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using ClassRoomAPI.EnteringModels;
 using ClassRoomAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
@@ -34,7 +35,7 @@ namespace ClassRoomAPI.Controllers
         /// </remarks>
         [HttpPost]
         [Produces("application/json")]
-        public IActionResult Post([FromBody] Group value)
+        public IActionResult Post([FromBody] GroupDTO value)
         {
             var group = new Group(value);
             group.GroupId = Guid.NewGuid();
@@ -45,6 +46,39 @@ namespace ClassRoomAPI.Controllers
             storageDir.Create();
             avatarsDir.Create();
             return new ObjectResult(group);
+        }
+
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PATCH /groups
+        ///     {
+        ///        "groupLeaderId": "guid",
+        ///        "groupName": "string"
+        ///     }
+        ///
+        /// </remarks>
+        [HttpPatch("{id}")]
+        [Produces("application/json")]
+        public IActionResult Patch(Guid id, [FromBody] GroupDTO value)
+        {
+            var arr = new List<UpdateDefinition<Group>>();
+            var update = Builders<Group>.Update;
+            if (value.GroupLeaderId != Guid.Empty)
+            {
+                arr.Add(update.Set(n => n.GroupLeaderId, value.GroupLeaderId));
+            }
+            if (value.GroupName != null)
+            {
+                arr.Add(update.Set(n => n.GroupName, value.GroupName));
+            }
+            var updateResult = groupsCollection.UpdateOne(n => n.GroupId == id, update.Combine(arr));
+            if (updateResult.MatchedCount == 0)
+            {
+                return NotFound("Group with this id not found");
+            }
+
+            return new ObjectResult(groupsCollection.Find(n => n.GroupId == id).FirstOrDefault());
         }
 
         [HttpDelete("{id}")]

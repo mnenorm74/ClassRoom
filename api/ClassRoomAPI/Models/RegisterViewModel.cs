@@ -29,10 +29,9 @@ namespace ClassRoomAPI.Controllers
         public string Name { get; set; }
         [Required]
         public string Surname { get; set; }
-        [Required]
         public string Patronymic { get; set; }
         public byte[] Avatar { get; set; } /*сделать дефолтную фотку*/
-
+        [Required]
         public Guid GroupId { get; set; }
 
     }

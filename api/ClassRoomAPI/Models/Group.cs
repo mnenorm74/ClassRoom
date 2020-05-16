@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using ClassRoomAPI.EnteringModels;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,12 +9,12 @@ namespace ClassRoomAPI.Models
 {
     public class Group
     {
-        public Group(Group group)
+        public Group(GroupDTO group)
         {
-            GroupId = group.GroupId;
+            //GroupId = group.GroupId;
             GroupLeaderId = group.GroupLeaderId;
             GroupName = group.GroupName;
-            Users = group.Users;
+            //Users = group.Users;
         }
         public Group()
         {

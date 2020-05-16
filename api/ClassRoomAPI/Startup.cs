@@ -20,6 +20,8 @@ using AspNetCore.Identity.Mongo.Model;
 using AspNetCore.Identity.Mongo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using AutoMapper;
+using ClassRoomAPI.Models;
 
 namespace ClassRoomAPI
 {
@@ -67,6 +69,18 @@ namespace ClassRoomAPI
                 options.Cookie.IsEssential = true;
             });
 
+            services.AddAutoMapper(cfg =>
+            {
+                //cfg.CreateMap<UserEntity, UserDto>()
+                //    .ForMember(dest => dest.FullName, opt => opt.MapFrom(src =>
+                //        $"{src.LastName} {src.FirstName}"));
+
+                //cfg.CreateMap<User, User>("EE");
+                //cfg.CreateMap<UserToUpdateDto, UserEntity>();
+                //cfg.CreateMap<UserToCreateDto, UserEntity>();
+                //cfg.CreateMap<GameEntity, GameDto>();
+                //cfg.CreateMap<Player, PlayerDto>();
+            }, new System.Reflection.Assembly[0]);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
