@@ -11,13 +11,15 @@
     background-image: url("../icons/Back.svg");
     width: 4vh;
     height: 4vh;
+    margin-top: 2%;
+    margin-left: 2%;
     border-radius: 50%;
     align-self: flex-start;
 }
 
 #groupAuthorizationForm{
-    width: 35%;
-    height: 40%;
+    width: 25%;
+    height: 50%;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -25,19 +27,18 @@
 }
 
 .groupAuthorizationInput{
-    width: 70%;
+    margin-top: 7%;
+    width: 80%;
     height: 8%;
-    margin-top: 3%;
 }
 
 #groupAuthorizationHeader{
     font-size: 150%;
-    margin-top: 1%;
 }
 
 #toUserRegistration{
-    width: 70%;
-    margin-top: 3%;
+    width: 80%;
+    margin-top: 7%;
     height: 12%;
     background-color: #746BDE;
     color: white;

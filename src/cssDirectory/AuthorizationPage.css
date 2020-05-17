@@ -9,7 +9,7 @@
 
 #authorizationWindow{
     background-color: white;
-    width: 35%;
+    width: 25%;
     height: 45%;
     display: flex;
     flex-direction: column;
@@ -17,21 +17,21 @@
 }
 
 #loginInput{
-    margin-top: 5%;
-    width: 70%;
+    margin-top: 7%;
+    width: 80%;
     height: 8%;
 }
 
 #passwordInput{
-    margin-top: 5%;
-    margin-bottom: 5%;
-    width: 70%;
+    margin-top: 7%;
+    margin-bottom: 7%;
+    width: 80%;
     height: 8%;
 }
 
 #authorizationButton{
-    width: 70%;
-    margin-bottom: 5%;
+    width: 80%;
+    margin-bottom: 7%;
     height: 12%;
     background-color: #746BDE;
     color: white;

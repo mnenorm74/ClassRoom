@@ -8,8 +8,8 @@
 }
 
 #userAuthorizationWindow{
-    width: 35%;
-    height: 80%;
+    width: 25%;
+    height: 85%;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -17,20 +17,18 @@
 }
 
 #userAuthorizationWindowHeader{
-    margin-top: 5%;
     font-size: 150%;
-    margin-bottom: 2%;
 }
 
 .userAuthorizationField{
-    width: 70%;
+    width: 80%;
     height: 5%;
-    margin-top: 3%;
+    margin-top: 7%;
 }
 
 #registerUserButton{
-    width: 70%;
-    margin-top: 5%;
+    width: 80%;
+    margin-top: 7%;
     height: 7%;
     background-color: #746BDE;
     color: white;
@@ -42,4 +40,6 @@
     height: 4vh;
     border-radius: 50%;
     align-self: flex-start;
+    margin-top: 2%;
+    margin-left: 2%;
 }
