@@ -22,7 +22,7 @@ function NewsItem({author, pubDate, article, comments}: { author: string, pubDat
             {newsComments}
             <div id="commentsAdding">
                 <div id="commentOwnerPhoto"/>
-                <input id="commentAddingField" placeholder="Добавить комментарий"/>
+                <input id="commentField"></input>
                 <button id="commentSendButton"/>
             </div>
         </div>

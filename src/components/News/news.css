@@ -46,16 +46,16 @@
     background-color: #CBAEEB;
 }
 
-#commentAddingField{
-    flex-basis: 85%;
-    margin-left: 2vh;
-    margin-right: 2vh;
-    height: 7vh;
-}
-
 #commentSendButton{
     width: 5vh;
     height: 5vh;
     border-radius: 50%;
     background-image: url("../../icons/Send.svg");
+}
+
+#commentField{
+    margin-left: 2vw;
+    margin-right: 2vw;
+    height: 7vh;
+    width: 85%;
 }
