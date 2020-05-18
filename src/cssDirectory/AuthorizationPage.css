@@ -35,10 +35,13 @@
     height: 12%;
     background-color: #746BDE;
     color: white;
+    cursor: pointer;
 }
 
 #registrationLink{
     margin-bottom: 2%;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 #authorizationWindowHeader{

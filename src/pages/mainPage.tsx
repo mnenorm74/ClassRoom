@@ -10,11 +10,13 @@ function MainPage() {
 
     function sliderMousedown() {
         elem = document.querySelector('#scheduleModule') as HTMLElement
+        elem.style.cursor = "grabbing";
         isDown = true;
     }
 
     function sliderMouseup() {
         isDown = false;
+        elem.style.cursor = "grab";
     }
 
     function sliderMousemove(e: React.MouseEvent) {

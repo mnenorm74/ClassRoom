@@ -1,9 +1,10 @@
 .newsContainer {
     display: flex;
     flex-direction: column;
-    border: solid 1px #979797;
+    background: rgba(247, 247, 255, 0.88);
+    border-radius: 27px;
     margin-bottom: 5vh;
-    padding: 0 1vh 1vh;
+    padding: 1vh;
 }
 
 .info {

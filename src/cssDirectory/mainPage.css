@@ -3,10 +3,10 @@
     max-width: max-content;
     flex-direction: row;
     overflow-x: hidden;
-    background: #F6F6FB;
     width: auto;
     margin: 1vh 1vw;
     height: 27vh;
+    cursor: grab;
 }
 
 #newsModule {

@@ -8,8 +8,11 @@
 
 .lesson{
     display: flex;
-    /*margin-bottom: 1vh;*/
     font-size: 0.8rem;
+    margin-bottom: 0.5vh;
+}
+.lesson>span{
+    white-space: nowrap;
 }
 
 .lecture{
