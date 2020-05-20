@@ -1,0 +1,27 @@
+#dayContainer {
+    padding: 0 1vw;
+    margin: 0.2vw;
+    background: #F8F8FF;
+    box-shadow: 0 0.2vw 0.2vw rgba(0, 0, 0, 0.25);
+    width: 10%;
+    flex: none;
+}
+
+#dayContainer * {
+    /* Для эксплорера */
+    -ms-user-select: none;
+
+    /* Для мозилы */
+    -moz-user-select: none;
+
+    /* Для конкверора */
+    -khtml-user-select: none;
+
+    /* Для Сафари и Хрома */
+    -webkit-user-select: none;
+}
+
+#dayContainer > p{
+    margin: 1vh;
+    font-style: italic;
+}

@@ -1,0 +1,17 @@
+#fullDayContainer{
+    display: flex;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.lessonFullInfo{
+    margin: 0;
+}
+
+#time{
+    font-size: 1.5rem;
+}
+
+.fullLessonContainer{
+    margin-left: 2vw;
+}

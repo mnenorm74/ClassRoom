@@ -1,0 +1,35 @@
+.lessonOrder{
+    display: inline-block;
+    width: 3vh;
+    height: 3vh;
+    text-align: center;
+    border-radius: 50%;
+    flex: none;
+}
+
+.lesson{
+    display: flex;
+    font-size: 0.8rem;
+    margin-bottom: 0.5vh;
+    width: 100%;
+}
+.lesson>span{
+    white-space: nowrap;
+    /*width: 60%;*/
+    text-overflow: ellipsis;
+    overflow:hidden;
+}
+
+.lecture{
+    background: #F8D9AF;
+}
+
+.practice{
+    background: #8ED0FF;
+}
+.lab{
+    background: #FF7043;
+}
+.seminar{
+    background: #9CCC65;
+}

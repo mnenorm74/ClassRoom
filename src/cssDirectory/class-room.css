@@ -1,0 +1,19 @@
+#root{
+    display: flex;
+    height: 100vh;
+}
+
+#pageContainer {
+    display: inline-block;
+    width: 82vw;
+    margin-left: 4vw;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+}
+
+html {
+    font-size: 2vh;
+}

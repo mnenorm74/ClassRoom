@@ -1,0 +1,39 @@
+#scheduleComponentContainer{
+    display: flex;
+    margin: auto;
+    width: 40vw;
+}
+
+#scheduleContainer{
+    height: 75vh;
+    overflow-y: auto;
+}
+#scheduleContainer::-webkit-scrollbar { /* chrome based */
+    width: 0;  /* ширина scrollbar'a */
+    background: transparent;  /* опционально */
+}
+
+.arrowButton {
+    all: unset;
+    margin-top: 40vh;
+    margin-left: 2vw;
+    margin-right: 2vh;
+    width: 5vh;
+    height: 5vh;
+    background-image: url("../../icons/keyboard_arrow_left-white-18dp.svg");
+    background-size: cover;
+    background-color: #FFE082;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.right{
+    transform: scale(-1);
+}
+
+.title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 2rem;
+}

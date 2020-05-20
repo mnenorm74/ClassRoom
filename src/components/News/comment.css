@@ -1,0 +1,33 @@
+#commentContainer {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+#commentPhoto{
+    width: 7vh;
+    height: 7vh;
+    border-radius: 50%;
+    background-color: #f2cd83;
+}
+
+#commentBody{
+    display: flex;
+    flex-direction: column;
+    margin-left: 1vw;
+}
+
+#commentAuthor{
+    color: #572287;
+    font-weight: bold;
+}
+
+#commentContent{
+    font-size: 120%;
+}
+
+#commentDate{
+    margin-top: 1vh;
+    font-size: 70%;
+}

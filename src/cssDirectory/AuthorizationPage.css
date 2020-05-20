@@ -1,0 +1,50 @@
+#authorizationPage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #AA7FDF;
+    width: 100%;
+    height: 100%;
+}
+
+#authorizationWindow{
+    background-color: white;
+    width: 25%;
+    height: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#loginInput{
+    margin-top: 7%;
+    width: 80%;
+    height: 8%;
+}
+
+#passwordInput{
+    margin-top: 7%;
+    margin-bottom: 7%;
+    width: 80%;
+    height: 8%;
+}
+
+#authorizationButton{
+    width: 80%;
+    margin-bottom: 7%;
+    height: 12%;
+    background-color: #746BDE;
+    color: white;
+    cursor: pointer;
+}
+
+#registrationLink{
+    margin-bottom: 2%;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#authorizationWindowHeader{
+    margin-top: 5%;
+    font-size: 150%;
+}

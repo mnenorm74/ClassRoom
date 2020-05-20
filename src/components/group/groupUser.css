@@ -1,0 +1,37 @@
+#userContainer{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 3vh;
+}
+
+#photoContainer{
+    flex-basis: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#information{
+    display: flex;
+    flex-direction: column;
+    margin-left: 1vw;
+    font-size: 3vh;
+    flex-basis: 80%;
+}
+
+#status{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-basis: 10%;
+    font-size: 3vh;
+    padding-right: 1vw;
+}
+
+#photo{
+    width: 12vh;
+    height: 12vh;
+    background-color: #f2cd83;
+    border-radius: 50%;
+    text-align: center;
+}

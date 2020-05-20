@@ -1,0 +1,30 @@
+#menu{
+    background: linear-gradient(244deg, #DFB2F3 12%, #CBAEEB 37%, #241D8C 117%);
+    padding-top: 3vh;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#itemContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+#menuOptions{
+    display: flex;
+    flex-direction: row;
+    font-size: 1.3rem;
+    color: white;
+    padding-left: 0.5vw;
+    margin-bottom: 3vh;
+    cursor: pointer;
+    align-items: flex-end;
+}
+
+#applicationLogo{
+    background-repeat: no-repeat;
+    background-image: url("../../icons/ApplicationLogo.svg");
+    height: 8vh;
+    margin-bottom: 5vh;
+}

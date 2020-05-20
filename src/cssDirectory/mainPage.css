@@ -1,0 +1,36 @@
+#scheduleModule {
+    display: flex;
+    max-width: max-content;
+    flex-direction: row;
+    overflow-x: hidden;
+    width: auto;
+    margin: 1vh 1vw;
+    height: 27vh;
+    cursor: grab;
+}
+
+#newsModule {
+    overflow-y: auto;
+    padding: 0 1vh 1vw;
+    width: auto;
+    height: 67vh;
+    margin: 2vh 3vw 0;
+}
+
+#newsModule::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    /*border-radius: 10px;*/
+    background-color: #e4c3f2;
+}
+
+#newsModule::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+#newsModule::-webkit-scrollbar-thumb {
+    /*border-radius: 10px;*/
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #c4a6e6;
+}
+

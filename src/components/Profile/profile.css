@@ -1,0 +1,26 @@
+.optionsContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.optionsLogo {
+    display: inline-block;
+    height: 60%;
+}
+
+.avatar {
+    display: inline-block;
+    height: 8vh;
+    width: 8vh;
+    border-radius: 50%;
+}
+
+.userData {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.5vw;
+    font-size: 1.8rem;
+    color: white;
+}
