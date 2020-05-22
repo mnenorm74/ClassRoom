@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2mQXLluHdJ4pla0XSZNZX8CPbOoDetQisTjkD9CLPTiSlKwqAuVfYQRUXV2YmC6z3r6DTNMgDRhp+3TPl9cI3g==",
+  "dgSpecHash": "hP/nXoviUf14QHr+ZXS5H2sgUfWjmR26e7xKnbRuB9OEw/JqF6yvrElFFTrv2MGlAx4otAU/4jF6K0RURZ086Q==",
   "success": true,
-  "projectFilePath": "E:\\Web\\ClassRoom\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
+  "projectFilePath": "E:\\Web\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Наталья\\.nuget\\packages\\aspnetcore.identity.mongo\\6.7.0\\aspnetcore.identity.mongo.6.7.0.nupkg.sha512",
     "C:\\Users\\Наталья\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",

@@ -7825,11 +7825,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Web\\ClassRoom\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
+      "projectUniqueName": "E:\\Web\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
       "projectName": "ClassRoomAPI",
-      "projectPath": "E:\\Web\\ClassRoom\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
+      "projectPath": "E:\\Web\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
       "packagesPath": "C:\\Users\\Наталья\\.nuget\\packages\\",
-      "outputPath": "E:\\Web\\ClassRoom\\api\\ClassRoomAPI\\obj\\",
+      "outputPath": "E:\\Web\\ClassRoom\\back\\api\\ClassRoomAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

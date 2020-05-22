@@ -3,20 +3,20 @@ import {LessonType} from "./lessonStuff";
 import './lesson.css'
 
 function Lesson({order, name, type}:{order:string, name:string, type:string}) {
-    let style = 'lessonOrder '
+    let style = 'lessonOrder ';
     switch (type) {
         case LessonType.Lecture:
-            style+='lecture'
-            break
+            style+='lecture';
+            break;
         case LessonType.Practice:
-            style+='practice'
-            break
+            style+='practice';
+            break;
         case LessonType.Lab:
-            style+='lab'
-            break
-        case LessonType.Seminar:
-            style+='seminar'
-            break
+            style+='lab';
+            break;
+        // case LessonType.Seminar:
+        //     style+='seminar'
+        //     break
     }
     return (
         <div className='lesson'>
