@@ -37,29 +37,35 @@ function MainPage() {
     // }
     let days : any = [];
     useEffect(() => {
-        console.log("1111");
-        let a = fetch(`https://localhost:6001/Schedules?startDate=${date.getFullYear()}-${date.getMonth()}-${date.getDate()}&count=${14}`)
-            .then(res => {
-                res.json();
+        //console.log("1111");
+        let a = fetch(`https://localhost:6001/Schedules?startDate=${date.getFullYear()}-${date.getMonth()}-${date.getDate()}&count=${14}`
+            )
+            .then((res : any) => {
+                days = JSON.parse(res);
                 console.log("1"+res);
                 }
             )
-            .then(
-                (result) => {
-                    console.log("1"+result);
-                    days = JSON.stringify(result);
-                    //days.push(...result);
-                },
-                // Примечание: Обрабатывать ошибки необходимо именно здесь
-                // вместо блока catch(), чтобы не пропустить
-                // исключения из реальных ошибок в компонентах.
-                (error) => {
-                    throw error;
-                }
-            )
+            .catch((rej) => {
+                console.log(rej);
+            })
+            // .then(
+            //     (result : any) => {
+            //         console.log("2"+result);
+            //         days = JSON.parse(result);
+            //         //days.push(...result);
+            //     },
+            //     // Примечание: Обрабатывать ошибки необходимо именно здесь
+            //     // вместо блока catch(), чтобы не пропустить
+            //     // исключения из реальных ошибок в компонентах.
+            //     (error) => {
+            //         throw error;
+            //     }
+            //);
+        console.log(a);
     }, []);
 
     console.log(days);
+
 
     let scheduleDays : any = [];
     for (let i = 0; i < days.length; i++) {

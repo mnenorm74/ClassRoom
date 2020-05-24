@@ -54,7 +54,10 @@ namespace ClassRoomAPI.Controllers
                     days.Add(new ScheduleDay() { Id = Guid.Empty, Date = date.AddDays(i), Lessons = new List<Lesson>() });
                 }
             }
-            return new ObjectResult(days);
+            //if (!Response.Headers.ContainsKey("Access-Control-Allow-Origin"))
+                Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            //var json = JsonSerializer.Serialize(days);
+            return Json(days);
         }
 
         [HttpGet("{date}")]
