@@ -81,6 +81,7 @@ namespace ClassRoomAPI
                 //cfg.CreateMap<GameEntity, GameDto>();
                 //cfg.CreateMap<Player, PlayerDto>();
             }, new System.Reflection.Assembly[0]);
+            //services.AddSpaStaticFiles(configuration => { configuration.RootPath = "front/build"; });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -109,9 +110,7 @@ namespace ClassRoomAPI
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action}/{id?}");
+                endpoints.MapControllers();
             });
         }
     }
