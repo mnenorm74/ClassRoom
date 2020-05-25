@@ -56,6 +56,10 @@ function MainPage() {
                     //setNews(tags);
                     //setNews(res);
                     //etIsLoadedNews(true);
+                    /*setNews(tags.entries());*/
+
+                    //setNews(res);
+                   /* setIsLoadedNews(true);*/
                 },
                 (error => console.log(error))
             )
