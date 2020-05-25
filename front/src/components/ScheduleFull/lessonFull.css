@@ -25,3 +25,22 @@
     align-self: flex-end;
 }
 
+.lessonOptionsWindow{
+    width: 10vw !important;
+    background-color: #8ED0FF;
+}
+
+.popup-content{
+    width: 10vw !important;
+}
+
+.card{
+    text-align: center;
+}
+
+.lessonOption{
+    border-style: none none solid none;
+    margin: 0;
+    border-width: 1px;
+    cursor: pointer;
+}
