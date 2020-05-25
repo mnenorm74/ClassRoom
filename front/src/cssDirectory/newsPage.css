@@ -41,3 +41,71 @@
     display: flex;
     flex-direction: column;
 }
+
+.modal > .close {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    padding: 1%;
+    line-height: 20px;
+    right: 0px;
+    top: 0px;
+    font-size: 200%;
+    background: #ffffff;
+}
+
+.modal > .header {
+    width: 100%;
+    font-size: 150%;
+    text-align: center;
+    color: #49B8F7;
+    font-weight: bold;
+    margin-top: 2%;
+}
+
+.modal > .content {
+    display: flex;
+    flex-direction: column;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.modalContentHeader{
+    font-size: 150%;
+    margin-bottom: 1%;
+}
+
+#addingNewsHeader{
+    height: 3vh;
+    margin-bottom: 2%;
+    font-size: 120%;
+}
+
+#addingNewsContent{
+    height: 30vh;
+    margin-bottom: 2%;
+    font-size: 120%;
+}
+
+.popup-content{
+    width: 40% !important;
+}
+
+.sendingButton{
+    cursor: pointer;
+    font-size: 150%;
+    background-color: #4AB9F8;
+    color: white;
+    height: 8vh;
+    width: 10vw;
+    border-radius: 10%;
+}
+
+.modalFooter{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-bottom: 2%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
