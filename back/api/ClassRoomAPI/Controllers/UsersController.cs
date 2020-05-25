@@ -44,6 +44,18 @@ namespace ClassRoomAPI.Controllers
             return new ObjectResult(new CurrentUser() { Id = user.Id, Name = user.Name, Surname = user.Surname, Avatar = user.Avatar });
         }
 
+        [HttpGet("{id}")]
+        [Produces("application/json")]
+        public IActionResult Get(Guid id)
+        {
+            var user = usersCollection.Find(a => a.Id == id).FirstOrDefault();
+            if (user == null)
+            {
+                return NotFound("User with this id not found");
+            }
+            return new ObjectResult(new User() { Id = user.Id, Name = user.Name, Surname = user.Surname, Avatar = user.Avatar, GroupId = user.GroupId });
+        }
+
         [HttpGet]
         [Produces("application/json")]
         public IActionResult Get()
