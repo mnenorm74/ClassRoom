@@ -10,7 +10,7 @@ import {formatDateNews, getComments} from "../fetches/news";
 
 function MainPage() {
     const [isLoadedSchedules, setIsLoadedSchedules] = useState(false);
-    const [scheduleDays, setScheduleDays] : [any[], any] = useState([]);
+    const [scheduleDays, setScheduleDays] : [any, any] = useState([]);
     const [isLoadedNews, setIsLoadedNews] = useState(false);
     const [news, setNews] : [any, any] = useState([]);
     let isDown = false;
@@ -40,7 +40,8 @@ function MainPage() {
                                         tags.push(<NewsItem author={author.name + ' ' + author.surname}
                                                        pubDate={formatDateNews(result[i].date)}
                                                        article={result[i].content}
-                                                       comments={comments} />);
+                                                       comments={comments}
+                                                        key={i}/>);
                                         if(i === result.length - 1) {
                                             setNews(tags);
                                             console.log(tags, "Green");
@@ -52,10 +53,9 @@ function MainPage() {
                             });
                     }
                     console.log(tags, "Red");
-                    setNews(tags.entries());
-
+                    //setNews(tags);
                     //setNews(res);
-                    setIsLoadedNews(true);
+                    //etIsLoadedNews(true);
                 },
                 (error => console.log(error))
             )
@@ -78,7 +78,7 @@ function MainPage() {
         elem.scrollLeft -= e.movementX
     }
 
-    function a() {
+    function showSchedules() {
         if(isLoadedSchedules) {
             //console.log(scheduleDays, "scheduleDays!!!");
             return scheduleDays;
@@ -87,12 +87,11 @@ function MainPage() {
             return null;
         }
     }
-    function a1() {
+    function showNews() {
         if(isLoadedNews) {
-            console.log(news, "NEWS!!!");
+            //console.log(news, "NEWS!!!");
             return news;
         } else {
-
             return null;
         }
     }
@@ -111,7 +110,7 @@ function MainPage() {
                 <ScheduleDay day='ПН 27.04'/>
                 <ScheduleDay day='ВТ 28.04'/>
                 <ScheduleDay day='СР 29.04'/>*/}
-                {a()}
+                {showSchedules()}
 
             </div>
             <div id="newsModule">
@@ -120,7 +119,7 @@ function MainPage() {
                               comments={news.comments!}/>
                 ))}*/}
 
-                {a1()}
+                {showNews()}
             </div>
         </>
     )

@@ -1,11 +1,12 @@
 import {srcUrl} from "../mySettings";
 
-export function getComments (id) {
+export function getComments(id) {
     console.log("fetchComments");
     return fetch(`${srcUrl}/News/${id}/comments`);
 }
 
 export function formatDateNews(date) {
     let newDate = new Date(date);
-    return `${newDate.getDate()}.${newDate.getMonth()+1}.${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}`
+    let month = newDate.getMonth() + 1;
+    return `${newDate.getDate()}.${month < 10 ? '0' + month : month}.${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}`
 }
