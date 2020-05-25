@@ -11,6 +11,7 @@ function LessonFull() {
             <p className={'lessonFullInfo'}>Р247 Мира,32</p>
             <p className={'lessonFullInfo'}>Преподаватель: Филимонов А.Ю.</p>
         </div>
+        <button className={'lessonOptions'}></button>
     </div>)
 }
 

@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 2vh;
+    overflow-y: hidden;
 }
 
 .lessonFullInfo{
@@ -15,3 +16,12 @@
 .fullLessonContainer{
     margin-left: 2vw;
 }
+
+.lessonOptions{
+    all: unset;
+    border: 1.5vh solid transparent;
+    border-right: 1.5vh solid #7e7e7e;
+    border-bottom: 1.5vh solid #7e7e7e;
+    align-self: flex-end;
+}
+
