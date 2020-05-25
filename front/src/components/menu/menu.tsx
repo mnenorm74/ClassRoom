@@ -4,6 +4,12 @@ import './menu.css'
 import MenuItem from "./menuItem";
 import Page from "../../pages/pageProvider";
 import Profile from "../Profile/profile";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 
 function Menu() {
     return (

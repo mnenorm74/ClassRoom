@@ -37,3 +37,94 @@
     font-weight: bold;
     font-size: 2rem;
 }
+
+#schedulePageHeader{
+    position: absolute;
+    top: 2%;
+    right: 4%;
+}
+
+.line{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 2%;
+}
+
+.text{
+    font-size: 150%;
+    margin-right: 5vw;
+    margin-top: 3vh;
+}
+
+.dateInput{
+    height: 3vh;
+}
+
+.time{
+    width: 5vw;
+}
+
+#timeContentPart{
+    display: flex;
+    flex-direction: row;
+}
+
+#timeHeaders{
+    display: flex;
+    flex-direction: column;
+}
+
+#timeInputs{
+    display: flex;
+    flex-direction: column;
+}
+
+#timePeriod{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#dateInput{
+    width: 10vw;
+}
+
+#timeStart{
+    width: 5vw;
+}
+
+#timeEnd{
+    width: 5vw;
+}
+
+#timeSeparator{
+    font-size: 150%;
+}
+
+.timeInput{
+    font-size: 150%;
+    margin-top: 3vh;
+}
+
+.textBetween{
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-top: 3vh;
+}
+
+.modalScheduleHeader{
+    font-size: 150%;
+    margin-top: 2%;
+}
+
+.scheduleInput{
+    font-size: 150%;
+    margin-top: 1%;
+}
+
+.scheduleRadio{
+    margin-top: 1%;
+    margin-bottom: 0;
+    font-size: 150%;
+}
