@@ -44,9 +44,11 @@ namespace ClassRoomAPI.Controllers
             }
             for(var i = 0; i < count; i++)
             {
+                var a1 = date.AddDays(i);
                 var day = schedulesCollection.Find(a => a.Date == date.AddDays(i)).FirstOrDefault();
                 if(day != null)
                 {
+                     //day.Lessons.OrderBy(e => e.StartTime.Split(':').Cast<int>().First()).ThenBy(a=>a.StartTime.Split(':').Cast<int>().Last());
                      days.Add(day);
                 }
                 else
@@ -55,10 +57,24 @@ namespace ClassRoomAPI.Controllers
                 }
             }
             //if (!Response.Headers.ContainsKey("Access-Control-Allow-Origin"))
-                Response.Headers.Add("Access-Control-Allow-Origin", "*");
             //var json = JsonSerializer.Serialize(days);
             return Json(days);
         }
+
+        //private int Compare(Lesson a, Lesson b)
+        //{
+        //    var timeA = a.StartTime.Split(':').Cast<int>().ToArray();
+        //    var timeB = b.StartTime.Split(':').Cast<int>().ToArray();
+        //    if (timeA[0] > timeB[0]) return 1;
+        //    if (timeA[0] == timeB[0])
+        //    {
+        //        if (timeA[1] > timeB[1]) return 1;
+        //        if (timeA[1] == timeB[1]) return 0;
+        //        if (timeA[1] < timeB[1]) return -1;
+        //    }
+        //    if (timeA[0] < timeB[0]) return -1;
+        //    return 0;
+        //}
 
         [HttpGet("{date}")]
         [Produces("application/json")]
@@ -76,7 +92,8 @@ namespace ClassRoomAPI.Controllers
             {
                 return UnprocessableEntity("Invalid format of date: " + e.Message);
             }
-            var result = schedulesCollection.Find(a => a.Date == dateTime).FirstOrDefault();
+            var result = schedulesCollection.Find(a => a.Date.Date == dateTime.Date).FirstOrDefault();
+            result.Lessons.OrderBy(e => e.StartTime.Split(':').Cast<int>().First()).ThenBy(a => a.StartTime.Split(':').Cast<int>().Last());
             return new ObjectResult(result);
         }
 
@@ -125,9 +142,9 @@ namespace ClassRoomAPI.Controllers
                     {
                         if (needCreate && schedulesCollection.CountDocuments(e => e.Date == lesson.CreateDate) == 0)
                         {
-                            schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), Date = lesson.CreateDate, Lessons = new List<Lesson>() });
+                            schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), Date = lesson.CreateDate.Date, Lessons = new List<Lesson>() });
                         }
-                        schedulesCollection.UpdateOne(s => s.Date == lesson.CreateDate, update);
+                        schedulesCollection.UpdateOne(s => s.Date == lesson.CreateDate.Date, update);
                         break;
                     }
                 case 7:

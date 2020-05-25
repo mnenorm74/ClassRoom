@@ -5,13 +5,13 @@ import './lesson.css'
 function Lesson({order, name, type}:{order:string, name:string, type:string}) {
     let style = 'lessonOrder ';
     switch (type) {
-        case LessonType.Lecture:
+        case 'lecture':
             style+='lecture';
             break;
-        case LessonType.Practice:
+        case 'practice':
             style+='practice';
             break;
-        case LessonType.Lab:
+        case 'lab':
             style+='lab';
             break;
         // case LessonType.Seminar:
