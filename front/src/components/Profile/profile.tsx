@@ -4,7 +4,13 @@ import CurrentUser from "../../СurrentUserInfoDB";
 import Logo from '../menu/logoContainer'
 import ReactDOM from "react-dom";
 import Page from "../../pages/pageProvider";
-
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    NavLink
+} from "react-router-dom";
 function Profile() {
     return (
         <>

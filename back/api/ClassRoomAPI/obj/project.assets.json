@@ -7819,30 +7819,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Наталья\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\dimpo\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Web\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
+      "projectUniqueName": "C:\\Users\\dimpo\\WebstormProjects\\class-room\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
       "projectName": "ClassRoomAPI",
-      "projectPath": "E:\\Web\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
-      "packagesPath": "C:\\Users\\Наталья\\.nuget\\packages\\",
-      "outputPath": "E:\\Web\\ClassRoom\\back\\api\\ClassRoomAPI\\obj\\",
+      "projectPath": "C:\\Users\\dimpo\\WebstormProjects\\class-room\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
+      "packagesPath": "C:\\Users\\dimpo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dimpo\\WebstormProjects\\class-room\\back\\api\\ClassRoomAPI\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Наталья\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\dimpo\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -7902,7 +7896,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
       }
     }
   },
@@ -7911,7 +7905,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Пакет \"Microsoft.AspNet.WebApi.Core 5.2.7\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\", а не целевой платформы проекта \".NETCoreApp,Version=v3.1\". Этот пакет может быть не полностью совместим с вашим проектом.",
+      "message": "Package 'Microsoft.AspNet.WebApi.Core 5.2.7' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
       "libraryId": "Microsoft.AspNet.WebApi.Core",
       "targetGraphs": [
         ".NETCoreApp,Version=v3.1"

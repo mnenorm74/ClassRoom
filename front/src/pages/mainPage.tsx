@@ -52,10 +52,10 @@ function MainPage() {
                             });
                     }
                     console.log(tags, "Red");
-                    setNews(tags.entries());
+                    /*setNews(tags.entries());*/
 
                     //setNews(res);
-                    setIsLoadedNews(true);
+                   /* setIsLoadedNews(true);*/
                 },
                 (error => console.log(error))
             )
