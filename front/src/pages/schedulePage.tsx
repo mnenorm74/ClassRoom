@@ -30,7 +30,7 @@ function SchedulePage() {
                                         </div>
                                     </div>
                                 </div>
-                                <span className="modalScheduleHeader">Заголовок</span>
+                                <span className="modalScheduleHeader">Название</span>
                                 <input type="text" className="scheduleInput"/>
                                 <span className="modalScheduleHeader">Тип</span>
                                 <select className="scheduleInput">

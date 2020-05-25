@@ -3,6 +3,7 @@ import StorageElements from "../components/Storage/storageDB";
 import ReactDOM from "react-dom";
 import Page from "./pageProvider";
 import StorageContentIcons from "../components/Storage/StorageContentIcons";
+import storageAddingModal from "../components/modals/storageAddingModal";
 
 function StorageArchivePage() {
     return (
@@ -18,7 +19,7 @@ function StorageArchivePage() {
                     <p id="title">Архив</p>
                 </div>
                 <div id="rightHeaderPart">
-                    <button id="addToStorageButton"/>
+                    {storageAddingModal}
                 </div>
             </div>
             <div id="icons">

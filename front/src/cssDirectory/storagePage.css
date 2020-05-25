@@ -6,13 +6,13 @@
     margin-top: 5vh;
 }
 
-#storage{
+#storage {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-#header{
+#header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -20,7 +20,7 @@
     align-items: center;
 }
 
-#viewTypeButton{
+#viewTypeButton {
     height: 5vh;
     width: 5vh;
     margin-top: 5vh;
@@ -29,14 +29,14 @@
     background-size: cover;
 }
 
-#tableHeader{
+#tableHeader {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-right: 20vh;
 }
 
-#storageContent{
+#storageContent {
     overflow-y: auto;
     width: auto;
     height: 100vh;
@@ -57,7 +57,7 @@
     background-color: #c4a6e6;
 }
 
-#toMainStoragePageButton{
+#toMainStoragePageButton {
     height: 5vh;
     width: 5vh;
     border-radius: 50%;
@@ -66,7 +66,7 @@
     background-size: cover;
 }
 
-#addToStorageButton{
+#addToStorageButton {
     height: 5vh;
     width: 5vh;
     border-radius: 50%;
@@ -74,7 +74,7 @@
     background-size: cover;
 }
 
-#viewButton{
+#viewButton {
     height: 5vh;
     width: 5vh;
     border-radius: 50%;
@@ -83,19 +83,19 @@
     background-size: cover;
 }
 
-#leftHeaderPart{
+#leftHeaderPart {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-#rightHeaderPart{
+#rightHeaderPart {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-#goBackButton{
+#goBackButton {
     height: 5vh;
     width: 5vh;
     border-radius: 50%;
@@ -105,9 +105,70 @@
     display: none;
 }
 
-#storageElements{
+#storageElements {
     overflow-y: auto;
     width: auto;
     height: 100vh;
     margin-top: 10vh;
+}
+
+#fileAddingField{
+    display: none;
+}
+
+#folderAddingField{
+    display: none;
+}
+
+#fileAddingField .form-group {
+    padding: 1em;
+    margin: 1em
+}
+
+#fileAddingField input[type=file] {
+    outline: 0;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none
+}
+
+#fileAddingField .label {
+    width: 90%;
+    border: 2px dashed grey;
+    border-radius: 5px;
+    display: block;
+    padding: 1.2em;
+    transition: border 300ms ease;
+    cursor: pointer;
+    text-align: center
+}
+
+#fileAddingField .label i {
+    display: block;
+    font-size: 200%;
+    padding-bottom: 5%;
+}
+
+#fileAddingField .label i, .example-1 .label .title {
+    color: grey;
+    transition: 200ms color
+}
+
+#fileAddingField .label:hover {
+    border: 2px solid #000
+}
+
+#fileAddingField .label:hover i, .example-1 .label:hover .title {
+    color: #000
+}
+
+#folderName{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    font-size: 150%;
+    width: 95%;
+}
+
+#archiveStorageAddingContent{
+    padding-bottom: 3%;
 }
