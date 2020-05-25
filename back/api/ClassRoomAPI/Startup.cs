@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using AutoMapper;
 using ClassRoomAPI.Models;
+using Microsoft.AspNetCore.Http.Headers;
 
 namespace ClassRoomAPI
 {
@@ -81,6 +82,9 @@ namespace ClassRoomAPI
                 //cfg.CreateMap<GameEntity, GameDto>();
                 //cfg.CreateMap<Player, PlayerDto>();
             }, new System.Reflection.Assembly[0]);
+            //services.AddSpaStaticFiles(configuration => { configuration.RootPath = "front/build"; });
+            //Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            //context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -90,6 +94,12 @@ namespace ClassRoomAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder =>
+            builder.WithOrigins("http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod());
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -105,6 +115,7 @@ namespace ClassRoomAPI
             app.UseAuthentication();
             app.UseAuthorization();
 
+            
             //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

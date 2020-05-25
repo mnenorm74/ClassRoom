@@ -8,6 +8,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using Microsoft.AspNetCore.Http;
 using ClassRoomAPI.EnteringModels;
+using AutoMapper.QueryableExtensions;
 
 namespace ClassRoomAPI.Controllers
 {
@@ -121,6 +122,17 @@ namespace ClassRoomAPI.Controllers
                 return NotFound("News with this id not found");
             }
             return NoContent();
+        }
+
+        [HttpGet("{id}/comments")]
+        [Produces("application/json")]
+        public IActionResult Get(Guid id)
+        {
+
+            var news = newsCollection.Find(n => n.Id == id).FirstOrDefault();
+            var comments = commentsCollection.Find(c => news.Comments.Contains(c.Id)).ToList();
+
+            return Json(comments);
         }
 
         /// <remarks>
