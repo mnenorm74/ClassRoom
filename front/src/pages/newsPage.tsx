@@ -20,26 +20,25 @@ function NewsPage() {
                         getUser(result[i].authorId)
                             .then(author => author.json())
                             .then((author) => {
-                                getComments(result[i].id)
-                                    .then(comments => comments.json())
-                                    .then(comments => {
-                                        tags.push(<NewsItem author={author.name + ' ' + author.surname}
+                                Promise.all([getUser(result[i].authorId).then(author => author.json()),
+                                    getComments(result[i].id).then(comments => comments.json())])
+                                    .then((res)=>{
+                                        console.log(res,"News00");
+                                        tags.push(<NewsItem author={res[0].name + ' ' + res[0].surname}
                                                             pubDate={formatDateNews(result[i].date)}
                                                             article={result[i].content}
-                                                            comments={comments}
+                                                            comments={res[1]}
                                                             key={i}/>);
-                                        //console.log(author, comments, "AAAAA")
                                     })
                                     .then(() => {
                                         if (i === result.length - 1) {
                                             setNews(tags);
-                                            console.log(tags, "Green");
+                                            //console.log(tags, "Green");
                                             setIsLoadedNews(true);
                                         }
                                     })
                             });
                     }
-                    console.log(tags, "Red");
                 },
                 (error => console.log(error))
             )

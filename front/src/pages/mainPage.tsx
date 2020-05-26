@@ -32,7 +32,24 @@ function MainPage() {
                 (result: any[]) => {
                     let tags: any[] = [];
                     for (let i = 0; i < result.length; i++) {
-                        getUser(result[i].authorId)
+                        Promise.all([getUser(result[i].authorId).then(author => author.json()),
+                            getComments(result[i].id).then(comments => comments.json())])
+                            .then((res)=>{
+                                console.log(res,"News00");
+                                tags.push(<NewsItem author={res[0].name + ' ' + res[0].surname}
+                                                    pubDate={formatDateNews(result[i].date)}
+                                                    article={result[i].content}
+                                                    comments={res[1]}
+                                                    key={i}/>);
+                            })
+                            .then(() => {
+                                if (i === result.length - 1) {
+                                    setNews(tags);
+                                    //console.log(tags, "Green");
+                                    setIsLoadedNews(true);
+                                }
+                            })
+                        /*getUser(result[i].authorId)
                             .then(author => author.json())
                             .then((author) => {
                                 getComments(result[i].id)
@@ -53,16 +70,8 @@ function MainPage() {
                                             setIsLoadedNews(true);
                                         }
                                     })
-                            });
+                            });*/
                     }
-                    console.log(tags, "Red");
-                    //setNews(tags);
-                    //setNews(res);
-                    //etIsLoadedNews(true);
-                    /*setNews(tags.entries());*/
-
-                    //setNews(res);
-                    /* setIsLoadedNews(true);*/
                 },
                 (error => console.log(error))
             )

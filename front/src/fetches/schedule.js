@@ -15,7 +15,7 @@ export function getSchedules (count) {
 export function addFullDaysTag(source) {
     let days = [];
     for (let i = 0; i < source.length; i++) {
-        days.push(<ScheduleDayFull day={formatDayWeek(source[i].dayDate)} /*lessons={source[i].lessons}*/ />);
+        days.push(<ScheduleDayFull day={formatDayWeek(source[i].dayDate)} lessons={source[i].lessons}  />);
     }
     return days;
 }
@@ -148,4 +148,19 @@ function formatMonth(date) {
             break;
     }
     return month;
+}
+
+export function formatType(type) {
+    switch (type) {
+        case ('practice') : {
+            return 'Проктика'
+        }
+        case ('lecture') : {
+            return 'Лекция'
+        }
+        case ('lab') : {
+            return 'Лабораторная работа'
+        }
+    }
+    return -1;
 }
