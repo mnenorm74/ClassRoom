@@ -89,5 +89,36 @@
 }
 
 .modalContentHeader{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     align-self: flex-start;
+}
+
+#newsAddingHeaderValidation{
+    color: red;
+    display: block;
+}
+
+#newsAddingContentValidation{
+    color: red;
+    display: block;
+}
+
+#newsChangingHeaderValidation{
+    color: red;
+    display: none;
+}
+
+.modalContentStatus{
+    align-self: flex-start;
+}
+
+.modalFieldHeader{
+    align-self: flex-start;
+}
+
+#newsChangingContentValidation{
+    color: red;
+    display: none;
 }
