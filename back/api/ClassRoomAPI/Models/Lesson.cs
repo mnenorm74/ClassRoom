@@ -22,7 +22,7 @@ namespace ClassRoomAPI.Models
         }
         public Lesson(LessonDTOPost lesson)
         {
-            CreateDate = lesson.CreateDate;
+            CreateDate = lesson.CreateDate.Date;
             StartTime = lesson.StartTime;
             EndTime = lesson.EndTime;
             Title = lesson.Title;

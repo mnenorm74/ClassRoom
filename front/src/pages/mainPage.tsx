@@ -4,20 +4,21 @@ import NewsItem from "../components/News/newsItem";
 import News from "../components/News/newsDB";
 import '../cssDirectory/mainPage.css';
 import {srcUrl} from "../mySettings";
-import {addDaysTag, addNewsTag, getNews, getSchedules} from "../fetches/mainPage";
+import {addDaysTag} from "../fetches/mainPage";
 import {getUser} from "../fetches/users";
-import {formatDateNews, getComments} from "../fetches/news";
+import {formatDateNews, getComments, getNews} from "../fetches/news";
+import {getSchedules} from "../fetches/schedule";
 
 function MainPage() {
     const [isLoadedSchedules, setIsLoadedSchedules] = useState(false);
-    const [scheduleDays, setScheduleDays] : [any[], any] = useState([]);
+    const [scheduleDays, setScheduleDays]: [any, any] = useState([]);
     const [isLoadedNews, setIsLoadedNews] = useState(false);
-    const [news, setNews] : [any, any] = useState([]);
+    const [news, setNews]: [any, any] = useState([]);
     let isDown = false;
     let elem: HTMLElement;
 
     useEffect(() => {
-        getSchedules()
+        getSchedules(14)
             .then(res => res.json())
             .then(
                 (result: any) => {
@@ -29,37 +30,52 @@ function MainPage() {
             .then((res) => res.json())
             .then(
                 (result: any[]) => {
-                    let tags : any[] = [];
+                    let tags: any[] = [];
                     for (let i = 0; i < result.length; i++) {
-                        getUser(result[i].authorId)
+                        Promise.all([getUser(result[i].authorId).then(author => author.json()),
+                            getComments(result[i].id).then(comments => comments.json())])
+                            .then((res)=>{
+                                console.log(res,"News00");
+                                tags.push(<NewsItem author={res[0].name + ' ' + res[0].surname}
+                                                    pubDate={formatDateNews(result[i].date)}
+                                                    article={result[i].content}
+                                                    comments={res[1]}
+                                                    key={i}/>);
+                            })
+                            .then(() => {
+                                if (i === result.length - 1) {
+                                    setNews(tags);
+                                    //console.log(tags, "Green");
+                                    setIsLoadedNews(true);
+                                }
+                            })
+                        /*getUser(result[i].authorId)
                             .then(author => author.json())
                             .then((author) => {
                                 getComments(result[i].id)
                                     .then(comments => comments.json())
                                     .then(comments => {
                                         tags.push(<NewsItem author={author.name + ' ' + author.surname}
-                                                       pubDate={formatDateNews(result[i].date)}
-                                                       article={result[i].content}
-                                                       comments={comments} />);
-                                        if(i === result.length - 1) {
+                                                            pubDate={formatDateNews(result[i].date)}
+                                                            article={result[i].content}
+                                                            comments={comments}
+                                                            key={i}/>);
+                                        //console.log(author, comments, "AAAAA")
+                                    })
+                                    .then(() => {
+                                        if (i === result.length - 1) {
                                             setNews(tags);
                                             console.log(tags, "Green");
                                             //setNews(res);
                                             setIsLoadedNews(true);
                                         }
-                                    //console.log(author, comments, "AAAAA")
-                                });
-                            });
+                                    })
+                            });*/
                     }
-                    console.log(tags, "Red");
-                    setNews(tags.entries());
-
-                    //setNews(res);
-                    setIsLoadedNews(true);
                 },
                 (error => console.log(error))
             )
-    },[]);
+    }, []);
 
     function sliderMousedown() {
         elem = document.querySelector('#scheduleModule') as HTMLElement
@@ -78,8 +94,8 @@ function MainPage() {
         elem.scrollLeft -= e.movementX
     }
 
-    function a() {
-        if(isLoadedSchedules) {
+    function showSchedules() {
+        if (isLoadedSchedules) {
             //console.log(scheduleDays, "scheduleDays!!!");
             return scheduleDays;
         } else {
@@ -87,12 +103,12 @@ function MainPage() {
             return null;
         }
     }
-    function a1() {
-        if(isLoadedNews) {
-            console.log(news, "NEWS!!!");
+
+    function showNews() {
+        if (isLoadedNews) {
+            //console.log(news, "NEWS!!!");
             return news;
         } else {
-
             return null;
         }
     }
@@ -111,7 +127,7 @@ function MainPage() {
                 <ScheduleDay day='ПН 27.04'/>
                 <ScheduleDay day='ВТ 28.04'/>
                 <ScheduleDay day='СР 29.04'/>*/}
-                {a()}
+                {showSchedules()}
 
             </div>
             <div id="newsModule">
@@ -120,7 +136,7 @@ function MainPage() {
                               comments={news.comments!}/>
                 ))}*/}
 
-                {a1()}
+                {showNews()}
             </div>
         </>
     )

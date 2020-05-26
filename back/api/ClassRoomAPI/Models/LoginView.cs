@@ -7,7 +7,7 @@ namespace ClassRoomAPI.Controllers
         [Required]
         public string Username { get; set; }
 
-        [Required]
+       [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
