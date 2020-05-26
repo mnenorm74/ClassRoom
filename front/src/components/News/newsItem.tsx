@@ -1,7 +1,7 @@
 import React from 'react';
 import './news.css'
 import Comment from "./comment";
-import {IComment} from "../../projectTypes";
+import newsOptions from "../modals/newsOptions";
 
 function NewsItem({author, pubDate, article, comments}: { author: string, pubDate: string, article: string, comments: any }) {
     console.log("comments");
@@ -10,7 +10,7 @@ function NewsItem({author, pubDate, article, comments}: { author: string, pubDat
         ? <div id="commentsContainer">
         </div>
         : <div id="commentsContainer">
-            {comments.map((comment : any) => (
+            {comments.map((comment: any) => (
                 Comment(comment)
             ))}
         </div>;
@@ -18,7 +18,10 @@ function NewsItem({author, pubDate, article, comments}: { author: string, pubDat
         <div className='newsContainer'>
             <div className='info'>
                 <div className='infoItem newsText'>{author}</div>
-                <div className='infoItem newsText'>{pubDate}</div>
+                <div className='infoItem newsText'>
+                    {pubDate}
+                    {newsOptions}
+                </div>
             </div>
             <p className='newsArticle newsText'>{article}</p>
             {newsComments}
