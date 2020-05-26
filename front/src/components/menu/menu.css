@@ -28,21 +28,3 @@
     height: 8vh;
     margin-bottom: 5vh;
 }
-.navButton {
-    all: unset;
-    text-align: left;
-    display: flex;
-    align-items: center;
-    padding: 0.5vh;
-    font-size: 2rem;
-    color: white;
-    background: transparent;
-    cursor: pointer;
-}
-
-.navButton:hover {
-    background: linear-gradient(90deg, #31243A -97%, rgba(74, 144, 226, 0) 100%);
-}
-.active{
-    background: linear-gradient(90deg, rgba(49, 36, 58, 0.65) -97%, rgba(74, 144, 226, 0) 100%);
-}

@@ -1,0 +1,34 @@
+.navMenuItem {
+    all: unset;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    padding: 0.5vh;
+    font-size: 2rem;
+    color: white;
+    background: transparent;
+    cursor: pointer;
+}
+
+.navMenuItem:hover {
+    background: linear-gradient(90deg, #31243A -97%, rgba(74, 144, 226, 0) 100%);;
+}
+
+.ico {
+    display: inline;
+    width: 2rem;
+    height: 2rem;
+    margin-right: 1vw;
+}
+
+.news {
+    background-image: url("../../icons/language-white-18dp.svg");
+}
+
+.schedule {
+    background-image: url("../../icons/calendar_today-white-18dp.svg");
+}
+
+.storage {
+    background-image: url("../../icons/cloud-white-18dp.svg");
+}

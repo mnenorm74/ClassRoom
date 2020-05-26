@@ -1,13 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Lesson from "./lesson";
 import {LessonList, LessonType} from "./lessonStuff";
 import './scheduleDay.css'
-import {addLessonTag} from "../../fetches/schedule";
 
 
-function ScheduleDay({day, lessons}:{day:string, lessons : any[]}) {
-    /*const [isLoadedLessons, setIsLoadedLessons] = useState(false);
-    const [Lessons, setLessons]: [any, any] = useState([]);*/
+function ScheduleDay({day}:{day:string}, lessons : any[]) {
     /*function addLessonTag() {
         let result = [];
         let copyLessons = lessons;
@@ -57,24 +54,16 @@ function ScheduleDay({day, lessons}:{day:string, lessons : any[]}) {
         }
         return '-1';
     }
-
-    function showLessons() {
-        let tags : any = addLessonTag(lessons);
-        if(tags.length === 0) {
-            return <p>В данный день пар нет!</p>
-        } else {
-            return tags;
-        }
-    }
     return (
         <div id='dayContainer'>
             <p>{day}</p>
+            {LessonType.Lecture}
             {/*<Lesson order='1' name={LessonList.Network} type={LessonType.Lecture}/>
             <Lesson order='2' name={LessonList.Network} type={LessonType.Lab}/>
             <Lesson order='3' name={LessonList.Modeling} type={LessonType.Practice}/>
             <Lesson order='4' name={LessonList.SystemPO} type={LessonType.Seminar}/>
 */}
-            {showLessons()}
+            {/*{addLessonTag()}*/}
         </div>
     )
 }

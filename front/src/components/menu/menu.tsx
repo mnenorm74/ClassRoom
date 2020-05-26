@@ -1,13 +1,14 @@
 import React from 'react';
 import '../../cssDirectory/class-room.css';
 import './menu.css'
+import MenuItem from "./menuItem";
+import Page from "../../pages/pageProvider";
 import Profile from "../Profile/profile";
 import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link,
-    NavLink
+    Link
 } from "react-router-dom";
 
 function Menu() {
@@ -15,14 +16,16 @@ function Menu() {
         <div id="menu">
             <div id="itemContainer">
                 <div id="applicationLogo"/>
-                <NavLink to="/main" className={'navButton'} activeClassName={'active'}>Главная</NavLink>
-                <NavLink to="/storage" className={'navButton'}>Хранилище</NavLink>
-                <NavLink to="/news" className={'navButton'}>Новости</NavLink>
-                <NavLink to="/schedule" className={'navButton'}>Расписание</NavLink>
-                <NavLink to="/groupList" className={'navButton'}>Список группы</NavLink>
+                <MenuItem text={"Главная"} link={Page.MainPage}/>
+                <MenuItem text={"Хранилище"} link={Page.StoragePage}/>
+                <MenuItem text={"Новости"} link={Page.NewsPage}/>
+                <MenuItem text={"Расписание"} link={Page.SchedulePage}/>
+                <MenuItem text={"Список группы"} link={Page.GroupListPage}/>
             </div>
             <div id="menuOptions">
                 <Profile/>
+                {/*{menuOption("Настройки", Page.OptionsPage)}
+                {menuOption("Выход", Page.AuthorizationPage)}*/}
             </div>
         </div>
     )
