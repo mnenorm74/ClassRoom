@@ -1,11 +1,12 @@
 import React from "react";
 import Popup from "reactjs-popup";
 import lessonDeleting from "./lessonDeleting";
+import lessonChanging from "./lessonChanging";
 
 const Card = () => (
     <div className="card">
         <div className="content">
-            <p className="lessonOption">Изменить</p>
+            {lessonChanging}
             {lessonDeleting}
         </div>
     </div>

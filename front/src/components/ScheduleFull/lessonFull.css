@@ -64,3 +64,30 @@
 #deletingHeader{
     margin-bottom: 3%;
 }
+
+#changingTime{
+     display: flex;
+    flex-direction: row;
+ }
+
+#changingHeader{
+    margin-right: 2%;
+}
+
+#changingField{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.modalScheduleHeader{
+    align-self: flex-start;
+}
+
+.scheduleRadio{
+    align-self: flex-start;
+}
+
+#changingContent{
+    margin-bottom: 5%;
+}
