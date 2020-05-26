@@ -1,11 +1,8 @@
 import React from "react";
 import {LessonList, LessonType} from '../Schedule/lessonStuff'
 import './lessonFull.css'
-<<<<<<< HEAD
 import {formatType} from "../../fetches/schedule";
-=======
 import lessonOptions from "../modals/lessonOptions";
->>>>>>> modals
 
 function LessonFull({lesson} : {lesson : any}) {
     return (<div id={'fullDayContainer'}>

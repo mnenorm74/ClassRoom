@@ -2,13 +2,10 @@ import React, {useEffect, useState} from 'react';
 import NewsItem from "../components/News/newsItem";
 import News from "../components/News/newsDB";
 import '../cssDirectory/newsPage.css';
-<<<<<<< HEAD
 import Popup from "reactjs-popup";
 import {getUser} from "../fetches/users";
 import {formatDateNews, getComments, getNews} from "../fetches/news";
-=======
 import newsAdding from "../components/modals/newsAdding";
->>>>>>> modals
 
 function NewsPage() {
     const [isLoadedNews, setIsLoadedNews] = useState(false);
