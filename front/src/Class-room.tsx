@@ -8,34 +8,51 @@ import {
     Route,
     Link,
     NavLink,
-    Redirect
+    Redirect,
+    useRouteMatch
 } from "react-router-dom";
+import Cookies from 'js-cookie'
+
+let tiZaregalsa = Cookies.get('name');
 
 function ClassRoom() {
+    var myArray: any[] = ['something', 1,];
+
+
     return (
-        <Router>
-            <Menu/>
-            <div id="pageContainer">
-                <Switch>
-                    <Redirect exact from="/" to="/main"/>
-                    <Route path="/main">
-                        <Page.MainPage/>
-                    </Route>
-                    <Route path="/storage">
-                        <Page.SchedulePage/>
-                    </Route>
-                    <Route path="/news">
-                        <Page.NewsPage/>
-                    </Route>
-                    <Route path="/schedule">
-                        <Page.SchedulePage/>
-                    </Route>
-                    <Route path="/groupList">
-                        <Page.GroupListPage/>
-                    </Route>
-                </Switch>
-            </div>
-        </Router>
+        <>
+            {tiZaregalsa === 'ded' ? <Router>
+                    <Menu/>
+                    <div id="pageContainer">
+                        <Switch>
+                            <Redirect exact from="/" to="/main"/>
+                            <Route path="/main">
+                                <Page.MainPage/>
+                            </Route>
+                            <Route path="/storage">
+                                <Page.StoragePage/>
+                            </Route>
+                            <Route path="/news">
+                                <Page.NewsPage/>
+                            </Route>
+                            <Route path="/schedule">
+                                <Page.SchedulePage/>
+                            </Route>
+                            <Route path="/groupList">
+                                <Page.GroupListPage/>
+                            </Route>
+                        </Switch>
+                    </div>
+                </Router> :
+                <Router>
+                    <Switch>
+
+                        <Route path="/">
+                            <Page.AuthorizationPage/>
+                        </Route>
+                    </Switch>
+                </Router>}
+        </>
     );
 }
 

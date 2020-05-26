@@ -5,13 +5,13 @@ import ReactDOM from "react-dom";
 import Page from "./pageProvider";
 import StorageElements from "../components/Storage/storageDB";
 
-function StoragePage(storageElements?: any[]) {
+function StoragePage(/*storageElements?: any[]*/) {
     const [isLoadedFiles, setIsLoadedFiles] = useState(false);
-    const [files, setFiles] : [any, any] = useState([]);
-    if (typeof storageElements == "undefined") {
+    const [files, setFiles]: [any, any] = useState([]);
+   /* if (typeof storageElements == "undefined") {
         storageElements = StorageElements;
-    }
-
+    }*/
+    let storageElements = StorageElements;
     return (
         <div id="storageContent">
             <div id="header">
