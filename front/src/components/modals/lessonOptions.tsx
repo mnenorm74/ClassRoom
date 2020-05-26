@@ -1,11 +1,12 @@
 import React from "react";
 import Popup from "reactjs-popup";
+import lessonDeleting from "./lessonDeleting";
 
 const Card = () => (
     <div className="card">
         <div className="content">
             <p className="lessonOption">Изменить</p>
-            <p className="lessonOption">Удалить</p>
+            {lessonDeleting}
         </div>
     </div>
 );
@@ -15,7 +16,7 @@ function lessonOptions() {
         <Popup
             trigger={ <button className={'lessonOptions'}/> }
             position="right top"
-            on="hover">
+            on="hover" className={'options'}>
             <Card/>
         </Popup>
     )

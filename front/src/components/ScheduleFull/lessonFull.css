@@ -30,7 +30,7 @@
     background-color: #8ED0FF;
 }
 
-.popup-content{
+.popup-content.options-content {
     width: 10vw !important;
 }
 
@@ -43,4 +43,24 @@
     margin: 0;
     border-width: 1px;
     cursor: pointer;
+}
+
+.deletingModal{
+    display: flex;
+    flex-direction: column;
+}
+
+#deletingOptions{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 3%;
+}
+
+.popup-content.deleting-content {
+    width: 30% !important;
+}
+
+#deletingHeader{
+    margin-bottom: 3%;
 }
