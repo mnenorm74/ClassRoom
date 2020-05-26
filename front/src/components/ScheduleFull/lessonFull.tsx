@@ -4,7 +4,11 @@ import './lessonFull.css'
 
 function LessonFull() {
     return (<div id={'fullDayContainer'}>
-        <div id={'time'}>12:00-13:30</div>
+        <div className={'time'}>
+            <p>12:00</p>
+            <p id ={"separ"}>-</p>
+            <p>13:30</p>
+        </div>
         <div className={'fullLessonContainer'}>
             <p className={'lessonFullInfo'}>{LessonList.Network}</p>
             <p className={'lessonFullInfo'}>{LessonType.Lecture}</p>

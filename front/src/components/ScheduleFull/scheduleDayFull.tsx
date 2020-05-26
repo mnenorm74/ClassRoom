@@ -2,7 +2,9 @@ import React from "react";
 import LessonFull from "./lessonFull";
 import './scheduleDayFull.css'
 
-function ScheduleDayFull({day}: { day: string }) {
+function ScheduleDayFull({day, lessons}: { day: string, lessons : any[] }) {
+
+
     return (<div id={'ScheduleDayFullContainer'}>
         <p id={'day'}>{day}</p>
         <LessonFull/>
