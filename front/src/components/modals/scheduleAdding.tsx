@@ -1,10 +1,26 @@
 import React from "react";
 import Popup from "reactjs-popup";
+import isEmptyField from "../../validation/isEmptyField";
+import "../../components/Schedule/scheduleChanging.css"
+import warnFullDateFormat from "../../validation/warnFullDateFormat";
+
+const formName = "scheduleAdding";
+
+function isValidForm(): boolean {
+    return false;
+}
 
 function scheduleAdding() {
     return (<Popup trigger={<button id="newsAdding"></button>} modal>
         {close => (
-            <div className="modal">
+            <form name={formName} className="modal" onSubmit={() => {
+                //TODO Отправка формы
+                if (isValidForm()) {
+                    alert("отправляю")
+                } else {
+                    alert("не отправляю")
+                }
+            }}>
                 <a className="close" onClick={close}>
                     &times;
                 </a>
@@ -16,7 +32,12 @@ function scheduleAdding() {
                             <span className="text">Время</span>
                         </div>
                         <div id="timeInputs">
-                            <input className="text" id="dateInput" placeholder="XX:XX:XXXX"/>
+                            <div id="timePeriod">
+                                <input name="fillDate" className="text" id="dateInput" placeholder="XX:XX:XXXX" onChange={() => {
+                                    warnFullDateFormat(formName, "fillDate", "lessonDate")
+                                }}/>
+                                <span className="modalContentStatus" id="lessonDate">Дата должна быть в формате DD:MM:YYYY</span>
+                            </div>
                             <div id="timePeriod">
                                 <input className="timeInput" id="timeStart" placeholder="XX:XX"/>
                                 <span className="textBetween">—</span>
@@ -47,7 +68,7 @@ function scheduleAdding() {
                 <div className="modalFooter">
                     <button className="sendingButton">Добавить</button>
                 </div>
-            </div>
+            </form>
         )}
     </Popup>);
 }

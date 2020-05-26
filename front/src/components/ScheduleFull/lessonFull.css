@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 2vh;
+    overflow-y: hidden;
 }
 
 .lessonFullInfo{
@@ -27,4 +28,79 @@
 
 .fullLessonContainer{
     margin-left: 2vw;
+}
+
+.lessonOptions{
+    all: unset;
+    border: 1.5vh solid transparent;
+    border-right: 1.5vh solid #7e7e7e;
+    border-bottom: 1.5vh solid #7e7e7e;
+    align-self: flex-end;
+}
+
+.lessonOptionsWindow{
+    width: 10vw !important;
+    background-color: #8ED0FF;
+}
+
+.popup-content.options-content {
+    width: 10vw !important;
+}
+
+.card{
+    text-align: center;
+}
+
+.lessonOption{
+    border-style: none none solid none;
+    margin: 0;
+    border-width: 1px;
+    cursor: pointer;
+}
+
+.deletingModal{
+    display: flex;
+    flex-direction: column;
+}
+
+#deletingOptions{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 3%;
+}
+
+.popup-content.deleting-content {
+    width: 30% !important;
+}
+
+#deletingHeader{
+    margin-bottom: 3%;
+}
+
+#changingTime{
+     display: flex;
+    flex-direction: row;
+ }
+
+#changingHeader{
+    margin-right: 2%;
+}
+
+#changingField{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.modalScheduleHeader{
+    align-self: flex-start;
+}
+
+.scheduleRadio{
+    align-self: flex-start;
+}
+
+#changingContent{
+    margin-bottom: 5%;
 }

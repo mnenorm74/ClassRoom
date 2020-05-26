@@ -1,5 +1,17 @@
 import React from "react";
 import Popup from "reactjs-popup";
+import isEmptyField from "../../validation/isEmptyField";
+import warnEmptiness from "../../validation/warnEmptiness";
+import "../../cssDirectory/storagePage.css"
+
+const formName = "storageAdding";
+
+function isValidForm(loaded: boolean): boolean {
+    // @ts-ignore
+    return (!isEmptyField(formName, "folderName") && document.getElementById("radioFolderType").checked)
+        // @ts-ignore
+        || (!document.getElementById("radioFolderType").checked && loaded);
+}
 
 function checkRadioState() {
     // @ts-ignore
@@ -13,9 +25,17 @@ function checkRadioState() {
 }
 
 function storageAddingModal() {
-    return (<Popup trigger={<button id="newsAdding"></button>} modal>
+    let fileLoaded = false;
+    return (<Popup trigger={<button id="newsAdding"/>} modal>
         {close => (
-            <div className="modal">
+            <form name={formName} className="modal" onSubmit={() => {
+                //TODO Отправка формы
+                if (isValidForm(fileLoaded)) {
+                    alert("отправляю")
+                } else {
+                    alert("не отправляю")
+                }
+            }}>
                 <a className="close" onClick={close}>
                     &times;
                 </a>
@@ -31,9 +51,9 @@ function storageAddingModal() {
                     <div id="fileAddingField">
                         <div className="form-group">
                             <label className="label">
-                                <i className="loadIcon"></i>
+                                <i className="loadIcon"/>
                                 <span className="title">Добавить файл</span>
-                                <input type="file"/>
+                                <input name="fileAdding" type="file" onChange={()=> fileLoaded=!fileLoaded}/>
                             </label>
                         </div>
                         <div className="modalFooter" id="storageArchiveSendFile">
@@ -41,15 +61,20 @@ function storageAddingModal() {
                         </div>
                     </div>
                     <div id="folderAddingField">
-                        <input type="text" placeholder="Название папки" id="folderName"/>
+                        <span className="modalContentStatus" id="folderAddingName">Название не может быть пустым</span>
+                        <input type="text" placeholder="Название папки" name="folderName" id="folderName"
+                               onChange={() => {
+                                   warnEmptiness(formName, "folderName", "folderAddingName")
+                               }}/>
                         <div className="modalFooter" id="storageArchiveSendFolder">
-                            <button className="sendingButton">Добавить</button>
+                            <button type="submit" className="sendingButton">Добавить</button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         )}
     </Popup>);
 }
+
 
 export default storageAddingModal()
