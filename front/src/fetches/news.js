@@ -1,5 +1,11 @@
 import {srcUrl} from "../mySettings";
 
+export function getNews () {
+    console.log("fetchNews");
+    let page = 1;
+    return fetch(`${srcUrl}/News?page=${page}&count=${14}`)
+}
+
 export function getComments(id) {
     console.log("fetchComments");
     return fetch(`${srcUrl}/News/${id}/comments`);

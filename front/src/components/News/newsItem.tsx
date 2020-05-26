@@ -4,7 +4,6 @@ import Comment from "./comment";
 import {IComment} from "../../projectTypes";
 
 function NewsItem({author, pubDate, article, comments}: { author: string, pubDate: string, article: string, comments: any }) {
-    console.log("comments");
     console.log(comments, "123");
     let newsComments = typeof comments == "undefined"
         ? <div id="commentsContainer">

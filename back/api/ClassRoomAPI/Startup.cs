@@ -69,19 +69,7 @@ namespace ClassRoomAPI
                 options.IdleTimeout = TimeSpan.FromSeconds(21600);
                 options.Cookie.IsEssential = true;
             });
-
-            services.AddAutoMapper(cfg =>
-            {
-                //cfg.CreateMap<UserEntity, UserDto>()
-                //    .ForMember(dest => dest.FullName, opt => opt.MapFrom(src =>
-                //        $"{src.LastName} {src.FirstName}"));
-
-                //cfg.CreateMap<User, User>("EE");
-                //cfg.CreateMap<UserToUpdateDto, UserEntity>();
-                //cfg.CreateMap<UserToCreateDto, UserEntity>();
-                //cfg.CreateMap<GameEntity, GameDto>();
-                //cfg.CreateMap<Player, PlayerDto>();
-            }, new System.Reflection.Assembly[0]);
+           
             //services.AddSpaStaticFiles(configuration => { configuration.RootPath = "front/build"; });
             //Response.Headers.Add("Access-Control-Allow-Origin", "*");
             //context.Response.Headers.Add("Access-Control-Allow-Origin", "*");

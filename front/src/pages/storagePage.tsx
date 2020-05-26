@@ -5,12 +5,12 @@ import ReactDOM from "react-dom";
 import Page from "./pageProvider";
 import StorageElements from "../components/Storage/storageDB";
 
-function StoragePage(storageElements?: any[]) {
+function StoragePage(/*storageElements?: any[]*/) {
     const [isLoadedFiles, setIsLoadedFiles] = useState(false);
     const [files, setFiles] : [any, any] = useState([]);
-    if (typeof storageElements == "undefined") {
+    /*if (typeof storageElements == "undefined") {
         storageElements = StorageElements;
-    }
+    }*/
 
     return (
         <div id="storageContent">
@@ -26,7 +26,7 @@ function StoragePage(storageElements?: any[]) {
                 </div>
             </div>
             <div id="icons">
-                {StorageContentIcons(storageElements.slice(0, 16))}
+                {/*StorageContentIcons(storageElements.slice(0, 16))*/}
             </div>
             <p id="title" onClick={() => {
                 ReactDOM.render(

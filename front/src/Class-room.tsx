@@ -22,7 +22,7 @@ function ClassRoom() {
                         <Page.MainPage/>
                     </Route>
                     <Route path="/storage">
-                        <Page.SchedulePage/>
+                        <Page.StoragePage/>
                     </Route>
                     <Route path="/news">
                         <Page.NewsPage/>

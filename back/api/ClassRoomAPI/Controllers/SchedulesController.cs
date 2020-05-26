@@ -34,28 +34,43 @@ namespace ClassRoomAPI.Controllers
                 parseDate = startDate.Split('-', '/', '\\', '.', '_').Select(e => int.Parse(e)).ToList();
                 date = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return UnprocessableEntity("Invalid format of startDate: " + e.Message);
             }
-            if(count < 0)
+            if (count < 0)
             {
                 return UnprocessableEntity("Invalid parameter: count < 0");
             }
-            for(var i = 0; i < count; i++)
-            {
-                var a1 = date.AddDays(i);
-                var day = schedulesCollection.Find(a => a.Date == date.AddDays(i)).FirstOrDefault();
-                if(day != null)
+            var q = schedulesCollection.Find(e => true).ToList();
+            //foreach (var e in q)
+            //{
+                for (var i = 0; i < count; i++)
                 {
-                     //day.Lessons.OrderBy(e => e.StartTime.Split(':').Cast<int>().First()).ThenBy(a=>a.StartTime.Split(':').Cast<int>().Last());
-                     days.Add(day);
+                    //var a1 = date.AddDays(i);
+                    //var s = new DateTime();
+                    var day = schedulesCollection.Find(a => a.DayDate == date.AddDays(i).Date).FirstOrDefault();
+                    //var day2 = schedulesCollection.Find(a => a.Date.Year == date.AddDays(i).Year && a.Date.Month == date.AddDays(i).Month && a.Date.Day == date.AddDays(i).Day).FirstOrDefault();
+                    //var a = date.AddDays(i).ToLongDateString();
+
+
+                    //if (e.DayDate.Equals(date.AddDays(i)))
+                    //{
+                    //    day = e;
+                    //}
+
+
+                    if (day != null)
+                    {
+                        //day.Lessons.OrderBy(e => e.StartTime.Split(':').Cast<int>().First()).ThenBy(a=>a.StartTime.Split(':').Cast<int>().Last());
+                        days.Add(day);
+                    }
+                    else
+                    {
+                        days.Add(new ScheduleDay() { Id = Guid.Empty, DayDate = date.AddDays(i), Lessons = new List<Lesson>() });
+                    }
                 }
-                else
-                {
-                    days.Add(new ScheduleDay() { Id = Guid.Empty, Date = date.AddDays(i), Lessons = new List<Lesson>() });
-                }
-            }
+            //}
             //if (!Response.Headers.ContainsKey("Access-Control-Allow-Origin"))
             //var json = JsonSerializer.Serialize(days);
             return Json(days);
@@ -92,8 +107,8 @@ namespace ClassRoomAPI.Controllers
             {
                 return UnprocessableEntity("Invalid format of date: " + e.Message);
             }
-            var result = schedulesCollection.Find(a => a.Date.Date == dateTime.Date).FirstOrDefault();
-            result.Lessons.OrderBy(e => e.StartTime.Split(':').Cast<int>().First()).ThenBy(a => a.StartTime.Split(':').Cast<int>().Last());
+            var result = schedulesCollection.Find(a => a.DayDate == dateTime).FirstOrDefault();
+            //result.Lessons.OrderBy(e => e.StartTime.Split(':').Cast<int>().First()).ThenBy(a => a.StartTime.Split(':').Cast<int>().Last());
             return new ObjectResult(result);
         }
 
@@ -140,23 +155,23 @@ namespace ClassRoomAPI.Controllers
             {
                 case 1:
                     {
-                        if (needCreate && schedulesCollection.CountDocuments(e => e.Date == lesson.CreateDate) == 0)
+                        if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate) == 0)
                         {
-                            schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), Date = lesson.CreateDate.Date, Lessons = new List<Lesson>() });
+                            schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate, Lessons = new List<Lesson>() });
                         }
-                        schedulesCollection.UpdateOne(s => s.Date == lesson.CreateDate.Date, update);
+                        schedulesCollection.UpdateOne(s => s.DayDate == lesson.CreateDate, update);
                         break;
                     }
                 case 7:
                     {
                         for (var i = 0; i < 30; i++)
                         {
-                            if (needCreate && schedulesCollection.CountDocuments(e => e.Date == lesson.CreateDate.AddDays(7 * i)) == 0)
+                            if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddDays(7 * i)) == 0)
                             {
-                                schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), Date = lesson.CreateDate.AddDays(7 * i), Lessons = new List<Lesson>() });
+                                schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate.AddDays(7 * i), Lessons = new List<Lesson>() });
                             }
                             date = lesson.CreateDate.AddDays(7 * i);
-                            schedulesCollection.UpdateOne(s => s.Date == date, update);
+                            schedulesCollection.UpdateOne(s => s.DayDate == date, update);
                         }
                         break;
                     }
@@ -164,12 +179,12 @@ namespace ClassRoomAPI.Controllers
                     {
                         for (var i = 0; i < 15; i++)
                         {
-                            if (needCreate && schedulesCollection.CountDocuments(e => e.Date == lesson.CreateDate.AddDays(14 * i)) == 0)
+                            if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddDays(14 * i)) == 0)
                             {
-                                schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), Date = lesson.CreateDate.AddDays(14 * i), Lessons = new List<Lesson>() });
+                                schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate.AddDays(14 * i), Lessons = new List<Lesson>() });
                             }
                             date = lesson.CreateDate.AddDays(14 * i);
-                            schedulesCollection.UpdateOne(s => s.Date == date, update);
+                            schedulesCollection.UpdateOne(s => s.DayDate == date, update);
                         }
                         break;
                     }
@@ -178,12 +193,12 @@ namespace ClassRoomAPI.Controllers
 
                         for (var i = 0; i < 7; i++)
                         {
-                            if (needCreate && schedulesCollection.CountDocuments(e => e.Date == lesson.CreateDate.AddMonths(i)) == 0)
+                            if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddMonths(i)) == 0)
                             {
-                                schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), Date = lesson.CreateDate.AddMonths(i), Lessons = new List<Lesson>() });
+                                schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate.AddMonths(i), Lessons = new List<Lesson>() });
                             }
                             date = lesson.CreateDate.AddMonths(i);
-                            schedulesCollection.UpdateOne(s => s.Date == date, update);
+                            schedulesCollection.UpdateOne(s => s.DayDate == date, update);
                         }
                         break;
                     }
@@ -223,15 +238,15 @@ namespace ClassRoomAPI.Controllers
             {
                 return UnprocessableEntity("Invalid format of date: " + e.Message);
             }
-            var delete = Builders<ScheduleDay>.Update.PullFilter(d =>d.Lessons, l=>l.Id == id);
+            var delete = Builders<ScheduleDay>.Update.PullFilter(d => d.Lessons, l => l.Id == id);
 
-            var day = schedulesCollection.Find(n => n.Date == dateTime).FirstOrDefault();
+            var day = schedulesCollection.Find(n => n.DayDate == dateTime).FirstOrDefault();
             if (day == null)
             {
                 return NotFound("Lesson with this id not found");
             }
-            var lesson = day.Lessons.Where(l=>l.Id == id).FirstOrDefault();
-            if(lesson == null)
+            var lesson = day.Lessons.Where(l => l.Id == id).FirstOrDefault();
+            if (lesson == null)
             {
                 return NotFound("Lesson with this id not found");
             }
@@ -244,8 +259,8 @@ namespace ClassRoomAPI.Controllers
             }
             else
             {
-                schedulesCollection.UpdateOne(n => n.Date == dateTime, delete);
-                schedulesCollection.UpdateOne(n => n.Date == dateTime, push);
+                schedulesCollection.UpdateOne(n => n.DayDate == dateTime, delete);
+                schedulesCollection.UpdateOne(n => n.DayDate == dateTime, push);
             }
             return new ObjectResult(lesson);
         }
@@ -271,7 +286,7 @@ namespace ClassRoomAPI.Controllers
                 return UnprocessableEntity("Invalid format of date: " + e.Message);
             }
 
-            var day = schedulesCollection.Find(n => n.Date == dateTime).FirstOrDefault();
+            var day = schedulesCollection.Find(n => n.DayDate == dateTime).FirstOrDefault();
             if (day == null)
             {
                 return NotFound("Lesson with this id not found");
@@ -288,8 +303,8 @@ namespace ClassRoomAPI.Controllers
             }
             else
             {
-                schedulesCollection.UpdateOne(n => n.Date == dateTime, delete);
-            } 
+                schedulesCollection.UpdateOne(n => n.DayDate == dateTime, delete);
+            }
             return NoContent();
         }
     }

@@ -5,23 +5,21 @@ import {getUser} from "../fetches/users";
 import {getComments} from "../fetches/news";
 import NewsItem from "../components/News/newsItem";
 import {formatDateNews} from "./news";
+import {formatDayWeek} from "./schedule";
 
-export function getSchedules () {
-    console.log("fetchSchedules");
-    let date = getStartDate();
-    return fetch(`${srcUrl}/Schedules?startDate=${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}&count=${14}`);
-}
 
-export function getNews () {
+
+/*export function getNews () {
     console.log("fetchNews");
     let page = 1;
     return fetch(`${srcUrl}/News?page=${page}&count=${14}`)
-}
+}*/
 
 export function addDaysTag(source) {
     let days = [];
     for (let i = 0; i < source.length; i++) {
-        days.push(<ScheduleDay day={formatDate(source[i].date)} /*lessons={source[i].lessons}*/ />);
+        console.log(source[i], "XMMMMMM");
+        days.push(<ScheduleDay day={formatDate(source[i].dayDate)} lessons={source[i].lessons} />);
     }
     return days;
 }
@@ -77,42 +75,11 @@ async function responseComments(news) {
     return comments;
 }
 
-function getStartDate() {
-    let date = new Date();
-    if(date.getDay() !== 1) {
-        date.setDate(date.getDate() - (6 - date.getDay()))
-    }
-    return date;
-}
-
 
 
 function formatDate(date) {
     let newDate = new Date(date);
-    let dayWeek = '';
-    switch (newDate.getDay()) {
-        case 0 :
-            dayWeek = 'ВС';
-            break;
-        case 1 :
-            dayWeek = 'ПН';
-            break;
-        case 2 :
-            dayWeek = 'ВТ';
-            break;
-        case 3 :
-            dayWeek = 'СР';
-            break;
-        case 4 :
-            dayWeek = 'ЧТ';
-            break;
-        case 5 :
-            dayWeek = 'ПТ';
-            break;
-        case 6 :
-            dayWeek = 'СБ';
-            break;
-    }
+    let dayWeek = formatDayWeek(newDate);
     let month = newDate.getMonth() + 1;
     return `${dayWeek} ${newDate.getDate()}.${month < 10 ? '0'+ month : month}`
 }
