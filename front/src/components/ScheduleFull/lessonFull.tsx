@@ -1,16 +1,7 @@
 import React from "react";
 import {LessonList, LessonType} from '../Schedule/lessonStuff'
 import './lessonFull.css'
-import Popup from "reactjs-popup";
-
-const Card = () => (
-    <div className="card">
-        <div className="content">
-            <p className="lessonOption">Изменить</p>
-            <p className="lessonOption">Удалить</p>
-        </div>
-    </div>
-);
+import lessonOptions from "../modals/lessonOptions";
 
 function LessonFull() {
     return (<div id={'fullDayContainer'}>
@@ -21,12 +12,7 @@ function LessonFull() {
             <p className={'lessonFullInfo'}>Р247 Мира,32</p>
             <p className={'lessonFullInfo'}>Преподаватель: Филимонов А.Ю.</p>
         </div>
-        <Popup
-            trigger={ <button className={'lessonOptions'}/> }
-            position="right top"
-            on="hover">
-            <Card/>
-        </Popup>
+        {lessonOptions}
     </div>)
 }
 
