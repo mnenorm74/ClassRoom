@@ -17,7 +17,7 @@ function lessonOptions(id : any, day: any) {
         <Popup
             trigger={ <button className={'lessonOptions'}/> }
             position="right top"
-            on="hover" className={'options'}>
+            on="click" className={'options'}>
             <Card id={id} day ={day}/>
         </Popup>
     )

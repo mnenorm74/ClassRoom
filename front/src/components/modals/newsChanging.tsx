@@ -13,7 +13,11 @@ function isValidForm(): boolean {
 function newsChanging() {
     return (<Popup trigger={<p className="lessonOption">Изменить</p>} modal className={'deleting'}>
         {close => (
-            <form name={formName} className="modal" onChange={() => {
+            <form name={formName} className="modal" onFocus={()=>
+                //@ts-ignore
+                console.log(document.getElementsByClassName('popup-content'))
+            }
+                  onChange={() => {
                     //@ts-ignore
                     document.getElementById("newsChangingButton").disabled = !isValidForm();
             }}

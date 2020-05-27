@@ -14,11 +14,12 @@ const Card = () => (
 );
 
 function newsOptions() {
-    return(
+    return (
         <Popup
-            trigger={ <button className='newsOptions'/> }
+            trigger={<button className='newsOptions'/>}
             position="left top"
-            on="hover" className={'options'}>
+            on="click" className={'options'}
+            closeOnDocumentClick={true}>
             <Card/>
         </Popup>
     )

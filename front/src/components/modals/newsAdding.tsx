@@ -21,12 +21,12 @@ function newsAdding() {
             //alert("не отправляю")
         }
     }}*/
-    
+
     function onSubmit() {
         if (!isValidForm()) {
             return;
         }
-        let form : any = document.forms.namedItem(formName);
+        let form: any = document.forms.namedItem(formName);
         let formData = new FormData(form);
         console.log(formData.get("Title"), "Title");
         fetch(`${srcUrl}/News`, {
@@ -35,40 +35,41 @@ function newsAdding() {
             body: formData
         });
     }
-    
-    
+
     return (
-        <Popup trigger={<button id="newsAdding"></button>} modal>
+        <Popup trigger={<button id="newsAdding"/>} modal>
             {close => (
                 <>
-                <form name={formName} className="modal" onChange={()=>{
-                        //@ts-ignore
-                        document.getElementById("newsAddingButton").disabled = !isValidForm();
-                }}>
-                    <a className="close" onClick={close}>
-                        &times;
-                    </a>
-                    <div className="header">ДОБАВИТЬ НОВОСТЬ</div>
-                    <div className="content">
-                        <div className='modalFieldHeader'>
-                            <span className="modalContentHeader">Заголовок</span>
-                            <span className="modalContentStatus" id="newsAddingHeaderValidation">Заголовок не может быть пустым</span>
+                    <form name={formName} className="modal"
+                          onChange={() => {
+                              //@ts-ignore
+                              document.getElementById("newsAddingButton").disabled = !isValidForm();
+                          }}>
+                        <a className="close" onClick={close}>
+                            &times;
+                        </a>
+                        <div className="header">ДОБАВИТЬ НОВОСТЬ</div>
+                        <div className="content">
+                            <div className='modalFieldHeader'>
+                                <span className="modalContentHeader">Заголовок</span>
+                                <span className="modalContentStatus" id="newsAddingHeaderValidation">Заголовок не может быть пустым</span>
+                            </div>
+                            <input name="Title" type="text" id="addingNewsHeader" onChange={() => {
+                                warnEmptiness(formName, "Title", "newsAddingHeaderValidation")
+                            }}/>
+                            <div className='modalFieldHeader'>
+                                <span className="modalContentHeader">Содержание</span>
+                                <span className="modalContentStatus" id="newsAddingContentValidation">Содержание не может быть пустым</span>
+                            </div>
+                            <textarea name="Content" id="addingNewsContent" onChange={() => {
+                                warnEmptiness(formName, "Content", "newsAddingContentValidation")
+                            }}/>
                         </div>
-                        <input name="Title" type="text" id="addingNewsHeader" onChange={() => {
-                            warnEmptiness(formName, "Title", "newsAddingHeaderValidation")
-                        }}/>
-                        <div className='modalFieldHeader'>
-                            <span className="modalContentHeader">Содержание</span>
-                            <span className="modalContentStatus" id="newsAddingContentValidation">Содержание не может быть пустым</span>
-                        </div>
-                        <textarea name="Content" id="addingNewsContent" onChange={() => {
-                            warnEmptiness(formName, "Content", "newsAddingContentValidation")
-                        }}/>
-                    </div>
 
-                </form>
+                    </form>
                     <div className="modalFooter">
-                        <button className="sendingButton" onClick={onSubmit} id="newsAddingButton" disabled>Добавить</button>
+                        <button className="sendingButton" onClick={onSubmit} id="newsAddingButton" disabled>Добавить
+                        </button>
                     </div>
                 </>
             )}
