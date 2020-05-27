@@ -80,7 +80,7 @@ function scheduleAdding() {
                         </div>
                         <div className="scheduleModalLine">
                             <span className="modalScheduleHeader">Название</span>
-                            <span className="modalContentStatus" id="lessonName">Заголовок не может быть пустым</span>
+                            <span className="modalContentStatus" id="lessonName">Название не может быть пустым</span>
                         </div>
                         <input name="Title" type="text" className="scheduleInput" onChange={() =>
                             warnEmptiness(formName, "Title", "lessonName")}/>
