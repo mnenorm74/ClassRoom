@@ -61,11 +61,10 @@ function newsAdding() {
                             warnEmptiness(formName, "Content", "newsAddingContentValidation")
                         }}/>
                     </div>
-
-                </form>
                     <div className="modalFooter">
                         <button className="sendingButton" onClick={onSubmit}>Добавить</button>
                     </div>
+                </form>
                 </>
             )}
         </Popup>

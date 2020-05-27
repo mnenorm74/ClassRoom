@@ -3,7 +3,7 @@ import Popup from "reactjs-popup";
 import '../ScheduleFull/lessonFull.css'
 import {farmatDateForm} from "../../fetches/schedule";
 import {srcUrl} from "../../mySettings";
-const formName = "scheduleChanging";
+const formName = "scheduleChangingLesson";
 
 function lessonChanging(id : any, day:any) {
     function onSubmit() {
@@ -12,14 +12,19 @@ function lessonChanging(id : any, day:any) {
         }*/
         let form : any = document.forms.namedItem(formName);
         let formData = new FormData(form);
-        let date : any = formData.get("CreateDate");
-        let newDate : any = farmatDateForm(date);
-        formData.set("CreateDate", newDate);
-        fetch(`${srcUrl}/Schedules/${day}/${id}`, {
+        let all : any = formData.get("deleteRepeating");
+        //let newDate : any = farmatDateForm(date);
+        formData.delete("deleteRepeating");
+        let date = new Date(day);
+        let newDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+        console.log(newDate, "DAYY");
+        console.log(id, "ID");
+        fetch(`${srcUrl}/Schedules/${newDate}/${id}?all=${!all}`, {
             method: 'patch',
             headers: {
                 //'Content-Type': 'multipart/form-data'
             },
+            credentials: "include",
             body: formData
         });
 
@@ -27,6 +32,7 @@ function lessonChanging(id : any, day:any) {
 
     return (<Popup trigger={<p className="lessonOption">Изменить</p>} modal className={'deleting'}>
         {close => (
+            <>
             <form name={formName}>
             <div className="modal" id="deletingModal">
                 <a className="close" onClick={close}>
@@ -62,14 +68,15 @@ function lessonChanging(id : any, day:any) {
                     <span className="modalScheduleHeader">Преподаватель</span>
                     <input name="Teacher" type="text" className="scheduleInput"/>
                     <span className="modalScheduleHeader">Применить для</span>
-                    <p className="scheduleRadio"><input name="deleteRepeating" type="radio" checked/>Текущей записи</p>
-                    <p className="scheduleRadio"><input name="deleteRepeating" type="radio"/>Всех повторяющихся записей</p>
+                    <p className="scheduleRadio"><input name="deleteRepeating" type="radio" value="false" defaultChecked/>Текущей записи</p>
+                    <p className="scheduleRadio"><input name="deleteRepeating" type="radio" value="true"/>Всех повторяющихся записей</p>
                 </div>
                 <div className="modalFooter" id="changingFooter">
                     <button className="sendingButton" onClick={onSubmit}>Изменить</button>
                 </div>
             </div>
             </form>
+            </>
         )}
     </Popup>);
 }

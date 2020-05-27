@@ -5,7 +5,7 @@ import './scheduleDay.css'
 import {addLessonTag} from "../../fetches/schedule";
 
 
-function ScheduleDay({day}:{day:string}, lessons : any[]) {
+function ScheduleDay({day, lessons}:{day:string, lessons : any[]}) {
     /*const [isLoadedLessons, setIsLoadedLessons] = useState(false);
     const [Lessons, setLessons]: [any, any] = useState([]);*/
     /*function addLessonTag() {
@@ -20,7 +20,7 @@ function ScheduleDay({day}:{day:string}, lessons : any[]) {
         }
         return result;
     }*/
-    function compare(a : any, b : any) {
+    /*function compare(a : any, b : any) {
         let timeA = a.startTime.split(':').map((e : string) => +e);
         let timeB = b.startTime.split(':').map((e : string) => +e);
         if (timeA[0] > timeB[0]) return 1;
@@ -31,8 +31,8 @@ function ScheduleDay({day}:{day:string}, lessons : any[]) {
         }
         if (timeA[0] < timeB[0]) return -1;
         return 0;
-    }
-    function determineLessonNumber(startTime : string) {
+    }*/
+    /*function determineLessonNumber(startTime : string) {
         let time = startTime.split(':').map((e : string) => +e);
         if(time[0] < 9) {
             return '1';
@@ -56,7 +56,7 @@ function ScheduleDay({day}:{day:string}, lessons : any[]) {
             return '7';
         }
         return '-1';
-    }
+    }*/
 
     function showLessons() {
         let tags : any = addLessonTag(lessons);

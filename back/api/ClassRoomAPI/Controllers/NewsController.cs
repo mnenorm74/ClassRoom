@@ -9,6 +9,7 @@ using MongoDB.Driver;
 using Microsoft.AspNetCore.Http;
 using ClassRoomAPI.EnteringModels;
 using AutoMapper.QueryableExtensions;
+using System.Text.Json;
 
 namespace ClassRoomAPI.Controllers
 {
@@ -19,10 +20,12 @@ namespace ClassRoomAPI.Controllers
     {
         private readonly IMongoCollection<News> newsCollection;
         private readonly IMongoCollection<Comment> commentsCollection;
+        private readonly IMongoCollection<User> usersCollection;
         public NewsController(IMongoDatabase db)
         {
             newsCollection = db.GetCollection<News>("news");
             commentsCollection = db.GetCollection<Comment>("comments");
+            usersCollection = db.GetCollection<User>("users");
         }
 
         [Produces("application/json")]
@@ -38,7 +41,18 @@ namespace ClassRoomAPI.Controllers
                     .Skip((page - 1) * count)
                     .Limit(count)
                     .ToList();
-            return new ObjectResult(news);
+            var correctNews = new List<NewsViewDTO>();
+            for (var i = 0; i < news.Count; i++) 
+            {
+                var newsView = new NewsViewDTO(news[i]);
+                var user = usersCollection.Find(e => e.Id == news[i].AuthorId).FirstOrDefault();
+                newsView.AuthorName = user.Name;
+                newsView.AuthorSurname = user.Surname;
+                var comments = commentsCollection.Find(c => news[i].Comments.Contains(c.Id)).ToList();
+                newsView.Comments = comments;
+                correctNews.Add(newsView);
+            }
+            return new ObjectResult(correctNews);
         }
 
 
@@ -123,16 +137,16 @@ namespace ClassRoomAPI.Controllers
             return NoContent();
         }
 
-        [HttpGet("{id}/comments")]
-        [Produces("application/json")]
-        public IActionResult Get(Guid id)
-        {
+        //[HttpGet("{id}/comments")]
+        //[Produces("application/json")]
+        //public IActionResult Get(Guid id)
+        //{
 
-            var news = newsCollection.Find(n => n.Id == id).FirstOrDefault();
-            var comments = commentsCollection.Find(c => news.Comments.Contains(c.Id)).ToList();
+        //    var news = newsCollection.Find(n => n.Id == id).FirstOrDefault();
+        //    var comments = commentsCollection.Find(c => news.Comments.Contains(c.Id)).ToList();
 
-            return Json(comments);
-        }
+        //    return Json(comments);
+        //}
 
         /// <remarks>
         /// Sample request:

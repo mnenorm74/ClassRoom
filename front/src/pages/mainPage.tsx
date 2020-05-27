@@ -6,7 +6,7 @@ import '../cssDirectory/mainPage.css';
 import {srcUrl} from "../mySettings";
 import {addDaysTag} from "../fetches/mainPage";
 import {getUser} from "../fetches/users";
-import {formatDateNews, getComments, getNews} from "../fetches/news";
+import {addNewsTag, formatDateNews, getComments, getNews} from "../fetches/news";
 import {getSchedules} from "../fetches/schedule";
 
 function MainPage() {
@@ -29,52 +29,10 @@ function MainPage() {
         getNews()
             .then((res) => res.json())
             .then(
-                (result: any[]) => {
-                    let tags: any[] = [];
-                    for (let i = 0; i < result.length; i++) {
-                        Promise.all([getUser(result[i].authorId).then(author => author.json()),
-                            getComments(result[i].id).then(comments => comments.json())])
-                            .then((res)=>{
-                                console.log(res,"News00");
-                                tags.push(<NewsItem author={res[0].name + ' ' + res[0].surname}
-                                                    pubDate={formatDateNews(result[i].date)}
-                                                    article={result[i].content}
-                                                    comments={res[1]}
-                                                    key={i}/>);
-                            })
-                            .then(() => {
-                                if (i === result.length - 1) {
-                                    setNews(tags);
-                                    //console.log(tags, "Green");
-                                    setIsLoadedNews(true);
-                                }
-                            })
-                        /*getUser(result[i].authorId)
-                            .then(author => author.json())
-                            .then((author) => {
-                                getComments(result[i].id)
-                                    .then(comments => comments.json())
-                                    .then(comments => {
-                                        tags.push(<NewsItem author={author.name + ' ' + author.surname}
-                                                            pubDate={formatDateNews(result[i].date)}
-                                                            article={result[i].content}
-                                                            comments={comments}
-                                                            key={i}/>);
-                                        //console.log(author, comments, "AAAAA")
-                                    })
-                                    .then(() => {
-                                        if (i === result.length - 1) {
-                                            setNews(tags);
-                                            console.log(tags, "Green");
-                                            //setNews(res);
-                                            setIsLoadedNews(true);
-                                        }
-                                    })
-                            });*/
-                    }
-                },
-                (error => console.log(error))
-            )
+                (result: any) => {
+                    setNews(addNewsTag(result));
+                    setIsLoadedNews(true);
+                })
     }, []);
 
     function sliderMousedown() {

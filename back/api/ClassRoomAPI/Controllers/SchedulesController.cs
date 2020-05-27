@@ -62,7 +62,7 @@ namespace ClassRoomAPI.Controllers
 
                     if (day != null)
                     {
-                        day.Lessons = day.Lessons.OrderBy(e => int.Parse(e.StartTime.Split(':').First())).ThenBy(a=> int.Parse(a.StartTime.Split(':').Last()));
+                        day.Lessons = day.Lessons.OrderBy(e => int.Parse(e.StartTime.Split('-', '/', '\\', '.', '_', ':').First())).ThenBy(a=> int.Parse(a.StartTime.Split(':').Last()));
                         days.Add(day);
                     }
                     else

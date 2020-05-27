@@ -18,8 +18,8 @@ import {formatDayWeek} from "./schedule";
 export function addDaysTag(source) {
     let days = [];
     for (let i = 0; i < source.length; i++) {
-        console.log(source[i].lessons, "XMMMMMM");
-        days.push(<ScheduleDay day={formatDate(source[i].date)} lessons={source[i].lessons} />);
+        //console.log(source[i], "XMMMMMM");
+        days.push(<ScheduleDay day={formatDate(source[i].dayDate)} lessons={source[i].lessons} />);
     }
     return days;
 }
@@ -27,25 +27,25 @@ export function addDaysTag(source) {
 export function addNewsTag(source, author, comments) {
     let res = [];
     for (let i = 0; i < source.length; i++) {
-      /*  getUser(source[i].authorId)
-            .then(author => author.json())
-            .then( (author) => {
-                getComments(source[i].id).then(comments => comments.json()).then(comments => {
-                    res.push(<NewsItem author={author.name + ' ' + author.surname} pubDate={formatDateNews(source[i].date)} article={source[i].content}
-                                       comments={comments}/>);
-                    console.log(author, comments, "AAAAA")
-                })
-            })*/
-            /*.then(pair =>
-            {
-                console.log(pair, "AAAAA1")
-                return [pair[0], pair[1].json()];
-            })
-            .then((result) =>
-                { res.push(<NewsItem author={result[0].name + ' ' + result[0].surname} pubDate={formatDateNews(source[i].date)} article={source[i].content}
-                                                       comments={result[1]}/>);
-                    console.log(result, "AAAAA")
-                });*/
+        /*  getUser(source[i].authorId)
+              .then(author => author.json())
+              .then( (author) => {
+                  getComments(source[i].id).then(comments => comments.json()).then(comments => {
+                      res.push(<NewsItem author={author.name + ' ' + author.surname} pubDate={formatDateNews(source[i].date)} article={source[i].content}
+                                         comments={comments}/>);
+                      console.log(author, comments, "AAAAA")
+                  })
+              })*/
+        /*.then(pair =>
+        {
+            console.log(pair, "AAAAA1")
+            return [pair[0], pair[1].json()];
+        })
+        .then((result) =>
+            { res.push(<NewsItem author={result[0].name + ' ' + result[0].surname} pubDate={formatDateNews(source[i].date)} article={source[i].content}
+                                                   comments={result[1]}/>);
+                console.log(result, "AAAAA")
+            });*/
 
         /*let author = {};
         getUser(source[i].authorId).then(res => res.json()).then(result => author = JSON.parse(JSON.stringify(result)));
