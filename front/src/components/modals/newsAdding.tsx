@@ -65,7 +65,7 @@ function newsAdding() {
                                 warnEmptiness(formName, "Content", "newsAddingContentValidation")
                             }}/>
                         </div>
-                       {/* <input name="Title" type="text" id="addingNewsHeader" onChange={() => {
+                        {/* <input name="Title" type="text" id="addingNewsHeader" onChange={() => {
                             warnEmptiness(formName, "Title", "newsAddingHeaderValidation")
                         }}/>
                         <div className='modalFieldHeader'>
@@ -78,11 +78,11 @@ function newsAdding() {
                     </div>
 
                     </form>*/}
-                    <div className="modalFooter">
-                        <button className="sendingButton" onClick={onSubmit} id="newsAddingButton" disabled>Добавить
-                        </button>
-                    </div>
-                </form>
+                        <div className="modalFooter">
+                            <button className="sendingButton" onClick={onSubmit} id="newsAddingButton" disabled>Добавить
+                            </button>
+                        </div>
+                    </form>
                 </>
             )}
         </Popup>
