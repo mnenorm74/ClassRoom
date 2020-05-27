@@ -4,10 +4,12 @@ import GroupUsers from "../group/groupDB";
 import {getUser} from "../../fetches/users";
 import {addDaysTag} from "../../fetches/mainPage";
 import {formatDateNews} from "../../fetches/news";
+import newsOptions from "../modals/newsOptions";
+import commentOptions from "../modals/commentOptions";
 
 function Comment(comment: { authorId: string, content: string, date: string }) {
     const [isLoadedAuthor, setIsLoadedAuthor] = useState(false);
-    const [author, setAuthor] : [any, any] = useState([]);
+    const [author, setAuthor]: [any, any] = useState([]);
 
     useEffect(() => {
         getUser(comment.authorId)
@@ -18,19 +20,24 @@ function Comment(comment: { authorId: string, content: string, date: string }) {
                     setIsLoadedAuthor(true);
                 }
             );
-    },[]);
+    }, []);
+
     function showAuthors() {
-        if(isLoadedAuthor) {
+        if (isLoadedAuthor) {
             return author;
         }
         return null;
     }
+
     return (
         <div id="commentContainer">
             <div id="commentPhoto"/>
             <div id="commentBody">
                 {/*<span id="commentAuthor">{`${author.Name} ${author.Surname}`}</span>*/}
-                {showAuthors()}
+                <div className={'commentHeader'}>
+                    {showAuthors()}
+                    {commentOptions}
+                </div>
                 <span id="commentContent">{comment.content}</span>
                 <span id="commentDate">{formatDateNews(comment.date)}</span>
             </div>
