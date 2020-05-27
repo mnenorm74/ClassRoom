@@ -66,7 +66,8 @@ namespace ClassRoomAPI
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".ClassRoom.Session";
-                options.IdleTimeout = TimeSpan.FromSeconds(21600);
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.IdleTimeout = TimeSpan.FromSeconds(3600);
                 options.Cookie.IsEssential = true;
             });
            
@@ -86,7 +87,8 @@ namespace ClassRoomAPI
             app.UseCors(builder =>
             builder.WithOrigins("http://localhost:3000")
                 .AllowAnyHeader()
-                .AllowAnyMethod());
+                .AllowAnyMethod()
+                .AllowCredentials());
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

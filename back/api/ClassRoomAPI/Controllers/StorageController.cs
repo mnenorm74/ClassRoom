@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ClassRoomAPI.Models;
@@ -40,7 +41,8 @@ namespace ClassRoomAPI.Controllers
         public IActionResult Get(string path)
         {
             var decodePath = "";
-            var currUser = Guid.Parse(HttpContext.Session.GetString("userId"));
+            var user = HttpContext.Session.GetString("userId");
+            var currUser = Guid.Parse(user);
             var currGroup = groupsCollection.Find(g => g.Users.Contains(currUser)).FirstOrDefault();
             var newPath = "";
             FileInfo fileInf;
