@@ -1,31 +1,52 @@
-#fullDayContainer{
+#fullDayContainer {
+    /*width: 100%;*/
     display: flex;
     align-items: center;
+    margin-top: 1vh;
     margin-bottom: 2vh;
     overflow-y: hidden;
+    padding: 1vh;
+    background-color: rgba(247, 247, 255, 0.88);
+    border-radius: 0.3vw;
 }
 
-.lessonFullInfo{
+.lessonFullInfo {
     margin: 0;
 }
 
-#time{
+.time > p {
+    margin: 0;
+    text-align: center;
+}
+
+#time {
     font-size: 1.5rem;
 }
 
-.fullLessonContainer{
+.fullLessonContainer {
     margin-left: 2vw;
+    width: 100%;
 }
 
-.lessonOptions{
+.lessonOptions {
     all: unset;
     border: 1.5vh solid transparent;
     border-right: 1.5vh solid #7e7e7e;
     border-bottom: 1.5vh solid #7e7e7e;
     align-self: flex-end;
+    /*border-style: none none solid none;*/
+    /*border-width: 1px;*/
+    cursor: pointer;
 }
 
-.lessonOptionsWindow{
+.lessonOptionItem {
+    border-style: none none solid none;
+    margin: 0;
+    border-width: 1px;
+    cursor: pointer;
+}
+
+.lessonOptionsWindow {
     width: 10vw !important;
     background-color: #8ED0FF;
 }
@@ -34,23 +55,17 @@
     width: 10vw !important;
 }
 
-.card{
+.card {
     text-align: center;
 }
 
-.lessonOption{
-    border-style: none none solid none;
-    margin: 0;
-    border-width: 1px;
-    cursor: pointer;
-}
 
-.deletingModal{
+.deletingModal {
     display: flex;
     flex-direction: column;
 }
 
-#deletingOptions{
+#deletingOptions {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -61,44 +76,44 @@
     width: 30% !important;
 }
 
-#deletingHeader{
+#deletingHeader {
     margin-bottom: 3%;
 }
 
-#changingTime{
-     display: flex;
+#changingTime {
+    display: flex;
     flex-direction: row;
- }
+}
 
-#changingHeader{
+#changingHeader {
     margin-right: 2%;
 }
 
-#changingField{
+#changingField {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.modalScheduleHeader{
+.modalScheduleHeader {
     align-self: flex-start;
 }
 
-.scheduleRadio{
+.scheduleRadio {
     align-self: flex-start;
 }
 
-#changingContent{
+#changingContent {
     margin-bottom: 5%;
 }
 
-#deletingMessage{
+#deletingMessage {
     font-size: 150%;
     padding-left: 3%;
     padding-right: 3%;
 }
 
-#changingLessonTime, #changingLessonName, #changingRoomNumber, #changingTeacherName{
+#changingLessonTime, #changingLessonName, #changingRoomNumber, #changingTeacherName {
     color: red;
     display: none;
 }

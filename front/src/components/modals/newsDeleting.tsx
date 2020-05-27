@@ -3,7 +3,7 @@ import Popup from "reactjs-popup";
 import '../News/news.css'
 
 function newsDeleting() {
-    return (<Popup trigger={<p className="lessonOption">Удалить</p>} modal className={'deleting'}>
+    return (<Popup trigger={<p className="lessonOptionItem">Удалить</p>} modal className={'deleting'}>
         {close => (
             <div className="modal" id="deletingModal">
                 <a className="close" onClick={close}>

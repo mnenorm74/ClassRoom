@@ -61,7 +61,7 @@ function ScheduleDay({day, lessons}:{day:string, lessons : any[]}) {
     function showLessons() {
         let tags : any = addLessonTag(lessons);
         if(tags.length === 0) {
-            return <p>В данный день пар нет!</p>
+            return <p className={'weekendDay'}>В данный день пар нет!</p>
         } else {
             return tags;
         }

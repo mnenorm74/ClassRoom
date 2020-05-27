@@ -15,7 +15,7 @@ function lessonDeleting(id:any, day:any) {
 
     }
 
-    return (<Popup trigger={<p className="lessonOption">Удалить</p>} modal className={'deleting'}>
+    return (<Popup trigger={<p className="lessonOptionItem">Удалить</p>} modal className={'deleting'}>
             {close => (
                 <form name={formName}>
                 <div className="modal" id="deletingModal">

@@ -8,9 +8,9 @@ import {addDaysTag} from "../fetches/mainPage";
 function SchedulePage() {
     const [isLoadedSchedules, setIsLoadedSchedules] = useState(false);
     const [scheduleDays, setScheduleDays]: [any, any] = useState([]);
-
+    const [currentWeek, setWeek]: [any, any] = useState(0)
     useEffect(() => {
-        getSchedules(7)
+        getSchedules(7, currentWeek)
             .then(res => res.json())
             .then(
                 (result: any) => {
@@ -18,7 +18,7 @@ function SchedulePage() {
                     setIsLoadedSchedules(true);
                 }
             );
-    },[]);
+    }, [currentWeek]);
 
     function showSchedules() {
         if (isLoadedSchedules) {
@@ -35,7 +35,10 @@ function SchedulePage() {
             </div>
             <p className={'title'}>{getCurrentDate()}{/*СР, 8 апреля 2020*/}</p>
             <div id={'scheduleComponentContainer'}>
-                <button className={'arrowButton'}/>
+                <button className={'arrowButton'} onClick={() => {
+                    if (currentWeek !== 0)
+                        setWeek(currentWeek - 1)
+                }}/>
                 <div id={'scheduleContainer'}>
                     {/*<ScheduleDayFull day={'Пн'}/>*/}
                     {/*<ScheduleDayFull day={'Пн'}/>*/}
@@ -43,7 +46,17 @@ function SchedulePage() {
                     {/*<ScheduleDayFull day={'Пн'}/>*/}
                     {showSchedules()}
                 </div>
-                <button className={'arrowButton right'}/>
+                <button className={'arrowButton right'} onClick={() => {
+                    setWeek(currentWeek + 1)
+                    /*getSchedules(7, currentWeek)
+                        .then(res => res.json())
+                        .then(
+                            (result: any) => {
+                                setScheduleDays(addFullDaysTag(result));
+                                setIsLoadedSchedules(true);
+                            }
+                        );*/
+                }}/>
             </div>
         </>
     )

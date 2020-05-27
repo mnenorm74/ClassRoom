@@ -1,7 +1,7 @@
 import React from "react";
 import Popup from "reactjs-popup";
 import '../ScheduleFull/lessonFull.css'
-import {farmatDateForm} from "../../fetches/schedule";
+import {formatDateForm} from "../../fetches/schedule";
 import {srcUrl} from "../../mySettings";
 import warnTimeFormat from "../../validation/warnTimeFormat";
 import warnEmptiness from "../../validation/warnEmptiness";
@@ -50,7 +50,7 @@ function lessonChanging(id: any, day: any) {
 
     }
 
-    return (<Popup trigger={<p className="lessonOption">Изменить</p>} modal className={'deleting'}>
+    return (<Popup trigger={<p className="lessonOptionItem">Изменить</p>} modal className={'deleting'}>
         {close => (
             <>
                 <form name={formName} className="modal" onChange={() => {

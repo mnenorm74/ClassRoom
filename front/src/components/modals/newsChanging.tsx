@@ -11,7 +11,7 @@ function isValidForm(): boolean {
 }
 
 function newsChanging() {
-    return (<Popup trigger={<p className="lessonOption">Изменить</p>} modal className={'deleting'}>
+    return (<Popup trigger={<p className="lessonOptionItem">Изменить</p>} modal className={'deleting'}>
         {close => (
             <form name={formName} className="modal" onFocus={()=>
                 //@ts-ignore
