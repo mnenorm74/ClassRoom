@@ -18,7 +18,7 @@ function SchedulePage() {
                     setIsLoadedSchedules(true);
                 }
             );
-    },[]);
+    }, []);
 
     function showSchedules() {
         if (isLoadedSchedules) {

@@ -8,14 +8,16 @@ import {srcUrl} from "../../mySettings";
 const formName = "newsChanging";
 
 function isValidForm(): boolean {
-    return !isEmptyField(formName, "changingNewsHeader") && !isEmptyField(formName, "addingNewsContent");
+    return !isEmptyField(formName, "changingNewsHeader") && !isEmptyField(formName, "Content");
 }
 
 function newsChanging(id : any) {
     function onSubmit() {
-        /*if (!isValidForm()) {
+        if (!isValidForm()) {
+            // @ts-ignore
+            document.querySelector('.sendingButton').setAttribute("disabled", "true")
             return;
-        }*/
+        }
         let form: any = document.forms.namedItem(formName);
         let formData = new FormData(form);
         //console.log(formData.get("Title"), "Title");
@@ -24,14 +26,20 @@ function newsChanging(id : any) {
             credentials: "include",
             body: formData
         });
-    }
 
     return (<Popup trigger={<p className="lessonOption">Изменить</p>} modal className={'deleting'}>
         {close => (
-            <form name={formName} className="modal" onFocus={()=>
-                //@ts-ignore
-                console.log(document.getElementsByClassName('popup-content'))
-            }>
+            <form name={formName} className="modal"
+                  onChange={() => {
+                      if (!isValidForm()) {
+                          // @ts-ignore
+                          document.querySelector('.sendingButton').setAttribute("disabled", "true")
+                      } else {
+                          // @ts-ignore
+                          document.querySelector('.sendingButton').removeAttribute("disabled")
+                      }
+                  }}>
+               
                 <a className="close" onClick={close}>
                     &times;
                 </a>
@@ -48,8 +56,8 @@ function newsChanging(id : any) {
                         <span className="modalContentHeader">Содержание</span>
                         <span className="modalContentStatus" id="newsChangingContentValidation">Содержание не может быть пустым</span>
                     </div>
-                    <textarea name="Content" id={"changingNewsContent"} onChange={() => {
-                        warnEmptiness(formName, "changingNewsContent", "newsChangingContentValidation")
+                    <textarea id="addingNewsContent" name={"Content"} onChange={() => {
+                        warnEmptiness(formName, "Content", "newsChangingContentValidation")
                     }}/>
                 </div>
                 <div className="modalFooter" id="changingFooter">

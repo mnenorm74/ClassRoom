@@ -21,7 +21,7 @@
     flex-direction: row;
 }
 
-.newsOptions{
+.newsOptions {
     all: unset;
     padding-left: 2vw;
     display: flex;
@@ -46,35 +46,35 @@
     color: black;
 }
 
-#commentsAdding{
+#commentsAdding {
     margin-top: 2vh;
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-#commentOwnerPhoto{
+#commentOwnerPhoto {
     width: 7vh;
     height: 7vh;
     border-radius: 50%;
     background-color: #CBAEEB;
 }
 
-#commentSendButton{
+#commentSendButton {
     width: 5vh;
     height: 5vh;
     border-radius: 50%;
     background-image: url("../../icons/Send.svg");
 }
 
-#commentField{
+#commentField {
     margin-left: 2vw;
     margin-right: 2vw;
     height: 7vh;
     width: 85%;
 }
 
-#newsOptionsField{
+#newsOptionsField {
     color: black;
     font-weight: normal;
 }
@@ -83,42 +83,66 @@
     font-style: normal;
 }
 
-#deletingText{
+#deletingText {
     font-size: 150%;
     margin-left: 5%;
 }
 
-.modalContentHeader{
+.modalContentHeader {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     align-self: flex-start;
 }
 
-#newsAddingHeaderValidation{
+#newsAddingHeaderValidation {
     color: red;
     display: block;
 }
 
-#newsAddingContentValidation{
+#newsAddingContentValidation {
     color: red;
     display: block;
 }
 
-#newsChangingHeaderValidation{
+#newsChangingHeaderValidation {
     color: red;
     display: none;
 }
 
-.modalContentStatus{
+.modalContentStatus {
     align-self: flex-start;
 }
 
-.modalFieldHeader{
+.modalFieldHeader {
     align-self: flex-start;
 }
 
-#newsChangingContentValidation{
+#newsChangingContentValidation {
+    color: red;
+    display: none;
+}
+
+.commentHeader {
+    width: 65vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.commentOptions {
+    all: unset;
+    border: 1.5vh solid transparent;
+    border-top: 1.5vh solid #7e7e7e;
+    border-right: 1.5vh solid #7e7e7e;
+    cursor: pointer;
+}
+
+.card{
+    cursor: pointer;
+}
+
+#ChangingCommentValidation{
     color: red;
     display: none;
 }

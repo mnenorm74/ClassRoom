@@ -102,3 +102,15 @@
     color: red;
     display: none;
 }
+
+#positiveAnswer, #negativeAnswer{
+    width: 30%;
+    height: 10%;
+    margin-right: 2%;
+}
+
+#deletingFooter{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

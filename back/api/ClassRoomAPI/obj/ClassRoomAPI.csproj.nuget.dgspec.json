@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Web\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj": {}
+    "C:\\Users\\bursi\\OneDrive\\Desktop\\6\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj": {}
   },
   "projects": {
-    "E:\\Web\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj": {
+    "C:\\Users\\bursi\\OneDrive\\Desktop\\6\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Web\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
+        "projectUniqueName": "C:\\Users\\bursi\\OneDrive\\Desktop\\6\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
         "projectName": "ClassRoomAPI",
-        "projectPath": "E:\\Web\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
-        "packagesPath": "C:\\Users\\Наталья\\.nuget\\packages\\",
-        "outputPath": "E:\\Web\\ClassRoom\\back\\api\\ClassRoomAPI\\obj\\",
+        "projectPath": "C:\\Users\\bursi\\OneDrive\\Desktop\\6\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
+        "packagesPath": "C:\\Users\\bursi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\bursi\\OneDrive\\Desktop\\6\\ClassRoom\\back\\api\\ClassRoomAPI\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Наталья\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\bursi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -84,7 +81,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
         }
       }
     }
