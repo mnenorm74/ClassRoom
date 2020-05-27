@@ -15,6 +15,7 @@ export function addNewsTag(source) {
                             pubDate={formatDateNews(source[i].date)}
                             article={source[i].content}
                             comments={source[i].comments}
+                            id = {source[i].id}
                             key={i} />);
     }
     return tags;

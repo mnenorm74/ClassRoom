@@ -14,6 +14,7 @@ namespace ClassRoomAPI.EnteringModels
             Title = news.Title;
             Content = news.Content;
             Date = news.Date;
+            AuthorId = news.AuthorId;
         }
 
         public NewsViewDTO ()
@@ -24,6 +25,7 @@ namespace ClassRoomAPI.EnteringModels
         public string Title { get; set; }
         public string Content { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
+        public Guid AuthorId { get; set; }
         public string AuthorName { get; set; }
         public string AuthorSurname { get; set; }
         public IEnumerable<Comment> Comments { get; set; } = new List<Comment>();

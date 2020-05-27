@@ -18,7 +18,7 @@ namespace ClassRoomAPI.Models
         public Comment(CommentDTO comment)
         {
             Content = comment.Content;
-            Date = comment.Date;
+            //Date = comment.Date;
         }
         public Comment()
         {

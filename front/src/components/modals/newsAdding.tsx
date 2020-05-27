@@ -23,9 +23,9 @@ function newsAdding() {
     }}*/
 
     function onSubmit() {
-        if (!isValidForm()) {
+        /*if (!isValidForm()) {
             return;
-        }
+        }*/
         let form: any = document.forms.namedItem(formName);
         let formData = new FormData(form);
         console.log(formData.get("Title"), "Title");

@@ -48,7 +48,7 @@ namespace ClassRoomAPI.Controllers
                 var user = usersCollection.Find(e => e.Id == news[i].AuthorId).FirstOrDefault();
                 newsView.AuthorName = user.Name;
                 newsView.AuthorSurname = user.Surname;
-                var comments = commentsCollection.Find(c => news[i].Comments.Contains(c.Id)).ToList();
+                var comments = commentsCollection.Find(c => news[i].Comments.Contains(c.Id)).ToList().OrderBy(e=>e.Date);
                 newsView.Comments = comments;
                 correctNews.Add(newsView);
             }
@@ -93,7 +93,7 @@ namespace ClassRoomAPI.Controllers
         /// </remarks>
         [HttpPatch("{id}")]
         [Produces("application/json")]
-        public IActionResult Patch(Guid id, [FromBody] NewsDTO value)
+        public IActionResult Patch(Guid id, [FromForm] NewsDTO value)
         {
             var session = HttpContext.Session.GetString("userId");
             if (session == null || Guid.Parse(session) != newsCollection.Find(n => n.Id == id).FirstOrDefault().AuthorId)
@@ -125,7 +125,8 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Delete(Guid id)
         {
-            if (Guid.Parse(HttpContext.Session.GetString("userId")) != newsCollection.Find(n => n.Id == id).FirstOrDefault().AuthorId)
+            var a = Guid.Parse(HttpContext.Session.GetString("userId"));
+            if (a != newsCollection.Find(n => n.Id == id).FirstOrDefault().AuthorId)
             {
                 return Forbid();
             }
@@ -165,6 +166,7 @@ namespace ClassRoomAPI.Controllers
             var comment = new Comment(value);
             comment.Id = Guid.NewGuid();
             comment.AuthorId = Guid.Parse(HttpContext.Session.GetString("userId"));
+            comment.Date = DateTime.Now;
 
             var update = Builders<News>.Update.Push(n=>n.Comments, comment.Id);
             var updateRes = newsCollection.UpdateOne(n => n.Id == id, update);
@@ -194,7 +196,7 @@ namespace ClassRoomAPI.Controllers
             {
                 return Forbid();
             }
-            var update = Builders<Comment>.Update.Set(c => c.Content, value.Content).Set(c => c.Date, value.Date);
+            var update = Builders<Comment>.Update.Set(c => c.Content, value.Content).Set(c => c.Date, DateTime.Now);
             var updateRes = commentsCollection.UpdateOne(c => c.Id == CommId, update);
             if(updateRes.MatchedCount == 0)
             {

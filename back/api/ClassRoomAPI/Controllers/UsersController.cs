@@ -60,13 +60,14 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Get()
         {
-            var currUser = usersCollection.Find(a => a.Id == Guid.Parse(HttpContext.Session.GetString("userId"))).FirstOrDefault();
+            var idCurr = Guid.Parse(HttpContext.Session.GetString("userId"));
+            var currUser = usersCollection.Find(a => a.Id == idCurr).FirstOrDefault();
             if (currUser == null)
             {
                 return NotFound("User with this id not found");
             }
             var users = usersCollection.Find(a => a.GroupId == currUser.GroupId).ToList();
-            return new ObjectResult(users);
+            return Json(users);
         }
 
         /// <remarks>
