@@ -21,9 +21,11 @@ function isValidForm(): boolean {
 function scheduleAdding() {
 
     function onSubmit() {
-        /*if (!isValidForm()) {
+        if (!isValidForm()) {
+            // @ts-ignore
+            document.querySelector('.sendingButton').setAttribute("disabled", "true")
             return;
-        }*/
+        }
         let form: any = document.forms.namedItem(formName);
         let formData = new FormData(form);
         let date: any = formData.get("CreateDate");
@@ -43,10 +45,16 @@ function scheduleAdding() {
     return (<Popup trigger={<button id="newsAdding"/>} modal>
         {close => (
             <>
-                <form name={formName} className="modal" onChange={() => {
-                    //@ts-ignore
-                    document.getElementById("scheduleAddingButton").disabled = !isValidForm();
-                }}>
+                <form name={formName} className="modal"
+                      onChange={() => {
+                          if (!isValidForm()) {
+                              // @ts-ignore
+                              document.querySelector('.sendingButton').setAttribute("disabled", "true")
+                          } else {
+                              // @ts-ignore
+                              document.querySelector('.sendingButton').removeAttribute("disabled")
+                          }
+                      }}>
                     <a className="close" onClick={close}>
                         &times;
                     </a>
@@ -112,7 +120,8 @@ function scheduleAdding() {
                             warnEmptiness(formName, "Teacher", "teacherName")
                         }}/>
                         <span className="modalScheduleHeader">Повторять</span>
-                        <p className="scheduleRadio"><input name="RepeatCount" value="1" type="radio" defaultChecked/>Нет</p>
+                        <p className="scheduleRadio"><input name="RepeatCount" value="1" type="radio" defaultChecked/>Нет
+                        </p>
                         <p className="scheduleRadio"><input name="RepeatCount" value="7" type="radio"/>Раз в неделю</p>
                         <p className="scheduleRadio"><input name="RepeatCount" value="14" type="radio"/>Раз в две недели
                         </p>

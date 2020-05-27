@@ -24,6 +24,8 @@ function newsAdding() {
 
     function onSubmit() {
         if (!isValidForm()) {
+            // @ts-ignore
+            document.querySelector('.sendingButton').setAttribute("disabled", "true")
             return;
         }
         let form: any = document.forms.namedItem(formName);
@@ -42,8 +44,13 @@ function newsAdding() {
                 <>
                     <form name={formName} className="modal"
                           onChange={() => {
-                              //@ts-ignore
-                              document.getElementById("newsAddingButton").disabled = !isValidForm();
+                              if (!isValidForm()) {
+                                  // @ts-ignore
+                                  document.querySelector('.sendingButton').setAttribute("disabled", "true")
+                              } else {
+                                  // @ts-ignore
+                                  document.querySelector('.sendingButton').removeAttribute("disabled")
+                              }
                           }}>
                         <a className="close" onClick={close}>
                             &times;

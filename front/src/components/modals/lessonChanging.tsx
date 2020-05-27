@@ -20,9 +20,11 @@ function isValidForm() {
 function lessonChanging(id: any, day: any) {
 
     function onSubmit() {
-        /* if (!isValidForm()) {
-             return;
-         }*/
+        if (!isValidForm()) {
+            // @ts-ignore
+            document.querySelector('.sendingButton').setAttribute("disabled", "true")
+            return;
+        }
         let form: any = document.forms.namedItem(formName);
         let formData = new FormData(form);
 
@@ -31,8 +33,8 @@ function lessonChanging(id: any, day: any) {
         formData.delete("deleteRepeating");
         let date = new Date(day);
         let newDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-         console.log(newDate, "DAYY");
-         console.log(id, "ID");
+        console.log(newDate, "DAYY");
+        console.log(id, "ID");
         //fetch(`${srcUrl}/Schedules/${newDate}/${id}?all=${!all}`, {
 
         /*let date: any = formData.get("CreateDate");
@@ -54,8 +56,13 @@ function lessonChanging(id: any, day: any) {
         {close => (
             <>
                 <form name={formName} className="modal" onChange={() => {
-                    //@ts-ignore
-                    document.getElementById("scheduleChangingButton").disabled = !isValidForm();
+                    if (!isValidForm()) {
+                        // @ts-ignore
+                        document.querySelector('.sendingButton').setAttribute("disabled", "true")
+                    } else {
+                        // @ts-ignore
+                        document.querySelector('.sendingButton').removeAttribute("disabled")
+                    }
                 }}>
                     <div className="modal" id="deletingModal">
                         <a className="close" onClick={close}>
@@ -118,7 +125,7 @@ function lessonChanging(id: any, day: any) {
                                 записей</p>
                         </div>
                         <div className="modalFooter" id="changingFooter">
-                            <button className="sendingButton" id="scheduleChangingButton" onClick={onSubmit} >
+                            <button className="sendingButton" id="scheduleChangingButton" onClick={onSubmit}>
                                 Изменить
                             </button>
                         </div>

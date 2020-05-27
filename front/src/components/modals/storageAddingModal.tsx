@@ -26,19 +26,24 @@ function checkRadioState() {
 
 function storageAddingModal() {
     let fileLoaded = false;
+
+    function onSubmit() {
+        if (!isValidForm(fileLoaded)) {
+            // @ts-ignore
+            document.querySelector('.sendingButton').setAttribute("disabled", "true")
+            return;
+        }
+    }
+
     return (<Popup trigger={<button id="newsAdding"/>} modal>
         {close => (
-            <form name={formName} className="modal" onChange={()=>{
-                if(isValidForm(fileLoaded))
-                    //@ts-ignore
-                    document.getElementById("storageAddingButton").disabled = !isValidForm();
-            }}
-                  onSubmit={() => {
-                //TODO Отправка формы
-                if (isValidForm(fileLoaded)) {
-                    alert("отправляю")
+            <form name={formName} className="modal" onChange={() => {
+                if (!isValidForm(fileLoaded)) {
+                    // @ts-ignore
+                    document.querySelector('.sendingButton').setAttribute("disabled", "true")
                 } else {
-                    alert("не отправляю")
+                    // @ts-ignore
+                    document.querySelector('.sendingButton').removeAttribute("disabled")
                 }
             }}>
                 <a className="close" onClick={close}>
@@ -58,7 +63,7 @@ function storageAddingModal() {
                             <label className="label">
                                 <i className="loadIcon"/>
                                 <span className="title">Добавить файл</span>
-                                <input name="fileAdding" type="file" onChange={()=> fileLoaded=!fileLoaded}/>
+                                <input name="fileAdding" type="file" onChange={() => fileLoaded = !fileLoaded}/>
                             </label>
                         </div>
                         <div className="modalFooter" id="storageArchiveSendFile">
@@ -66,13 +71,15 @@ function storageAddingModal() {
                         </div>
                     </div>
                     <div id="folderAddingField">
-                        <span className="modalContentStatus" id="folderAddingName">Название не может быть пустым</span>
+                            <span className="modalContentStatus"
+                                  id="folderAddingName">Название не может быть пустым</span>
                         <input type="text" placeholder="Название папки" name="folderName" id="folderName"
                                onChange={() => {
                                    warnEmptiness(formName, "folderName", "folderAddingName")
                                }}/>
                         <div className="modalFooter" id="storageArchiveSendFolder">
-                            <button type="submit" id="storageAddingButton" className="sendingButton" disabled>Добавить</button>
+                            <button type="submit" id="storageAddingButton" className="sendingButton" onClick={onSubmit}>Добавить
+                            </button>
                         </div>
                     </div>
                 </div>
