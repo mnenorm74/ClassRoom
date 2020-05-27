@@ -4,7 +4,7 @@ import './lessonFull.css'
 import {formatType} from "../../fetches/schedule";
 import lessonOptions from "../modals/lessonOptions";
 
-function LessonFull({lesson} : {lesson : any}) {
+function LessonFull({lesson, id, day} : {lesson : any, id : any, day: any}) {
     return (<div id={'fullDayContainer'}>
         <div className={'time'}>
             <p>{lesson.startTime}</p>
@@ -17,7 +17,7 @@ function LessonFull({lesson} : {lesson : any}) {
             <p className={'lessonFullInfo'}>{lesson.audience}</p>
             <p className={'lessonFullInfo'}>Преподаватель: {lesson.teacher}</p>
         </div>
-        {lessonOptions}
+        {lessonOptions(id, day)}
     </div>)
 }
 

@@ -222,7 +222,7 @@ namespace ClassRoomAPI.Controllers
         /// </remarks>
         [HttpPatch("{date}/{id}")]
         [Produces("application/json")]
-        public IActionResult Patch(string date, Guid id, bool all, [FromBody] LessonDTOPatch value)
+        public IActionResult Patch(string date, Guid id, bool all, [FromForm] LessonDTOPatch value)
         {
             if (false /*Guid.Parse(HttpContext.Session.GetString("userId")) != староста*/)
             {

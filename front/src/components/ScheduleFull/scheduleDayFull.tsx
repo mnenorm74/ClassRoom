@@ -2,10 +2,10 @@ import React from "react";
 import LessonFull from "./lessonFull";
 import './scheduleDayFull.css'
 
-function ScheduleDayFull({day, lessons}: { day: string, lessons : any[] }) {
+function ScheduleDayFull({day, lessons, id}: { day: string, lessons : any[], id:any}) {
 
     function showLessons() {
-        let tags = lessons.map(lesson => <LessonFull lesson={lesson}/>);
+        let tags = lessons.map(lesson => <LessonFull lesson={lesson} id={id} day={day}/>);
         if(tags.length == 0) {
             return <p>В данный день пар нет!</p>
         } else {

@@ -15,7 +15,7 @@ export function getSchedules (count) {
 export function addFullDaysTag(source) {
     let days = [];
     for (let i = 0; i < source.length; i++) {
-        days.push(<ScheduleDayFull day={formatDayWeek(source[i].dayDate)} lessons={source[i].lessons}  />);
+        days.push(<ScheduleDayFull day={formatDayWeek(source[i].dayDate)} lessons={source[i].lessons} id={source[i].id}  />);
     }
     return days;
 }

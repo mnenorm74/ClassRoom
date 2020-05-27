@@ -2,7 +2,7 @@ import React from "react";
 import Popup from "reactjs-popup";
 import '../ScheduleFull/lessonFull.css'
 
-function lessonDeleting() {
+function lessonDeleting(id:any, day:any) {
     return (<Popup trigger={<p className="lessonOption">Удалить</p>} modal className={'deleting'}>
             {close => (
                 <div className="modal" id="deletingModal">
@@ -22,4 +22,4 @@ function lessonDeleting() {
         </Popup>);
 }
 
-export default lessonDeleting()
+export default lessonDeleting
