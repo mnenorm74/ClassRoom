@@ -2,6 +2,8 @@ import React from "react";
 import Popup from "reactjs-popup";
 import warnEmptiness from "../../validation/warnEmptiness";
 import isEmptyField from "../../validation/isEmptyField";
+import {farmatDateForm} from "../../fetches/schedule";
+import {srcUrl} from "../../mySettings";
 
 const formName = "newsAdding";
 
@@ -10,17 +12,35 @@ function isValidForm(): boolean {
 }
 
 function newsAdding() {
+    /*onSubmit={() => {
+        //TODO Отправка формы
+        if (isValidForm()) {
+            alert("отправляю")
+        } else {
+            //alert("не отправляю")
+        }
+    }}*/
+    
+    function onSubmit() {
+        if (!isValidForm()) {
+            return;
+        }
+        let form : any = document.forms.namedItem(formName);
+        let formData = new FormData(form);
+        console.log(formData.get("Title"), "Title");
+        fetch(`${srcUrl}/News`, {
+            method: 'post',
+            credentials: "include",
+            body: formData
+        });
+    }
+    
+    
     return (
         <Popup trigger={<button id="newsAdding"></button>} modal>
             {close => (
-                <form name={formName} className="modal" onSubmit={() => {
-                    //TODO Отправка формы
-                    if (isValidForm()) {
-                        alert("отправляю")
-                    } else {
-                        //alert("не отправляю")
-                    }
-                }}>
+                <>
+                <form name={formName} className="modal">
                     <a className="close" onClick={close}>
                         &times;
                     </a>
@@ -30,21 +50,23 @@ function newsAdding() {
                             <span className="modalContentHeader">Заголовок</span>
                             <span className="modalContentStatus" id="newsAddingHeaderValidation">Заголовок не может быть пустым</span>
                         </div>
-                        <input name="addingNewsHeader" type="text" id="addingNewsHeader" onChange={() => {
-                            warnEmptiness(formName, "addingNewsHeader", "newsAddingHeaderValidation")
+                        <input name="Title" type="text" id="addingNewsHeader" onChange={() => {
+                            warnEmptiness(formName, "Title", "newsAddingHeaderValidation")
                         }}/>
                         <div className='modalFieldHeader'>
                             <span className="modalContentHeader">Содержание</span>
                             <span className="modalContentStatus" id="newsAddingContentValidation">Содержание не может быть пустым</span>
                         </div>
-                        <textarea name="addingNewsContent" id="addingNewsContent" onChange={() => {
-                            warnEmptiness(formName, "addingNewsContent", "newsAddingContentValidation")
+                        <textarea name="Content" id="addingNewsContent" onChange={() => {
+                            warnEmptiness(formName, "Content", "newsAddingContentValidation")
                         }}/>
                     </div>
-                    <div className="modalFooter">
-                        <button className="sendingButton" type="submit">Добавить</button>
-                    </div>
+
                 </form>
+                    <div className="modalFooter">
+                        <button className="sendingButton" onClick={onSubmit}>Добавить</button>
+                    </div>
+                </>
             )}
         </Popup>
     )

@@ -22,7 +22,7 @@ namespace ClassRoomAPI.Models
         {
             Title = news.Title;
             Content = news.Content;
-            Date = news.Date;
+            //Date = news.Date;
         }
         public News()
         {

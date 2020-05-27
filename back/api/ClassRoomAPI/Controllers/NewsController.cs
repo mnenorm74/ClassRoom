@@ -55,9 +55,10 @@ namespace ClassRoomAPI.Controllers
         /// </remarks>
         [HttpPost]
         [Produces("application/json")]
-        public IActionResult Post([FromBody] NewsDTO value)
+        public IActionResult Post([FromForm] NewsDTO value)
         {
             var news = new News(value);
+            news.Date = DateTime.Now;
             news.Id = Guid.NewGuid();
             news.AuthorId = Guid.Parse(HttpContext.Session.GetString("userId"));
             news.Comments = new List<Guid>();
@@ -95,10 +96,8 @@ namespace ClassRoomAPI.Controllers
             {
                 arr.Add(update.Set(n => n.Content, value.Content));
             }
-            if (value.Date != DateTime.MinValue)
-            {
-                arr.Add(update.Set(n => n.Date, value.Date));
-            }
+            arr.Add(update.Set(n => n.Date, DateTime.Now));
+            
             var updateResult = newsCollection.UpdateOne(n => n.Id == id, update.Combine(arr));
             if(updateResult.MatchedCount == 0)
             {
