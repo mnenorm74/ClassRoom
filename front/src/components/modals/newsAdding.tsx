@@ -2,7 +2,7 @@ import React from "react";
 import Popup from "reactjs-popup";
 import warnEmptiness from "../../validation/warnEmptiness";
 import isEmptyField from "../../validation/isEmptyField";
-import {farmatDateForm} from "../../fetches/schedule";
+import {formatDateForm} from "../../fetches/schedule";
 import {srcUrl} from "../../mySettings";
 
 
@@ -23,11 +23,12 @@ function newsAdding() {
     }}*/
 
     function onSubmit() {
+        /*if (!isValidForm()) {
         if (!isValidForm()) {
             // @ts-ignore
             document.querySelector('.sendingButton').setAttribute("disabled", "true")
             return;
-        }
+        }*/
         let form: any = document.forms.namedItem(formName);
         let formData = new FormData(form);
         console.log(formData.get("Title"), "Title");

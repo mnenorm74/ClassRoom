@@ -1,10 +1,21 @@
 import React from "react";
 import Popup from "reactjs-popup";
 import '../News/news.css'
+import {srcUrl} from "../../mySettings";
+
+function newsDeleting(id : any) {
+    function onSubmit() {
+        fetch(`${srcUrl}/News/${id}`, {
+            method: 'delete',
+            credentials: "include"
+        });
+
+    }
 
 function newsDeleting() {
-    return (<Popup trigger={<p className="lessonOption">Удалить</p>} modal className={'deleting'}>
+    return (<Popup trigger={<p className="lessonOptionItem">Удалить</p>} modal className={'deleting'}>
         {close => (
+            <form>
             <div className="modal" id="deletingModal">
                 <a className="close" onClick={close}>
                     &times;
@@ -14,11 +25,12 @@ function newsDeleting() {
                     <span id="deletingText">Вы уверены, что хотите удалить новость?</span>
                 </div>
                 <div className="modalFooter">
-                    <button className="sendingButton">Удалить</button>
+                    <button className="sendingButton" onClick={onSubmit}>Удалить</button>
                 </div>
             </div>
+            </form>
         )}
     </Popup>);
 }
 
-export default newsDeleting()
+export default newsDeleting

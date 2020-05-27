@@ -4,25 +4,25 @@ import newsChanging from "./newsChanging";
 import newsDeleting from "./newsDeleting";
 import '../News/news.css'
 
-const Card = () => (
+const Card = ({id} : {id:any}) => (
     <div className="card" id="newsOptionsField">
         <div className="content">
-            {newsChanging}
-            {newsDeleting}
+            {newsChanging(id)}
+            {newsDeleting(id)}
         </div>
     </div>
 );
 
-function newsOptions() {
+function newsOptions(id:any) {
     return (
         <Popup
             trigger={<button className='newsOptions'/>}
             position="left top"
             on="click" className={'options'}
             closeOnDocumentClick={true}>
-            <Card/>
+            <Card id={id}/>
         </Popup>
     )
 }
 
-export default newsOptions()
+export default newsOptions

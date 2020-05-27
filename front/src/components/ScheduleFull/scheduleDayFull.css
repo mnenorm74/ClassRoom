@@ -7,3 +7,9 @@
 #ScheduleDayFullContainer{
     margin-top: 3vh;
 }
+
+.weekendDay{
+    text-align: center;
+    border-radius: 1vh;
+    background-color: rgba(170, 127, 223, 0.48);
+}

@@ -8,7 +8,7 @@ function LessonFull({lesson, day} : {lesson : any, day: any}) {
     return (<div id={'fullDayContainer'}>
         <div className={'time'}>
             <p>{lesson.startTime}</p>
-            <p id ={"separ"}>-</p>
+            <p>—</p>
             <p>{lesson.endTime}</p>
         </div>
         <div className={'fullLessonContainer'}>

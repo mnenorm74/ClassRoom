@@ -4,7 +4,7 @@ import isEmptyField from "../../validation/isEmptyField";
 import "../../components/Schedule/scheduleChanging.css"
 import warnFullDateFormat from "../../validation/warnFullDateFormat";
 import {srcUrl} from "../../mySettings";
-import {farmatDateForm} from "../../fetches/schedule";
+import {formatDateForm} from "../../fetches/schedule";
 import warnTimeFormat from "../../validation/warnTimeFormat";
 import warnEmptiness from "../../validation/warnEmptiness";
 import isValidFullDate from "../../validation/isValidFullDate";
@@ -29,7 +29,7 @@ function scheduleAdding() {
         let form: any = document.forms.namedItem(formName);
         let formData = new FormData(form);
         let date: any = formData.get("CreateDate");
-        let newDate: any = farmatDateForm(date);
+        let newDate: any = formatDateForm(date);
         formData.set("CreateDate", newDate);
         fetch(`${srcUrl}/Schedules`, {
             method: 'post',

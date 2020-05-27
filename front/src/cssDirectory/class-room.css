@@ -17,3 +17,7 @@ body {
 html {
     font-size: 2vh;
 }
+
+.loading{
+    margin: 0 auto;
+}

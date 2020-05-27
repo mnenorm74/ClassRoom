@@ -2,6 +2,7 @@ import React from "react";
 import Popup from "reactjs-popup";
 import lessonDeleting from "./lessonDeleting";
 import lessonChanging from "./lessonChanging";
+import '../ScheduleFull/scheduleDayFull.css'
 
 const Card = ({id, day} : {id: any, day: any}) => (
     <div className="card">

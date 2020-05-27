@@ -11,6 +11,7 @@ import {
     Redirect,
     useRouteMatch
 } from "react-router-dom";
+import ReactLoading from 'react-loading';
 //import Cookies from 'js-cookie'
 import {srcUrl} from "./mySettings";
 import {useEffect} from "react";
@@ -18,20 +19,22 @@ import {useState} from "react";
 
 
 function ClassRoom() {
-    let myArray: any[] = ['something', 1,];
-    const [code, setCode] : [any, any] = useState(404);
+    const [code, setCode]: [any, any] = useState(100);
 
     useEffect(() => {
-        fetch(`${srcUrl}/Account`,
-            {
-                credentials: "include",
-            })
-            .then(res => setCode(res.status));
-    },[]);
+        setTimeout(() => {
+            fetch(`${srcUrl}/Account`,
+                {
+                    credentials: "include",
+                })
+                .then(res => setCode(res.status));
+        }, 1000);
+
+    }, []);
 
     function showPage() {
         console.log(code, "CODE");
-        if(code === 200) {
+        if (code === 200) {
             return (<Router>
                 <Menu/>
                 <div id="pageContainer">
@@ -55,10 +58,14 @@ function ClassRoom() {
                     </Switch>
                 </div>
             </Router>)
+        }
+        if (code === 100) {
+            return <div style={{margin: "20% auto",textAlign: 'center', width: '100vw'}}>
+                <ReactLoading type={"spinningBubbles"} color='#BA68C8' width={'10%'} className={'loading'} />
+            </div>
         } else {
             return (<Router>
                 <Switch>
-
                     <Route path="/">
                         <Page.AuthorizationPage/>
                     </Route>
