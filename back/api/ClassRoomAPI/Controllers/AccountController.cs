@@ -35,6 +35,22 @@ namespace ClassRoomAPI.Controllers
         [TempData]
         public string ErrorMessage { get; set; }
 
+        [HttpGet]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        public IActionResult CheckAuthorization()
+        {
+            var test = HttpContext.Session.GetString("userId");
+            if (test is null)
+            {
+                return NotFound();
+            } else
+            {
+                return Ok();
+            }
+            
+        }
+
         [HttpPost("login")]
         //[AllowAnonymous]
         //[ValidateAntiForgeryToken]
@@ -46,11 +62,12 @@ namespace ClassRoomAPI.Controllers
                     model.RememberMe, lockoutOnFailure: false).Result;
                 if (result.Succeeded)
                 {
-                    HttpContext.Session.SetString("userId", usersCollection
+                    var user = usersCollection
                         .Find(a => a.Username == model.Username)
                         .FirstOrDefault()
                         .Id
-                        .ToString());
+                        .ToString();
+                    HttpContext.Session.SetString("userId", user);
                     return Ok();
                 }
                 else
