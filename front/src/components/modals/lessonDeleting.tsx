@@ -23,9 +23,11 @@ function lessonDeleting(id:any, day:any) {
                         &times;
                     </a>
                     <div className="header" id="deletingHeader">Удалить запись</div>
-                    <div id="deletingOptions">
-                        <p className="scheduleRadio">Вы уверены?</p>
-                    </div>
+                    {/*<div id="deletingOptions">
+                        <p className="scheduleRadio"><input name="deleting" type="radio" checked/>Удалить текущую</p>
+                        <p className="scheduleRadio"><input name="deleting" type="radio"/>Удалить все повторяющиеся</p>
+                    </div>*/}
+                    <p id="deletingMessage">Данная запись будет удалена из всех дней. Вы уверены, что хотите продлжить?</p>
                     <div className="modalFooter">
                         <button className="sendingButton" onClick={onSubmit}>Да</button>
                         <button className="sendingButton">Нет</button>

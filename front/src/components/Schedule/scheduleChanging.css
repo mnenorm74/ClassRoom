@@ -1,4 +1,4 @@
-#lessonDate {
+#lessonDate, #lessonName, #roomNumber, #teacherName {
     color: red;
     display: block;
 }
@@ -7,6 +7,25 @@
     margin-top: 3%;
 }
 
-#dateInput{
+#dateInput {
     margin-right: 2%;
 }
+
+#lessonTime {
+    margin-left: 2%;
+    display: block;
+    color: red;
+    margin-top: 3%;
+}
+
+.scheduleModalLine {
+    display: flex;
+    flex-direction: row;
+}
+
+.modalContentStatus {
+    align-self: center;
+    margin-left: 2%;
+    margin-top: 2%;
+}
+

@@ -109,3 +109,16 @@
     padding-left: 5%;
     padding-right: 5%;
 }
+
+.modalFieldHeader{
+    display: flex;
+    flex-direction: row;
+}
+
+.modalContentStatus{
+    margin-bottom: 1%;
+}
+
+.modalFieldHeader{
+    width: 100%;
+}

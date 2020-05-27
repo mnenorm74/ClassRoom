@@ -91,3 +91,14 @@
 #changingContent{
     margin-bottom: 5%;
 }
+
+#deletingMessage{
+    font-size: 150%;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+#changingLessonTime, #changingLessonName, #changingRoomNumber, #changingTeacherName{
+    color: red;
+    display: none;
+}

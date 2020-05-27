@@ -28,7 +28,12 @@ function storageAddingModal() {
     let fileLoaded = false;
     return (<Popup trigger={<button id="newsAdding"/>} modal>
         {close => (
-            <form name={formName} className="modal" onSubmit={() => {
+            <form name={formName} className="modal" onChange={()=>{
+                if(isValidForm(fileLoaded))
+                    //@ts-ignore
+                    document.getElementById("storageAddingButton").disabled = !isValidForm();
+            }}
+                  onSubmit={() => {
                 //TODO Отправка формы
                 if (isValidForm(fileLoaded)) {
                     alert("отправляю")
@@ -67,7 +72,7 @@ function storageAddingModal() {
                                    warnEmptiness(formName, "folderName", "folderAddingName")
                                }}/>
                         <div className="modalFooter" id="storageArchiveSendFolder">
-                            <button type="submit" className="sendingButton">Добавить</button>
+                            <button type="submit" id="storageAddingButton" className="sendingButton" disabled>Добавить</button>
                         </div>
                     </div>
                 </div>
