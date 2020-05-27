@@ -21,9 +21,9 @@ function isValidForm(): boolean {
 function scheduleAdding() {
 
     function onSubmit() {
-        if (!isValidForm()) {
+        /*if (!isValidForm()) {
             return;
-        }
+        }*/
         let form: any = document.forms.namedItem(formName);
         let formData = new FormData(form);
         let date: any = formData.get("CreateDate");
@@ -119,12 +119,10 @@ function scheduleAdding() {
                         <p className="scheduleRadio"><input name="RepeatCount" value="30" type="radio"/>Раз в месяц</p>
                     </div>
                     <div className="modalFooter">
-                        <button className="sendingButton" id="scheduleAddingButton" onClick={() => {
-                            onSubmit()
-                        }} disabled>Добавить
-                        </button>
+                        <button className="sendingButton" id="scheduleAddingButton" onClick={onSubmit}>Добавить</button>
                     </div>
                 </form>
+
             </>
         )}
     </Popup>);

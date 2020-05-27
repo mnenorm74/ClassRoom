@@ -79,7 +79,7 @@ function newsAdding() {
 
                     </form>*/}
                     <div className="modalFooter">
-                        <button className="sendingButton" onClick={onSubmit} id="newsAddingButton" disabled>Добавить
+                        <button className="sendingButton" onClick={onSubmit} id="newsAddingButton">Добавить
                         </button>
                     </div>
                 </form>

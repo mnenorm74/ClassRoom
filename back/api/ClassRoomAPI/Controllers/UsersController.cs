@@ -33,11 +33,6 @@ namespace ClassRoomAPI.Controllers
             _signInManager = signInManager;
         }
 
-        public UsersController()
-        {
-           
-        }
-
         [HttpGet("current")]
         public IActionResult GetCurrent()
         {
