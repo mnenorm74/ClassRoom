@@ -86,8 +86,8 @@ namespace ClassRoomAPI
 
             app.UseCors(builder =>
             builder.WithOrigins("http://localhost:3000")
+                .WithMethods("GET","POST","DELETE","PUT","PATCH")
                 .AllowAnyHeader()
-                .AllowAnyMethod()
                 .AllowCredentials());
 
             app.UseSwagger();

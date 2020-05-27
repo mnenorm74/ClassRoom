@@ -65,12 +65,24 @@ function newsAdding() {
                                 warnEmptiness(formName, "Content", "newsAddingContentValidation")
                             }}/>
                         </div>
+                       {/* <input name="Title" type="text" id="addingNewsHeader" onChange={() => {
+                            warnEmptiness(formName, "Title", "newsAddingHeaderValidation")
+                        }}/>
+                        <div className='modalFieldHeader'>
+                            <span className="modalContentHeader">Содержание</span>
+                            <span className="modalContentStatus" id="newsAddingContentValidation">Содержание не может быть пустым</span>
+                        </div>
+                        <textarea name="Content" id="addingNewsContent" onChange={() => {
+                            warnEmptiness(formName, "Content", "newsAddingContentValidation")
+                        }}/>
+                    </div>
 
-                    </form>
+                    </form>*/}
                     <div className="modalFooter">
                         <button className="sendingButton" onClick={onSubmit} id="newsAddingButton" disabled>Добавить
                         </button>
                     </div>
+                </form>
                 </>
             )}
         </Popup>

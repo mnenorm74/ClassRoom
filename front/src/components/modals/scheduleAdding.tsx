@@ -34,6 +34,7 @@ function scheduleAdding() {
             headers: {
                 //'Content-Type': 'multipart/form-data'
             },
+            credentials: "include",
             body: formData
         });
 
@@ -111,7 +112,7 @@ function scheduleAdding() {
                             warnEmptiness(formName, "Teacher", "teacherName")
                         }}/>
                         <span className="modalScheduleHeader">Повторять</span>
-                        <p className="scheduleRadio"><input name="RepeatCount" value="1" type="radio" checked/>Нет</p>
+                        <p className="scheduleRadio"><input name="RepeatCount" value="1" type="radio" defaultChecked/>Нет</p>
                         <p className="scheduleRadio"><input name="RepeatCount" value="7" type="radio"/>Раз в неделю</p>
                         <p className="scheduleRadio"><input name="RepeatCount" value="14" type="radio"/>Раз в две недели
                         </p>

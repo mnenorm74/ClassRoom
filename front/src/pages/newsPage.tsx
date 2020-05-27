@@ -4,45 +4,22 @@ import News from "../components/News/newsDB";
 import '../cssDirectory/newsPage.css';
 import Popup from "reactjs-popup";
 import {getUser} from "../fetches/users";
-import {formatDateNews, getComments, getNews} from "../fetches/news";
+import {addNewsTag, formatDateNews, getComments, getNews} from "../fetches/news";
 import newsAdding from "../components/modals/newsAdding";
 
 function NewsPage() {
-    const [isLoadedNews, setIsLoadedNews] = useState(false);
+    //const [isLoadedAllNews, setIsLoadedAllNews] = useState(false);
     const [news, setNews]: [any, any] = useState([]);
+    const [isLoadedNews, setIsLoadedNews] = useState(false);
 
     useEffect(() => {
         getNews()
             .then((res) => res.json())
             .then(
-                (result: any[]) => {
-                    let tags: any[] = [];
-                    for (let i = 0; i < result.length; i++) {
-                        getUser(result[i].authorId)
-                            .then(author => author.json())
-                            .then((author) => {
-                                Promise.all([getUser(result[i].authorId).then(author => author.json()),
-                                    getComments(result[i].id).then(comments => comments.json())])
-                                    .then((res)=>{
-                                        console.log(res,"News00");
-                                        tags.push(<NewsItem author={res[0].name + ' ' + res[0].surname}
-                                                            pubDate={formatDateNews(result[i].date)}
-                                                            article={result[i].content}
-                                                            comments={res[1]}
-                                                            key={i}/>);
-                                    })
-                                    .then(() => {
-                                        if (i === result.length - 1) {
-                                            setNews(tags);
-                                            //console.log(tags, "Green");
-                                            setIsLoadedNews(true);
-                                        }
-                                    })
-                            });
-                    }
-                },
-                (error => console.log(error))
-            )
+                (result: any) => {
+                    setNews(addNewsTag(result));
+                    setIsLoadedNews(true);
+                })
     },[]);
 
     function showNews() {

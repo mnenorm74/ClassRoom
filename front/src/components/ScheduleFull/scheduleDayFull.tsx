@@ -1,11 +1,12 @@
 import React from "react";
 import LessonFull from "./lessonFull";
 import './scheduleDayFull.css'
+import {formatDayWeek} from "../../fetches/schedule";
 
-function ScheduleDayFull({day, lessons, id}: { day: string, lessons : any[], id:any}) {
+function ScheduleDayFull({day, lessons}: { day: string, lessons : any[]}) {
 
     function showLessons() {
-        let tags = lessons.map(lesson => <LessonFull lesson={lesson} id={id} day={day}/>);
+        let tags = lessons.map(lesson => <LessonFull lesson={lesson} day={day}/>);
         if(tags.length == 0) {
             return <p>В данный день пар нет!</p>
         } else {
@@ -14,7 +15,7 @@ function ScheduleDayFull({day, lessons, id}: { day: string, lessons : any[], id:
     }
 
     return (<div id={'ScheduleDayFullContainer'}>
-        <p id={'day'}>{day}</p>
+        <p id={'day'}>{formatDayWeek(day)}</p>
         {/*<LessonFull/>
         <LessonFull/>
         <LessonFull/>

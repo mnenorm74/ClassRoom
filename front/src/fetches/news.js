@@ -1,9 +1,23 @@
 import {srcUrl} from "../mySettings";
+import NewsItem from "../components/News/newsItem";
+import React from "react";
 
 export function getNews () {
     console.log("fetchNews");
     let page = 1;
-    return fetch(`${srcUrl}/News?page=${page}&count=${14}`)
+    return fetch(`${srcUrl}/News?page=${page}&count=${20}`)
+}
+
+export function addNewsTag(source) {
+    let tags = [];
+    for(let i = 0; i < source.length; i++) {
+        tags.push(<NewsItem author={source[i].authorName + ' ' + source[i].authorSurname}
+                            pubDate={formatDateNews(source[i].date)}
+                            article={source[i].content}
+                            comments={source[i].comments}
+                            key={i} />);
+    }
+    return tags;
 }
 
 export function getComments(id) {
