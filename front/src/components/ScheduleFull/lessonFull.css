@@ -8,22 +8,9 @@
     margin: 0;
 }
 
-.time{
-    display: flex;
-    flex-direction: column;
+#time{
     font-size: 1.5rem;
-    align-items: center;
 }
-
-.time p{
-    align-items: center;
-    margin: 0;
-}
-
-#separ {
-    margin: -10px;
-}
-
 
 .fullLessonContainer{
     margin-left: 2vw;

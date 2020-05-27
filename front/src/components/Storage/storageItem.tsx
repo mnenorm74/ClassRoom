@@ -4,21 +4,14 @@ import ReactDOM from "react-dom";
 import Page from "../../pages/pageProvider";
 import {IStorageContentIconPaged} from "../../projectTypes";
 
-function storageItem({type, name, owner, date, content, pageElements}:IStorageContentIconPaged) {
-    let iconType = type === "folder" ? "folderIcon" : "fileIcon";
+function StorageItem({type, name, path}: {type: boolean, name: string, path: string}) {
+    let iconType = type  ? "fileIcon" : "folderIcon";
     return (
-        <div id="storageContainer">
-            <div id={iconType} onClick={() => {
-                if (type === "folder") {
-                    ReactDOM.render(
-                        Page.StorageContentPage(content, pageElements),
-                        document.getElementById('pageContainer')
-                    );
-                }
-            }}/>
+        <div id="storageContainer" data-path={path}>
+            <image id={iconType} path={path}/>
             <div id="name">{name}</div>
         </div>
     );
 }
 
-export default storageItem
+export default StorageItem

@@ -5,7 +5,7 @@ import './scheduleDay.css'
 import {addLessonTag} from "../../fetches/schedule";
 
 
-function ScheduleDay({day, lessons}:{day:string, lessons : any[]}) {
+function ScheduleDay({day}:{day:string}, lessons : any[]) {
     /*const [isLoadedLessons, setIsLoadedLessons] = useState(false);
     const [Lessons, setLessons]: [any, any] = useState([]);*/
     /*function addLessonTag() {

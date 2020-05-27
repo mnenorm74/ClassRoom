@@ -15,7 +15,7 @@ export function getSchedules (count) {
 export function addFullDaysTag(source) {
     let days = [];
     for (let i = 0; i < source.length; i++) {
-        days.push(<ScheduleDayFull day={formatDayWeek(source[i].dayDate)} /*lessons={source[i].lessons}*/ />);
+        days.push(<ScheduleDayFull day={formatDayWeek(source[i].date)} /*lessons={source[i].lessons}*/ />);
     }
     return days;
 }
@@ -24,9 +24,9 @@ export function addLessonTag(lessons) {
     let result = [];
     let copyLessons = lessons;
     console.log(lessons, "!!!!!");
-    /*if(lessons.length === 0) {
+    if(lessons.length === 0) {
         return (<p>В данный день пар нет!</p>)
-    }*/
+    }
     //copyLessons.sort(compare);
     for(let i = 0; i < lessons.length; i++) {
         result.push(<Lesson order={determineLessonNumber(copyLessons[i].startTime)} name={copyLessons[i].title} type={copyLessons[i].type}/>)

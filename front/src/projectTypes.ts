@@ -2,6 +2,7 @@ export interface IStorageContentIcon {
     type: string,
     name: string,
     owner: string,
+    path: string,
     date: string,
     semester?:string,
     content?: any[]
