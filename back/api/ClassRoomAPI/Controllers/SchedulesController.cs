@@ -31,7 +31,7 @@ namespace ClassRoomAPI.Controllers
             var date = new DateTime();
             try
             {
-                parseDate = startDate.Split('-', '/', '\\', '.', '_').Select(e => int.Parse(e)).ToList();
+                parseDate = startDate.Split('-', '/', '\\', '.', '_', ':').Select(e => int.Parse(e)).ToList();
                 date = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
             }
             catch (Exception e)
@@ -73,7 +73,7 @@ namespace ClassRoomAPI.Controllers
             //}
             //if (!Response.Headers.ContainsKey("Access-Control-Allow-Origin"))
             //var json = JsonSerializer.Serialize(days);
-            return Json(days);
+            return new ObjectResult(days);
         }
 
         //private int Compare(Lesson a, Lesson b)
@@ -100,7 +100,7 @@ namespace ClassRoomAPI.Controllers
             var dateTime = new DateTime();
             try
             {
-                parseDate = date.Split('-', '/', '\\', '.', '_').Select(e => int.Parse(e)).ToList();
+                parseDate = date.Split('-', '/', '\\', '.', '_', ':').Select(e => int.Parse(e)).ToList();
                 dateTime = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
             }
             catch (Exception e)
@@ -129,13 +129,15 @@ namespace ClassRoomAPI.Controllers
         /// </remarks>
         [HttpPost]
         [Produces("application/json")]
-        public IActionResult Post([FromBody] LessonDTOPost value)
+        public IActionResult Post([FromForm] LessonDTOPost value)
         {
             if (false /*Guid.Parse(HttpContext.Session.GetString("userId")) != староста*/)
             {
                 return Forbid();
             }
             var lesson = new Lesson(value);
+            var parseDate = value.CreateDate.Split('-', '/', '\\', '.', '_', ':').Select(e => int.Parse(e)).ToList();
+            lesson.CreateDate = new DateTime(parseDate[0], parseDate[1], parseDate[2]).Date;
             lesson.Id = Guid.NewGuid();
             //if (schedulesCollection.CountDocuments(e => e.Date == lesson.CreateDate) == 0)
             //{
@@ -231,7 +233,7 @@ namespace ClassRoomAPI.Controllers
             var dateTime = new DateTime();
             try
             {
-                parseDate = date.Split('-', '/', '\\', '.', '_').Select(e => int.Parse(e)).ToList();
+                parseDate = date.Split('-', '/', '\\', '.', '_', ':').Select(e => int.Parse(e)).ToList();
                 dateTime = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
             }
             catch (Exception e)
@@ -278,7 +280,7 @@ namespace ClassRoomAPI.Controllers
             var dateTime = new DateTime();
             try
             {
-                parseDate = date.Split('-', '/', '\\', '.', '_').Select(e => int.Parse(e)).ToList();
+                parseDate = date.Split('-', '/', '\\', '.', '_', ':').Select(e => int.Parse(e)).ToList();
                 dateTime = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
             }
             catch (Exception e)

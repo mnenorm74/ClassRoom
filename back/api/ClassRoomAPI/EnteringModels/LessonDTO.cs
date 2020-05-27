@@ -7,7 +7,7 @@ namespace ClassRoomAPI.EnteringModels
 {
     public class LessonDTOPost
     {
-        public DateTime CreateDate { get; set; }
+        public string CreateDate { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public string Title { get; set; }

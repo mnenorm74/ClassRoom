@@ -34,6 +34,11 @@ export function addLessonTag(lessons) {
     return result;
 }
 
+export function farmatDateForm(date) {
+    let newDate = date.split(':');
+    return `${newDate[2]}-${newDate[1]}-${newDate[0]}`
+}
+
 function determineLessonNumber(startTime) {
     let time = startTime.split(':').map((e) => +e);
     if(time[0] < 9) {

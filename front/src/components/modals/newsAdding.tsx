@@ -18,7 +18,7 @@ function newsAdding() {
                     if (isValidForm()) {
                         alert("отправляю")
                     } else {
-                        alert("не отправляю")
+                        //alert("не отправляю")
                     }
                 }}>
                     <a className="close" onClick={close}>
