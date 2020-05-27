@@ -10,10 +10,11 @@ function lessonDeleting(id:any, day:any) {
                         &times;
                     </a>
                     <div className="header" id="deletingHeader">Удалить запись</div>
-                    <div id="deletingOptions">
+                    {/*<div id="deletingOptions">
                         <p className="scheduleRadio"><input name="deleting" type="radio" checked/>Удалить текущую</p>
                         <p className="scheduleRadio"><input name="deleting" type="radio"/>Удалить все повторяющиеся</p>
-                    </div>
+                    </div>*/}
+                    <p id="deletingMessage">Данная запись будет удалена из всех дней. Вы уверены, что хотите продлжить?</p>
                     <div className="modalFooter">
                         <button className="sendingButton">Удалить</button>
                     </div>
