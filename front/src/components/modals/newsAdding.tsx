@@ -5,6 +5,7 @@ import isEmptyField from "../../validation/isEmptyField";
 import {farmatDateForm} from "../../fetches/schedule";
 import {srcUrl} from "../../mySettings";
 
+
 const formName = "newsAdding";
 
 function isValidForm(): boolean {
@@ -40,7 +41,10 @@ function newsAdding() {
         <Popup trigger={<button id="newsAdding"></button>} modal>
             {close => (
                 <>
-                <form name={formName} className="modal">
+                <form name={formName} className="modal" onChange={()=>{
+                        //@ts-ignore
+                        document.getElementById("newsAddingButton").disabled = !isValidForm();
+                }}>
                     <a className="close" onClick={close}>
                         &times;
                     </a>
@@ -64,7 +68,7 @@ function newsAdding() {
 
                 </form>
                     <div className="modalFooter">
-                        <button className="sendingButton" onClick={onSubmit}>Добавить</button>
+                        <button className="sendingButton" onClick={onSubmit} id="newsAddingButton" disabled>Добавить</button>
                     </div>
                 </>
             )}

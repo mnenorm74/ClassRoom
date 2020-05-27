@@ -13,14 +13,18 @@ function isValidForm(): boolean {
 function newsChanging() {
     return (<Popup trigger={<p className="lessonOption">Изменить</p>} modal className={'deleting'}>
         {close => (
-            <form name={formName} className="modal" onSubmit={() => {
-                //TODO Отправка формы
-                if (isValidForm()) {
-                    alert("отправляю")
-                } else {
-                    alert("не отправляю")
-                }
-            }}>
+            <form name={formName} className="modal" onChange={() => {
+                    //@ts-ignore
+                    document.getElementById("newsChangingButton").disabled = !isValidForm();
+            }}
+                  onSubmit={() => {
+                      //TODO Отправка формы
+                      if (isValidForm()) {
+                          alert("отправляю")
+                      } else {
+                          alert("не отправляю")
+                      }
+                  }}>
                 <a className="close" onClick={close}>
                     &times;
                 </a>
@@ -37,12 +41,12 @@ function newsChanging() {
                         <span className="modalContentHeader">Содержание</span>
                         <span className="modalContentStatus" id="newsChangingContentValidation">Содержание не может быть пустым</span>
                     </div>
-                    <textarea id="addingNewsContent"  onChange={() => {
+                    <textarea id="addingNewsContent" onChange={() => {
                         warnEmptiness(formName, "addingNewsContent", "newsChangingContentValidation")
                     }}/>
                 </div>
                 <div className="modalFooter" id="changingFooter">
-                    <button type="submit" className="sendingButton">Изменить</button>
+                    <button type="submit" className="sendingButton" id="newsChangingButton" disabled>Изменить</button>
                 </div>
             </form>
         )}

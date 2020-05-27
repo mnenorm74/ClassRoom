@@ -43,14 +43,8 @@ function scheduleAdding() {
         {close => (
             <>
                 <form name={formName} className="modal" onChange={() => {
-                    if(isValidForm()) {
-                        // @ts-ignore
-                        document.getElementById("scheduleAddingButton").disabled = false;
-                    }
-                    else {
-                        // @ts-ignore
-                        document.getElementById("scheduleAddingButton").disabled = true;
-                    }
+                    //@ts-ignore
+                    document.getElementById("scheduleAddingButton").disabled = !isValidForm();
                 }}>
                     <a className="close" onClick={close}>
                         &times;
