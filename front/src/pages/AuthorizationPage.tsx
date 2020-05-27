@@ -31,13 +31,13 @@ function AuthorizationPage() {
 
     return (
         <div id="authorizationPage">
-            <div id="authorizationWindow">
+            <form name={"authForm"} id={"authorizationWindow"}>
                 <span id="authorizationWindowHeader">ВХОД</span>
-                <form name={"authForm"}>
+                {/*<form id="authorizationWindow" name={"authForm"}>*/}
                     <input id="loginInput" name="Username" placeholder="Логин"/>
                     <input id="passwordInput" type="password" name="Password" placeholder="Пароль"/>
-                    <input id="rememberMe" name="RememberMe" type="checkbox" value={0}/>
-                </form>
+                <input id="rememberMe" name="RememberMe" type="checkbox" value={0}/>
+                {/*</form>*/}
                 <button id="authorizationButton" onClick={sendAuth}>ВОЙТИ</button>
                 <span id="registrationLink" onClick={() => {
                     ReactDOM.render(
@@ -45,7 +45,7 @@ function AuthorizationPage() {
                         document.getElementById('root')
                     )
                 }}>Зарегистрировать группу</span>
-            </div>
+            </form>
         </div>
     )
 }
