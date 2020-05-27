@@ -12,7 +12,8 @@ function newsDeleting(id : any) {
 
     }
 
-    return (<Popup trigger={<p className="lessonOption">Удалить</p>} modal className={'deleting'}>
+function newsDeleting() {
+    return (<Popup trigger={<p className="lessonOptionItem">Удалить</p>} modal className={'deleting'}>
         {close => (
             <form>
             <div className="modal" id="deletingModal">

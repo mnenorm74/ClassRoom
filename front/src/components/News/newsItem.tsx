@@ -44,7 +44,7 @@ function NewsItem({author, pubDate, article, comments, id}: { author: string, pu
     return (
         <div className='newsContainer'>
             <div className='info'>
-                <div className='infoItem newsText'>{author}</div>
+                <div className='infoItem newsText title'>{author}</div>
                 <div className='infoItem newsText'>
                     {pubDate}
                     {newsOptions(id)}
@@ -54,8 +54,10 @@ function NewsItem({author, pubDate, article, comments, id}: { author: string, pu
             {newsComments}
             <div id="commentsAdding">
                 <div id="commentOwnerPhoto"/>
-                <input id="commentField"></input>
+                <textarea id="commentField"></textarea>
                 <button onClick={onSubmit} id="commentSendButton"/>
+                {/*<textarea id="commentField"/>
+                <button id="commentSendButton"/>*/}
             </div>
         </div>
     )

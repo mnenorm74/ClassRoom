@@ -2,7 +2,7 @@ import React from "react";
 import Popup from "reactjs-popup";
 import warnEmptiness from "../../validation/warnEmptiness";
 import isEmptyField from "../../validation/isEmptyField";
-import {farmatDateForm} from "../../fetches/schedule";
+import {formatDateForm} from "../../fetches/schedule";
 import {srcUrl} from "../../mySettings";
 
 

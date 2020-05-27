@@ -5,9 +5,11 @@ import React from "react";
 import ScheduleDayFull from "../components/ScheduleFull/scheduleDayFull";
 import Lesson from "../components/Schedule/lesson";
 
-export function getSchedules (count) {
+export function getSchedules(count, weekCount = 0) {
+    console.log(weekCount)
     console.log("fetchSchedulesMain");
-    let date = getStartDate();
+    let date = new Date();
+    date.setDate(getStartDate().getDate() + weekCount * 7)
     return fetch(`${srcUrl}/Schedules?startDate=${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}&count=${count}`);
 }
 
@@ -15,7 +17,7 @@ export function getSchedules (count) {
 export function addFullDaysTag(source) {
     let days = [];
     for (let i = 0; i < source.length; i++) {
-        days.push(<ScheduleDayFull day={source[i].dayDate} lessons={source[i].lessons}  />);
+        days.push(<ScheduleDayFull day={source[i].dayDate} lessons={source[i].lessons}/>);
     }
     return days;
 }
@@ -24,42 +26,43 @@ export function addLessonTag(lessons) {
     let result = [];
     //let copyLessons = lessons;
     //console.log(lessons, "!!!!!");
-    if(lessons.length === 0) {
-        return (<p>В данный день пар нет!</p>)
+    if (lessons.length === 0) {
+        return (<p className={'weekendDay'}>В данный день пар нет!</p>)
     }
     //copyLessons.sort(compare);
-    for(let i = 0; i < lessons.length; i++) {
-        result.push(<Lesson order={determineLessonNumber(lessons[i].startTime)} name={lessons[i].title} type={lessons[i].type}/>)
+    for (let i = 0; i < lessons.length; i++) {
+        result.push(<Lesson order={determineLessonNumber(lessons[i].startTime)} name={lessons[i].title}
+                            type={lessons[i].type}/>)
     }
     return result;
 }
 
-export function farmatDateForm(date) {
+export function formatDateForm(date) {
     let newDate = date.split(':');
     return `${newDate[2]}-${newDate[1]}-${newDate[0]}`
 }
 
 function determineLessonNumber(startTime) {
     let time = startTime.split(':').map((e) => +e);
-    if(time[0] < 9) {
+    if (time[0] < 9) {
         return '1';
     }
-    if(time[0] >= 9 && time[0] < 12){
-        return  '2';
+    if (time[0] >= 9 && time[0] < 12) {
+        return '2';
     }
-    if(time[0] >= 12 && time[0] < 14) {
+    if (time[0] >= 12 && time[0] < 14) {
         return '3';
     }
-    if(time[0] >= 14 && time[0] < 16) {
+    if (time[0] >= 14 && time[0] < 16) {
         return '4';
     }
-    if(time[0] >= 16 && time[0] < 17) {
+    if (time[0] >= 16 && time[0] < 17) {
         return '5';
     }
-    if(time[0] >= 17 && time[0] < 19) {
+    if (time[0] >= 17 && time[0] < 19) {
         return '6';
     }
-    if(time[0] >= 19 && time[0] < 21) {
+    if (time[0] >= 19 && time[0] < 21) {
         return '7';
     }
     return '-1';
@@ -67,7 +70,7 @@ function determineLessonNumber(startTime) {
 
 function getStartDate() {
     let date = new Date();
-    if(date.getDay() !== 1) {
+    if (date.getDay() !== 1) {
         date.setDate(date.getDate() - (date.getDay() - 1))
     }
     return date;
@@ -155,10 +158,18 @@ function formatMonth(date) {
     return month;
 }
 
+export function formatDaySignature(day) {
+    let date = new Date(day);
+    return date.toLocaleString('ru', {
+        month: 'long',
+        day: 'numeric'
+    });
+}
+
 export function formatType(type) {
     switch (type) {
         case ('practice') : {
-            return 'Проктика'
+            return 'Практика'
         }
         case ('lecture') : {
             return 'Лекция'

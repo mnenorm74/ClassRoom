@@ -4,7 +4,7 @@
     background: rgba(247, 247, 255, 0.88);
     border-radius: 27px;
     margin-bottom: 5vh;
-    padding: 1vh;
+    padding: 3vh;
 }
 
 .info {
@@ -26,10 +26,11 @@
     padding-left: 2vw;
     display: flex;
     flex-direction: column;
-    height: 4vh;
+    height: 3vh;
     background-image: url("../../icons/options.svg");
     background-repeat: no-repeat;
     background-position: center;
+    cursor: pointer;
 }
 
 .infoItem {
@@ -41,7 +42,7 @@
 }
 
 .newsArticle {
-    margin: 0;
+    margin: 3vh 0;
     white-space: pre-line;
     color: black;
 }
@@ -70,7 +71,9 @@
 #commentField {
     margin-left: 2vw;
     margin-right: 2vw;
-    height: 7vh;
+    height: 10vh;
+    resize: none;
+    font-size: 1rem;
     width: 85%;
 }
 
