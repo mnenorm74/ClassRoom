@@ -18,8 +18,8 @@ import {formatDayWeek} from "./schedule";
 export function addDaysTag(source) {
     let days = [];
     for (let i = 0; i < source.length; i++) {
-        console.log(source[i], "XMMMMMM");
-        days.push(<ScheduleDay day={formatDate(source[i].dayDate)} lessons={source[i].lessons} />);
+        console.log(source[i].lessons, "XMMMMMM");
+        days.push(<ScheduleDay day={formatDate(source[i].date)} lessons={source[i].lessons} />);
     }
     return days;
 }

@@ -11,17 +11,66 @@ import {
     Redirect,
     useRouteMatch
 } from "react-router-dom";
-import Cookies from 'js-cookie'
+//import Cookies from 'js-cookie'
+import {srcUrl} from "./mySettings";
+import {useEffect} from "react";
+import {useState} from "react";
 
-let tiZaregalsa = Cookies.get('name');
 
 function ClassRoom() {
-    var myArray: any[] = ['something', 1,];
+    let myArray: any[] = ['something', 1,];
+    const [code, setCode] : [any, any] = useState(404);
 
+    useEffect(() => {
+        fetch(`${srcUrl}/Account`,
+            {
+                credentials: "include",
+            })
+            .then(res => setCode(res.status));
+    },[]);
+
+    function showPage() {
+        console.log(code, "CODE");
+        if(code === 200) {
+            return (<Router>
+                <Menu/>
+                <div id="pageContainer">
+                    <Switch>
+                        <Redirect exact from="/" to="/main"/>
+                        <Route path="/main">
+                            <Page.MainPage/>
+                        </Route>
+                        <Route path="/storage">
+                            <Page.StoragePage/>
+                        </Route>
+                        <Route path="/news">
+                            <Page.NewsPage/>
+                        </Route>
+                        <Route path="/schedule">
+                            <Page.SchedulePage/>
+                        </Route>
+                        <Route path="/groupList">
+                            <Page.GroupListPage/>
+                        </Route>
+                    </Switch>
+                </div>
+            </Router>)
+        } else {
+            return (<Router>
+                <Switch>
+
+                    <Route path="/">
+                        <Page.AuthorizationPage/>
+                    </Route>
+                </Switch>
+            </Router>)
+        }
+    }
 
     return (
         <>
-            {tiZaregalsa === 'ded' ? <Router>
+            {showPage()}
+            {/*{tiZaregalsa === 'ded' ? <Router>
                     <Menu/>
                     <div id="pageContainer">
                         <Switch>
@@ -51,7 +100,7 @@ function ClassRoom() {
                             <Page.AuthorizationPage/>
                         </Route>
                     </Switch>
-                </Router>}
+                </Router>}*/}
         </>
     );
 }

@@ -11,7 +11,18 @@ import {
     Link,
     NavLink
 } from "react-router-dom";
+import {srcUrl} from "../../mySettings";
 function Profile() {
+    function logOut() {
+        fetch(`${srcUrl}/account/logout`, {
+            method: 'post'
+        }).then(res => {
+            if(res.status === 200){
+                window.location.reload();
+            }
+        });
+    }
+    
     return (
         <>
             <img className='avatar' src={Logo.teaPot} alt=""/>
@@ -26,12 +37,7 @@ function Profile() {
                         document.getElementById('pageContainer')
                     );
                 }}/>
-                <img className='optionsLogo' src={Logo.logOutLogo} alt="" onClick={() => {
-                    ReactDOM.render(
-                        Page.AuthorizationPage(),
-                        document.getElementById('root')
-                    );
-                }}/>
+                <img className='optionsLogo' src={Logo.logOutLogo} alt="" onClick={() => {logOut()}}/>
             </div>
         </>
     )
