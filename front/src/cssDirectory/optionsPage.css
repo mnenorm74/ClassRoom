@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     height: 90vh;
-    margin: 5vh 2vw 5vh 0;
+    margin: 3vh 2vw 5vh 0;
 }
 
 #optionContainer{
@@ -17,13 +17,13 @@
     cursor: default;
 }
 
-#optionInput{
+.optionInput{
     flex-basis: 70%;
     font-size: 3vh;
     margin-bottom: 3vh;
 }
 
-#passwordContainer{
+.passwordContainer{
     display: flex;
     flex-direction: row;
 }
@@ -32,6 +32,48 @@
     display: flex;
     flex-direction: column;
     flex-basis: 70%;
+}
+
+
+
+#addingHeader{
+    margin-left: 15%;
+}
+
+#deletingAccountButton{
+    background: none;
+    font-size: 3vh;
+}
+
+#optionsHeader{
+    align-self: center;
+    font-size: 150%;
+    margin-bottom: 5vh;
+    color: #49B8F7;
+    font-weight: bold;
+}
+
+#deletingAccountButton, #changingAccountButton, #savingButton{
+    cursor: pointer;
+    font-size: 150%;
+    background-color: #4AB9F8;
+    color: white;
+    height: 6vh;
+    width: 20vw;
+    border-radius: 10%;
+    margin-right: 3vw;
+}
+
+#savingButton{
+    visibility: hidden;
+    margin-top: 2vh;
+}
+
+
+.optionContainer{
+    display: flex;
+    flex-direction: row;
+    margin-top: 2vh;
 }
 
 #photoAdding{
@@ -49,11 +91,17 @@
     background-repeat: no-repeat;
 }
 
-#addingHeader{
-    margin-left: 15%;
+#userEmailMessage, #userLoginMessage, #userPasswordMessage, #newPasswordMessage, #newEqualPasswordMessage{
+    color: red;
+    font-size: 100%;
 }
 
-#deletingAccountButton{
-    background: none;
-    font-size: 3vh;
+.column{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+#userEmailMessage, #userLoginMessage{
+    margin-left: 20%;
 }
