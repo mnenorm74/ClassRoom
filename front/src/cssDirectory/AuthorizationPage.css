@@ -1,4 +1,4 @@
-#authorizationPage{
+#authorizationPage {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,7 +7,7 @@
     height: 100%;
 }
 
-#authorizationWindow{
+#authorizationWindow {
     background-color: white;
     width: 25%;
     height: 45%;
@@ -16,21 +16,21 @@
     align-items: center;
 }
 
-#loginInput{
+#loginInput {
     margin-top: 2%;
     width: 80%;
     height: 8%;
     font-size: 100%;
 }
 
-#passwordInput{
+#passwordInput {
     margin-top: 1%;
     width: 80%;
     height: 8%;
     font-size: 100%;
 }
 
-#authorizationButton{
+#authorizationButton {
     width: 80%;
     margin: 2vh 0;
     height: 12%;
@@ -40,37 +40,45 @@
     font-size: 100%;
 }
 
-#registrationLink{
+#registrationLink {
     margin-bottom: 2%;
     text-decoration: underline;
     cursor: pointer;
 }
 
-#authorizationWindowHeader{
+#authorizationWindowHeader {
     margin-top: 5%;
     font-size: 150%;
 }
 
-#loginMessage, #passwordMessage{
+#loginMessage, #passwordMessage {
     color: red;
     margin-top: 1%;
     align-self: flex-start;
     margin-left: 10%;
 }
 
-.authorizationLine{
+.authorizationLine {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    align-self: flex-start;
+    margin-left: 10%;
+    margin-top: 2%;
 }
 
-.check{
+.check {
     margin: 3%;
 }
 
-#textRemember{
+#textRemember {
     margin-right: 10%;
+}
+
+#rememberMe {
+    margin-right: 10%;
+    zoom: 1.4;
 }
 
 

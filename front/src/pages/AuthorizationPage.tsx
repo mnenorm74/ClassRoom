@@ -70,8 +70,8 @@ function AuthorizationPage() {
                     warnEmptinessHidden(formName, "Password", "passwordMessage")
                 }}/>
                 <div className={'authorizationLine'}>
-                    <p id={'textRemember'}>Запомнить</p>
                     <input id="rememberMe" name="RememberMe" type="checkbox" className={'check'} value={0}/>
+                    <p id={'textRemember'}>Запомнить</p>
                 </div>
                 {/*</form>*/}
             {/*<div id="authorizationWindow">
