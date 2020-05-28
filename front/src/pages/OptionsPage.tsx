@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import "../cssDirectory/optionsPage.css"
 import warnEmail from "../validation/warnEmail";
 import warnEmptiness from "../validation/warnEmptiness";
@@ -6,6 +6,7 @@ import warnPassword from "../validation/warnPassword";
 import warnEqualPasswords from "../validation/warnEqualPasswords";
 import isEmail from "../validation/isEmail";
 import isEmptyField from "../validation/isEmptyField";
+import {srcUrl} from "../mySettings";
 
 function showForm(id: string) {
     document.getElementById(id)!.style.display = 'block';
@@ -13,11 +14,24 @@ function showForm(id: string) {
 
 
 function OptionsPage() {
+
+    const [email, setEmail] = useState('');
+    const [login, setLogin] = useState('');
+
+    useEffect(() => {
+      //  fetch(`${srcUrl}/account`)
+    },[]);
+
     function onSubmitEmail() {
         // @ts-ignore
         if (!isEmail(document.forms['EmailChange']["newEmail"].value)) {
-            document.querySelector('#emailSend')!.setAttribute("disabled", "true")
-            return;
+            document.querySelector('#emailSend')!.setAttribute("disabled", "true");
+            let form : any = document.forms.namedItem('EmailChange');
+            let formData = new FormData(form);
+            fetch(`${srcUrl}/account/changePassword`, {
+                credentials: "include",
+                body: formData
+            }).then(res => res.json()).then(res => setEmail(res));
         }
     }
 

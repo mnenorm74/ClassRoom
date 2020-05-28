@@ -14,6 +14,7 @@ function isValidForm(): boolean {
 }
 
 function AuthorizationPage() {
+
     function sendAuth() {
         if (!isValidForm()) {
             // @ts-ignore
@@ -33,13 +34,6 @@ function AuthorizationPage() {
             },
             body: formData,
         })
-            .then(response => {
-                console.log(response);
-                if (response.status === 200) {
-                    setTimeout(() => window.location.reload(), 500);
-                }
-
-            })
     }
 
     return (
