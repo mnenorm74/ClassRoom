@@ -6,6 +6,7 @@ import {srcUrl} from "../mySettings";
 import warnEmptiness from "../validation/warnEmptiness";
 import isEmptyField from "../validation/isEmptyField";
 import warnEmptinessHidden from "../validation/warnEmptinessHidden";
+//import set = Reflect.set;
 
 const formName = "authForm";
 
@@ -45,7 +46,11 @@ function AuthorizationPage() {
 
     return (
         <div id="authorizationPage">
-            <form name={formName} id={"authorizationWindow"} onChange={() => {
+            <form name={formName} id={"authorizationWindow"} onSubmit = {(e) => {
+                e.preventDefault();
+                window.location.reload();
+            }
+            } onChange={() => {
                 if (!isValidForm()) {
                     // @ts-ignore
                     document.querySelector('#authorizationButton').setAttribute("disabled", "true")

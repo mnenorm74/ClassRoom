@@ -55,6 +55,9 @@ function ClassRoom() {
                         <Route path="/groupList">
                             <Page.GroupListPage/>
                         </Route>
+                        <Route path="/profile">
+                            <Page.OptionsPage/>
+                        </Route>
                     </Switch>
                 </div>
             </Router>)

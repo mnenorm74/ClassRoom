@@ -106,5 +106,14 @@ namespace ClassRoomAPI.Controllers
             var result = groupsCollection.Find(g => true).ToList();
             return new ObjectResult(result);
         }
+
+        [HttpGet("{id}")]
+        [Produces("application/json")]
+        public IActionResult Get(Guid id)
+        {
+            var result = groupsCollection.Find(g => g.GroupId == id).FirstOrDefault();
+            return new ObjectResult(result);
+        }
+
     }
 }
