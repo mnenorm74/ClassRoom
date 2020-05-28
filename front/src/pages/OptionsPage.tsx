@@ -42,6 +42,13 @@ function OptionsPage() {
         }
     }
 
+    function onSubmitPhoto(){
+        // @ts-ignore
+        if (!document.forms["photoChanging"]["Photo"].value){
+            document.querySelector('#photoChangeButton')!.setAttribute("disabled", "true")
+        }
+    }
+
     return (
         <div id="optionsContent">
             <div id="userOptions">
@@ -110,8 +117,17 @@ function OptionsPage() {
                 <div className="optionContainer">
                     <form name={'photoChanging'} className="optionContainer">
                         <span className="optionHeader">Фото</span>
-                        <input type="file" id="newPhoto"/>
-                        <button className={'optionsButton'} id={'photoChangeButton'}>Сменить фото</button>
+                        <input name="Photo" type="file" id="newPhoto" onChange={()=>{
+                            // @ts-ignore
+                            if (!document.forms["photoChanging"]["Photo"].value){
+                                document.querySelector('#photoChangeButton')!.setAttribute("disabled", "true")
+                            }
+                            else{
+                                // @ts-ignore
+                                document.querySelector('#photoChangeButton').removeAttribute("disabled")
+                            }
+                        }}/>
+                        <button className={'optionsButton'} id={'photoChangeButton'} onClick={onSubmitPhoto}>Сменить фото</button>
                     </form>
                 </div>
             </div>
