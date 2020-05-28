@@ -20,12 +20,14 @@
     margin-top: 2%;
     width: 80%;
     height: 8%;
+    font-size: 100%;
 }
 
 #passwordInput{
     margin-top: 1%;
     width: 80%;
     height: 8%;
+    font-size: 100%;
 }
 
 #authorizationButton{
@@ -35,6 +37,7 @@
     background-color: #746BDE;
     color: white;
     cursor: pointer;
+    font-size: 100%;
 }
 
 #registrationLink{
@@ -60,6 +63,14 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+}
+
+.check{
+    margin: 3%;
+}
+
+#textRemember{
+    margin-right: 10%;
 }
 
 
