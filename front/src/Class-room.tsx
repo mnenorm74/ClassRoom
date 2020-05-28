@@ -28,7 +28,7 @@ function ClassRoom() {
                     credentials: "include",
                 })
                 .then(res => setCode(res.status));
-        }, 1000);
+        }, 500);
 
     }, []);
 

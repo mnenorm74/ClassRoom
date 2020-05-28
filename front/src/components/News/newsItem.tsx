@@ -6,7 +6,7 @@ import {srcUrl} from "../../mySettings";
 import {addNewsTag, getNews} from "../../fetches/news";
 
 function NewsItem({author, pubDate, article, comments, id, title}: { author: string, pubDate: string, article: string, comments: any, id:any, title:any }) {
-    //const [isAddComment, setIsAddComment] = useState({});
+    const [isAddComment, setIsAddComment] = useState({});
     //console.log(comments, "123");
 
     let newsComments = typeof comments == "undefined"
@@ -14,7 +14,7 @@ function NewsItem({author, pubDate, article, comments, id, title}: { author: str
         </div>
         : <div id="commentsContainer">
             {comments.map((comment: any) => (
-                Comment(comment, id)
+                Comment(comment, id, author)
             ))}
         </div>;
 

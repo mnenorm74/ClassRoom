@@ -1,12 +1,12 @@
 import {srcUrl} from "../mySettings";
-import NewsItem from "../components/News/newsItem";
 import React from "react";
-import {formatDateNews} from "./news";
 import GroupUser from "../components/group/groupUser";
 
-export function getUser (id) {
+export function getUser () {
     console.log("fetchUser");
-    return fetch(`${srcUrl}/Users/${id}`);
+    return fetch(`${srcUrl}/Users/current`, {
+        credentials: "include"
+    });
 }
 
 export function getGroup() {

@@ -5,7 +5,6 @@ import News from "../components/News/newsDB";
 import '../cssDirectory/mainPage.css';
 import {srcUrl} from "../mySettings";
 import {addDaysTag} from "../fetches/mainPage";
-import {getUser} from "../fetches/users";
 import {addNewsTag, formatDateNews, getComments, getNews} from "../fetches/news";
 import {getSchedules} from "../fetches/schedule";
 

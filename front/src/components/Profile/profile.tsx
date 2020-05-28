@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react';
+import React, {ReactElement, useEffect, useState} from 'react';
 import './profile.css'
 import CurrentUser from "../../СurrentUserInfoDB";
 import Logo from '../menu/logoContainer'
@@ -12,7 +12,21 @@ import {
     NavLink
 } from "react-router-dom";
 import {srcUrl} from "../../mySettings";
+import {getUser} from "../../fetches/users";
+import {addNewsTag, getNews} from "../../fetches/news";
 function Profile() {
+    const [user, setUser]: [any, any] = useState([]);
+    const [isLoadedUser, setIsLoadedUser] = useState(false);
+
+    useEffect(() => {
+        getUser()
+            .then(res => res.json())
+            .then(result => {
+                setUser(<img className='avatar' src={"data:image/png;base64," + result.avatar} alt=""/>);
+                setIsLoadedUser(true);
+            })
+    },[]);
+
     function logOut() {
         fetch(`${srcUrl}/account/logout`, {
             credentials: "include",
@@ -23,10 +37,20 @@ function Profile() {
             }
         });
     }
+
+    function showUserInfo() {
+        if(isLoadedUser) {
+            console.log(user, "USER");
+            return user;
+        } else {
+            return null;
+        }
+    }
     
     return (
         <>
-            <img className='avatar' src={Logo.teaPot} alt=""/>
+            {/*<img className='avatar' src={"data:image/png," + user.avatar} alt=""/>*/}
+            {showUserInfo()}
             <div className="userData">
                 <span>{CurrentUser.Name}</span>
                 <span>{CurrentUser.Surname}</span>
