@@ -101,6 +101,42 @@ namespace ClassRoomAPI.Controllers
         //    return NotFound();
         //}
 
+        [HttpPost("changePassword")]
+        public IActionResult ChangePass([FromForm]ChangePasswordModel model)
+        {
+            var id = HttpContext.Session.GetString("userId");
+            var email = usersCollection.Find(a => a.Id == Guid.Parse(id)).FirstOrDefault().Email; 
+            var user = _userManager.FindByEmailAsync(email).Result;
+            if (user != null)
+            {
+                IdentityResult result =
+                    _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword).Result;
+                if (result.Succeeded)
+                {
+                    return Ok();
+                }
+            }
+            return NotFound();
+        }
+
+        [HttpPost("changeEmail")]
+        public IActionResult ChangeEmail([FromForm]ChangeEmailModel model)
+        {
+            var id = HttpContext.Session.GetString("userId");
+            var email = usersCollection.Find(a => a.Id == Guid.Parse(id)).FirstOrDefault().Email;
+            var user = _userManager.FindByEmailAsync(email).Result;
+            if (user != null)
+            {
+                user.Email = model.NewEmail;
+                var result = _userManager.UpdateAsync(user).Result;
+                if (result.Succeeded)
+                {
+                    return Ok();
+                }
+            }
+            return NotFound();
+        }
+
         [HttpPost("logout")]
         //[ValidateAntiForgeryToken]
         public IActionResult Logout()

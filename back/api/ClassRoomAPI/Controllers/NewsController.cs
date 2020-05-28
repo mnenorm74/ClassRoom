@@ -36,7 +36,11 @@ namespace ClassRoomAPI.Controllers
             {
                 return UnprocessableEntity("Invalid query parameters: page < 1 or count < 0");
             }
-            var news = newsCollection.Find(n => true)
+            var userId = HttpContext.Session.GetString("userId");
+            var user1 = usersCollection.Find(a => a.Id == Guid.Parse(userId)).FirstOrDefault();
+            var usersInGroup = usersCollection.Find(a => a.GroupId == user1.GroupId).ToList();
+            var usersInGroupIds = usersInGroup.Select(a => a.Id).ToList();
+            var news = newsCollection.Find(n => usersInGroupIds.Contains(n.AuthorId))
                     .SortByDescending(n => n.Date)
                     .Skip((page - 1) * count)
                     .Limit(count)

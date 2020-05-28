@@ -18,11 +18,13 @@ namespace ClassRoomAPI.Controllers
     {
         public static string storageDirectory = Directory.GetCurrentDirectory() + "\\..\\..\\storage\\";
         private readonly IMongoCollection<FilePath> filesCollection;
+        private readonly IMongoCollection<User> usersCollection;
         private readonly IMongoCollection<Models.Group> groupsCollection;
         public StorageController(IMongoDatabase db)
         {
             filesCollection = db.GetCollection<FilePath>("files");
             groupsCollection = db.GetCollection<Models.Group>("groups");
+            usersCollection = db.GetCollection<User>("users");
         }
 
         public static string Base64Encode(string plainText)
@@ -95,11 +97,15 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Get(int count)
         {
-            if(count < 0)
+            var userGroupId = usersCollection
+                .Find(a => a.Id == Guid.Parse(HttpContext.Session.GetString("userId")))
+                .FirstOrDefault()
+                .GroupId;
+            if (count < 0)
             {
                 return UnprocessableEntity("Incorrect value of count: " + count);
             }
-            var result = filesCollection.Find(p => p.IsFile == true)
+            var result = filesCollection.Find(p => p.IsFile == true && p.Path.Contains(userGroupId.ToString()))
                     .SortBy(n => n.CreateDate)
                     .Limit(count)
                     .ToList();

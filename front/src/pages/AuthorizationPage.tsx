@@ -14,6 +14,7 @@ function isValidForm(): boolean {
 }
 
 function AuthorizationPage() {
+
     function sendAuth() {
         if (!isValidForm()) {
             // @ts-ignore

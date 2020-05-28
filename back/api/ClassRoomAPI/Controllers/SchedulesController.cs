@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using ClassRoomAPI.EnteringModels;
 using ClassRoomAPI.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -17,9 +18,11 @@ namespace ClassRoomAPI.Controllers
     {
 
         private readonly IMongoCollection<ScheduleDay> schedulesCollection;
+        private readonly IMongoCollection<User> usersCollection;
         public SchedulesController(IMongoDatabase db)
         {
             schedulesCollection = db.GetCollection<ScheduleDay>("schedules");
+            usersCollection = db.GetCollection<User>("users");
         }
 
         [HttpGet]
@@ -42,7 +45,11 @@ namespace ClassRoomAPI.Controllers
             {
                 return UnprocessableEntity("Invalid parameter: count < 0");
             }
-            var q = schedulesCollection.Find(e => true).ToList();
+            var userGroupId = usersCollection
+                .Find(a => a.Id == Guid.Parse(HttpContext.Session.GetString("userId")))
+                .FirstOrDefault()
+                .GroupId;
+            var q = schedulesCollection.Find(e => e.GroupId == userGroupId).ToList();
             //foreach (var e in q)
             //{
                 for (var i = 0; i < count; i++)
@@ -107,7 +114,11 @@ namespace ClassRoomAPI.Controllers
             {
                 return UnprocessableEntity("Invalid format of date: " + e.Message);
             }
-            var result = schedulesCollection.Find(a => a.DayDate == dateTime).FirstOrDefault();
+            var userGroupId = usersCollection
+                .Find(a => a.Id == Guid.Parse(HttpContext.Session.GetString("userId")))
+                .FirstOrDefault()
+                .GroupId;
+            var result = schedulesCollection.Find(a => a.DayDate == dateTime && a.GroupId == userGroupId).FirstOrDefault();
             //result.Lessons.OrderBy(e => e.StartTime.Split(':').Cast<int>().First()).ThenBy(a => a.StartTime.Split(':').Cast<int>().Last());
             return new ObjectResult(result);
         }

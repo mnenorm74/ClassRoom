@@ -10,7 +10,10 @@ export function getSchedules(count, weekCount = 0) {
     console.log("fetchSchedulesMain");
     let date = new Date();
     date.setDate(getStartDate().getDate() + weekCount * 7)
-    return fetch(`${srcUrl}/Schedules?startDate=${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}&count=${count}`);
+    return fetch(`${srcUrl}/Schedules?startDate=${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}&count=${count}`,
+        {
+        credentials: "include"
+    });
 }
 
 
