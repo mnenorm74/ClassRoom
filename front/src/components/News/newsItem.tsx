@@ -5,7 +5,7 @@ import NewsOptions from "../modals/newsOptions";
 import {srcUrl} from "../../mySettings";
 import {addNewsTag, getNews} from "../../fetches/news";
 
-function NewsItem({author, pubDate, article, comments, id}: { author: string, pubDate: string, article: string, comments: any, id:any }) {
+function NewsItem({author, pubDate, article, comments, id, title}: { author: string, pubDate: string, article: string, comments: any, id:any, title:any }) {
     //const [isAddComment, setIsAddComment] = useState({});
     //console.log(comments, "123");
 
@@ -45,12 +45,13 @@ function NewsItem({author, pubDate, article, comments, id}: { author: string, pu
     return (
         <div className='newsContainer'>
             <div className='info'>
-                <div className='infoItem newsText title'>{author}</div>
+                <div className='infoItem newsText '>{author}</div>
                 <div className='infoItem newsText'>
                     {pubDate}
                     <NewsOptions id={id}/>
                 </div>
             </div>
+            <div className='infoItem newsText title'>{title}</div>
             <p className='newsArticle newsText'>{article}</p>
             {newsComments}
             <div id="commentsAdding">

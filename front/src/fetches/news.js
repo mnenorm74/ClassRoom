@@ -16,6 +16,7 @@ export function addNewsTag(source) {
                             article={source[i].content}
                             comments={source[i].comments}
                             id = {source[i].id}
+                            title={source[i].title}
                             key={i} />);
     }
     return tags;
