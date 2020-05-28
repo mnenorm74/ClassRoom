@@ -32,12 +32,9 @@ function Profile() {
                 <span>{CurrentUser.Surname}</span>
             </div>
             <div className='optionsContainer'>
-                <img className='optionsLogo' src={Logo.settingsLogo} alt="" onClick={() => {
-                    ReactDOM.render(
-                        Page.OptionsPage(),
-                        document.getElementById('pageContainer')
-                    );
-                }}/>
+                <NavLink to={'/profile'} >
+                <img className='optionsLogo' src={Logo.settingsLogo} alt="" onClick={() => {}}/>
+                </NavLink>
                 <img className='optionsLogo' src={Logo.logOutLogo} alt="" onClick={() => {logOut()}}/>
             </div>
         </>

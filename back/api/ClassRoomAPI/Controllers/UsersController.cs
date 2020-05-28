@@ -41,7 +41,8 @@ namespace ClassRoomAPI.Controllers
             {
                 return NotFound("User with this id not found");
             }
-            return new ObjectResult(new CurrentUser() { Id = user.Id, Name = user.Name, Surname = user.Surname, Avatar = user.Avatar });
+            return new ObjectResult(new CurrentUser() { Id = user.Id, Username = user.Username,
+                Name = user.Name, Surname = user.Surname, Avatar = user.Avatar, Email = user.Email });
         }
 
         [HttpGet("{id}")]

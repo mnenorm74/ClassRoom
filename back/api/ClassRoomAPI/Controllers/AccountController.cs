@@ -128,6 +128,8 @@ namespace ClassRoomAPI.Controllers
             if (user != null)
             {
                 user.Email = model.NewEmail;
+                var update = Builders<User>.Update.Set(s => s.Email, model.NewEmail);
+                usersCollection.UpdateOne(a => a.Email == email, update);
                 var result = _userManager.UpdateAsync(user).Result;
                 if (result.Succeeded)
                 {

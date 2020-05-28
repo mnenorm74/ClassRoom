@@ -28,7 +28,8 @@ function OptionsPage() {
             document.querySelector('#emailSend')!.setAttribute("disabled", "true");
             let form : any = document.forms.namedItem('EmailChange');
             let formData = new FormData(form);
-            fetch(`${srcUrl}/account/changePassword`, {
+            fetch(`${srcUrl}/account/changeEmail`, {
+                method: "post",
                 credentials: "include",
                 body: formData
             }).then(res => res.json()).then(res => setEmail(res));
@@ -44,11 +45,18 @@ function OptionsPage() {
 
     function onSubmitPassword() {
         // @ts-ignore
-        if (document.forms["PasswordChange"]["PasswordRepeat"].value !== document.forms["PasswordChange"]["Password"].value
+        if (document.forms["PasswordChange"]["PasswordRepeat"].value !== document.forms["PasswordChange"]["NewPassword"].value
             // @ts-ignore
-            && document.forms["PasswordChange"]["PasswordRepeat"].value.length < 6) {
-            document.querySelector('#passwordSend')!.setAttribute("disabled", "true")
-            return;
+            || document.forms["PasswordChange"]["PasswordRepeat"].value.length < 6) {
+            document.querySelector('#passwordSend')!.setAttribute("disabled", "true");
+            let form: any = document.forms.namedItem('PasswordChange');
+            let formData = new FormData(form);
+            fetch(`${srcUrl}/account/changePassword`, {
+                method: "post",
+                credentials: "include",
+                body: formData
+            }).then(res => res);
+            // }
         }
     }
 
@@ -124,30 +132,30 @@ function OptionsPage() {
                     </button>
                     <form name={"PasswordChange"} id={'PasswordForm'} onChange={() => {
                         // @ts-ignore
-                        if (document.forms["PasswordChange"]["PasswordRepeat"].value !== document.forms["PasswordChange"]["Password"].value
+                        if (document.forms["PasswordChange"]["PasswordRepeat"].value !== document.forms["PasswordChange"]["NewPassword"].value
                             // @ts-ignore
-                            && document.forms["PasswordChange"]["PasswordRepeat"].value.length < 6) {
+                            || document.forms["PasswordChange"]["PasswordRepeat"].value.length < 6) {
                             document.querySelector('#passwordSend')!.setAttribute("disabled", "true")
                         } else {
                             document.querySelector('#passwordSend')!.removeAttribute("disabled")
                         }
                     }}>
                         <div id="passwordFields">
-                            <input type="password" placeholder="Старый пароль" className="optionInput"
+                            <input name="oldPassword" type="password" placeholder="Старый пароль" className="optionInput"
                                    id="oldPassword"/>
                             <span className="optionHeader" id='newPasswordMessage'>Пароль не менее 6 символов</span>
-                            <input name="Password" type="password" placeholder="Новый пароль" className="optionInput"
+                            <input name="NewPassword" type="password" placeholder="Новый пароль" className="optionInput"
                                    id="newPassword"
                                    onChange={() => {
-                                       warnPassword('PasswordChange', "Password", "newPasswordMessage");
-                                       warnEqualPasswords('PasswordChange', "Password", "PasswordRepeat", 'newEqualPasswordMessage')
+                                       warnPassword('PasswordChange', "NewPassword", "newPasswordMessage");
+                                       warnEqualPasswords('PasswordChange', "NewPassword", "PasswordRepeat", 'newEqualPasswordMessage')
                                    }}/>
                             <span className="optionHeader" id='newEqualPasswordMessage'>Пароли должны совпадать</span>
                             <input name="PasswordRepeat" type="password" placeholder="Новый пароль"
                                    className="optionInput"
                                    id="newPasswordRepeated"
                                    onChange={() => {
-                                       warnEqualPasswords('PasswordChange', "Password", "PasswordRepeat", 'newEqualPasswordMessage')
+                                       warnEqualPasswords('PasswordChange', "NewPassword", "PasswordRepeat", 'newEqualPasswordMessage')
                                    }}/>
                         </div>
                         <button className={'optionsButton'} id={'passwordSend'} onClick={() => {
