@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ClassRoomAPI.EnteringModels
 {
-    public class NewsViewDTO
+    public class NewsView
     {
-        public NewsViewDTO(News news)
+        public NewsView(News news)
         {
             Id = news.Id;
             Title = news.Title;
@@ -17,7 +17,7 @@ namespace ClassRoomAPI.EnteringModels
             AuthorId = news.AuthorId;
         }
 
-        public NewsViewDTO ()
+        public NewsView ()
         {
 
         }

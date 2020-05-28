@@ -14,6 +14,8 @@ import {
 import {srcUrl} from "../../mySettings";
 import {getUser} from "../../fetches/users";
 import {addNewsTag, getNews} from "../../fetches/news";
+export let currentUserAvatar : any;
+
 function Profile() {
     const [user, setUser]: [any, any] = useState([]);
     const [isLoadedUser, setIsLoadedUser] = useState(false);
@@ -22,6 +24,7 @@ function Profile() {
         getUser()
             .then(res => res.json())
             .then(result => {
+                currentUserAvatar = result;
                 setUser(<img className='avatar' src={"data:image/png;base64," + result.avatar} alt=""/>);
                 setIsLoadedUser(true);
             })

@@ -45,10 +45,10 @@ namespace ClassRoomAPI.Controllers
             {
                 return NotFound("User with this id not found");
             }
-            var a = System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + "\\..\\..\\defaultAvatar.png");
+            //var a = System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + "\\..\\..\\defaultAvatar.png");
             
             //var encodeAvatar = StorageController.Base64Encode(/*user.Avatar.ToString()*/a.ToString());
-            return new ObjectResult(new CurrentUser() { Id = user.Id, Name = user.Name, Surname = user.Surname, Avatar = a });
+            return new ObjectResult(new CurrentUser() { Id = user.Id, Name = user.Name, Surname = user.Surname, Avatar = user.Avatar });
         }
 
         [HttpGet("{id}")]

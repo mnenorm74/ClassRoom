@@ -3,20 +3,30 @@ import './news.css'
 import Comment from "./comment";
 import NewsOptions from "../modals/newsOptions";
 import {srcUrl} from "../../mySettings";
-import {addNewsTag, getNews} from "../../fetches/news";
+import {addComments, addNewsTag, getComments, getNews} from "../../fetches/news";
+import {currentUserAvatar} from "../Profile/profile";
 
-function NewsItem({author, pubDate, article, comments, id, title}: { author: string, pubDate: string, article: string, comments: any, id:any, title:any }) {
-    const [isAddComment, setIsAddComment] = useState({});
+function NewsItem({author, pubDate, article, /*comments,*/ id, title}: { author: string, pubDate: string, article: string, /*comments: any,*/ id:any, title:any }) {
+    const [isAddComments, setIsAddComments] = useState(false);
+    const [isLoadComments, setIsLoadComments] = useState(false);
+    const [comments, setComments] : [any[], any] = useState([]);
     //console.log(comments, "123");
-
-    let newsComments = typeof comments == "undefined"
-        ? <div id="commentsContainer">
-        </div>
+    useEffect(() => {
+        getComments(id)
+            .then((res) => res.json())
+            .then(
+                (result: any) => {
+                    setComments(addComments(result, id) );
+                    setIsLoadComments(true);
+                })
+    },[isAddComments]);
+   /* let newsComments = typeof comments == "undefined"
+        ? <div id="commentsContainer"/>
         : <div id="commentsContainer">
             {comments.map((comment: any) => (
                 Comment(comment, id, author)
             ))}
-        </div>;
+        </div>;*/
 
     function onSubmit() {
         /*if (!isValidForm()) {
@@ -26,6 +36,7 @@ function NewsItem({author, pubDate, article, comments, id, title}: { author: str
         console.dir(content.value, "CONTENT");
         let res : any = JSON.stringify({"Content" : content.value});
         console.dir(res, "CONTENT11");
+        //setIsLoadComments(false);
         fetch(`${srcUrl}/News/${id}/comments`, {
             method: 'post',
             credentials: "include",
@@ -34,10 +45,22 @@ function NewsItem({author, pubDate, article, comments, id, title}: { author: str
             },
             body: res,
         }).then((res) => {
-            //setIsAddComment({})
-            window.location.reload();
+
+            setIsAddComments(false);
+            setIsAddComments(true);
+            content.value = "";
+            //window.location.reload();
         });
     }
+
+    function showComments() {
+        if(isLoadComments) {
+            return comments;
+        } else {
+            return null;
+        }
+    }
+
     /*if(isAddComment) {
         // @ts-ignore
         this.forceRefresh();
@@ -53,9 +76,10 @@ function NewsItem({author, pubDate, article, comments, id, title}: { author: str
             </div>
             <div className='infoItem newsText title'>{title}</div>
             <p className='newsArticle newsText'>{article}</p>
-            {newsComments}
+            {showComments()}
             <div id="commentsAdding">
-                <div id="commentOwnerPhoto"/>
+                {/*<div id="commentOwnerPhoto"/>*/}
+                <img className='avatar' src={"data:image/png;base64," + currentUserAvatar.avatar} alt=""/>
                 <textarea id="commentField"/>
                 <button onClick={onSubmit} id="commentSendButton"/>
                 {/*<textarea id="commentField"/>

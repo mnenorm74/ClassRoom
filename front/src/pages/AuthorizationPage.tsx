@@ -33,13 +33,13 @@ function AuthorizationPage() {
             },
             body: formData,
         })
-            .then(response => {
+            /*.then(response => {
                 console.log(response);
                 if (response.status === 200) {
-                    window.location.reload();
+                    setTimeout(()=>window.location.reload(), 500)
                 }
 
-            })
+            })*/
     }
 
     return (

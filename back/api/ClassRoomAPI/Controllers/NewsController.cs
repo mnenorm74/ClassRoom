@@ -41,10 +41,10 @@ namespace ClassRoomAPI.Controllers
                     .Skip((page - 1) * count)
                     .Limit(count)
                     .ToList();
-            var correctNews = new List<NewsViewDTO>();
+            var correctNews = new List<NewsView>();
             for (var i = 0; i < news.Count; i++) 
             {
-                var newsView = new NewsViewDTO(news[i]);
+                var newsView = new NewsView(news[i]);
                 var user = usersCollection.Find(e => e.Id == news[i].AuthorId).FirstOrDefault();
                 newsView.AuthorName = user.Name;
                 newsView.AuthorSurname = user.Surname;
@@ -138,16 +138,23 @@ namespace ClassRoomAPI.Controllers
             return NoContent();
         }
 
-        //[HttpGet("{id}/comments")]
-        //[Produces("application/json")]
-        //public IActionResult Get(Guid id)
-        //{
+        [HttpGet("{id}/comments")]
+        [Produces("application/json")]
+        public IActionResult Get(Guid id)
+        {
+            var news = newsCollection.Find(n => n.Id == id).FirstOrDefault();
+            var comments = commentsCollection.Find(c => news.Comments.Contains(c.Id)).ToList();
+            var commentsView = new List<CommentView>();
+            for(var i = 0; i < comments.Count; i++)
+            {
+                var user = usersCollection.Find(a => a.Id == comments[i].AuthorId).FirstOrDefault();
+                commentsView.Add(new CommentView() { Content = comments[i].Content, Date = comments[i].Date, Name = user.Name, Surname = user.Surname, Avatar = user.Avatar });
+            }
 
-        //    var news = newsCollection.Find(n => n.Id == id).FirstOrDefault();
-        //    var comments = commentsCollection.Find(c => news.Comments.Contains(c.Id)).ToList();
+            commentsView = commentsView.OrderBy(e => e.Date).ToList();
 
-        //    return Json(comments);
-        //}
+            return Json(commentsView);
+        }
 
         /// <remarks>
         /// Sample request:
