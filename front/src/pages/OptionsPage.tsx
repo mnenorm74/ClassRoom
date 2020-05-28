@@ -8,7 +8,11 @@ import isEmail from "../validation/isEmail";
 import isEmptyField from "../validation/isEmptyField";
 
 function showForm(id: string) {
-    document.getElementById(id)!.style.display = 'block';
+    if(document.getElementById(id)!.style.display !== 'block'){
+        document.getElementById(id)!.style.display = 'block'}
+    else{
+        document.getElementById(id)!.style.display = 'none'
+    }
 }
 
 
