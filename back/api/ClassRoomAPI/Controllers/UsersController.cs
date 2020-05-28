@@ -97,6 +97,11 @@ namespace ClassRoomAPI.Controllers
         public IActionResult Post([FromForm]RegisterViewModel model)
         {
             var user = new User(model);
+            var group = groupsCollection.Find(g => g.GroupId == user.GroupId).FirstOrDefault();
+            if (group.Users.Count() == 0)
+            {
+                groupsCollection.UpdateOne(g => g.GroupId == user.GroupId, Builders<Group>.Update.Set(e => e.GroupLeaderId, user.Id));
+            }
             var update = Builders<Group>.Update.Push(g => g.Users, user.Id);
             var updateRes = groupsCollection.UpdateOne(g => g.GroupId == user.GroupId, update);
             if (updateRes.MatchedCount == 0)

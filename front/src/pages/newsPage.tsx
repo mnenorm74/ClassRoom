@@ -21,7 +21,7 @@ function NewsPage() {
                     setNews(addNewsTag(result));
                     setIsLoadedNews(true);
                 })
-    },[news, isLoadedNews]);
+    },[isLoadedNews]);
 
     function showNews() {
         if (isLoadedNews) {
@@ -43,7 +43,7 @@ function NewsPage() {
     return (
         <div id="newsContent">
             <div id="newsHeader">
-                {console.log(currentUserInfo, "USERINFO")}
+                {/*{console.log(currentUserInfo, "USERINFO")}*/}
                 {/*{(currentUserInfo.isLeader) ? newsAdding : null}*/}
                 {showButton()}
                 {/*{newsAdding}*/}

@@ -8,9 +8,9 @@ namespace ClassRoomAPI.EnteringModels
 {
     public class GroupDTO
     {
-        [Required]
-        public Guid? GroupLeaderId { get; set; }
-        [Required]
+        //public Guid? GroupLeaderId { get; set; }
         public string GroupName { get; set; }
+        public string University { get; set; }
+        public string Faculty { get; set; }
     }
 }

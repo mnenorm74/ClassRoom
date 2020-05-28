@@ -12,14 +12,17 @@ namespace ClassRoomAPI.Models
         public Group(GroupDTO group)
         {
             //GroupId = group.GroupId;
-            GroupLeaderId = group.GroupLeaderId;
+            //GroupLeaderId = group.GroupLeaderId;
             GroupName = group.GroupName;
-            //Users = group.Users;
+            University = group.University;
+            Faculty = group.Faculty;
         }
+        //Users = group.Users;
         public Group()
         {
 
         }
+
         [BsonId]
         public Guid GroupId { get; set; }
         [Required]
@@ -27,5 +30,7 @@ namespace ClassRoomAPI.Models
         [Required]
         public string GroupName { get; set; }
         public IEnumerable<Guid> Users { get; set; }
+        public string University { get; set; }
+        public string Faculty { get; set; }
     }
 }

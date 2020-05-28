@@ -120,9 +120,6 @@ E:\Web\ClassRoom\back\api\ClassRoomAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNe
 E:\Web\ClassRoom\back\api\ClassRoomAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 E:\Web\ClassRoom\back\api\ClassRoomAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
 E:\Web\ClassRoom\back\api\ClassRoomAPI\obj\Debug\netcoreapp3.1\ClassRoomAPI.csprojAssemblyReference.cache
-E:\Web\ClassRoom\back\api\ClassRoomAPI\obj\Debug\netcoreapp3.1\ClassRoomAPI.csproj.CoreCompileInputs.cache
-E:\Web\ClassRoom\back\api\ClassRoomAPI\obj\Debug\netcoreapp3.1\ClassRoomAPI.MvcApplicationPartsAssemblyInfo.cs
-E:\Web\ClassRoom\back\api\ClassRoomAPI\obj\Debug\netcoreapp3.1\ClassRoomAPI.MvcApplicationPartsAssemblyInfo.cache
 E:\Web\ClassRoom\back\api\ClassRoomAPI\obj\Debug\netcoreapp3.1\ClassRoomAPI.AssemblyInfoInputs.cache
 E:\Web\ClassRoom\back\api\ClassRoomAPI\obj\Debug\netcoreapp3.1\ClassRoomAPI.AssemblyInfo.cs
 E:\Web\ClassRoom\back\api\ClassRoomAPI\obj\Debug\netcoreapp3.1\ClassRoomAPI.RazorTargetAssemblyInfo.cache
@@ -292,3 +289,6 @@ C:\Users\bursi\OneDrive\Desktop\6\ClassRoom\back\api\ClassRoomAPI\obj\Debug\netc
 C:\Users\bursi\OneDrive\Desktop\6\ClassRoom\back\api\ClassRoomAPI\obj\Debug\netcoreapp3.1\ClassRoomAPI.dll
 C:\Users\bursi\OneDrive\Desktop\6\ClassRoom\back\api\ClassRoomAPI\obj\Debug\netcoreapp3.1\ClassRoomAPI.xml
 C:\Users\bursi\OneDrive\Desktop\6\ClassRoom\back\api\ClassRoomAPI\obj\Debug\netcoreapp3.1\ClassRoomAPI.pdb
+E:\Web\ClassRoom\back\api\ClassRoomAPI\obj\Debug\netcoreapp3.1\ClassRoomAPI.csproj.CoreCompileInputs.cache
+E:\Web\ClassRoom\back\api\ClassRoomAPI\obj\Debug\netcoreapp3.1\ClassRoomAPI.MvcApplicationPartsAssemblyInfo.cs
+E:\Web\ClassRoom\back\api\ClassRoomAPI\obj\Debug\netcoreapp3.1\ClassRoomAPI.MvcApplicationPartsAssemblyInfo.cache

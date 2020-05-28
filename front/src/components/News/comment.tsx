@@ -20,7 +20,7 @@ function Comment(comment: any, id: any/*, authorComment:any*/) {
         return null;
     }*/
     function showButton() {
-        console.log(currentUserInfo.id, comment.authorId, "NEWS!!!223");
+        /*console.log(currentUserInfo.id, comment.authorId, "NEWS!!!223");*/
         return (currentUserInfo.id === comment.authorId) ? commentOptions(id, comment.id) : null;
     }
 

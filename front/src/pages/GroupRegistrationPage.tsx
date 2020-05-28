@@ -4,12 +4,14 @@ import ReactDOM from "react-dom";
 import Page from "./pageProvider";
 import isEmptyField from "../validation/isEmptyField";
 import warnEmptinessHidden from "../validation/warnEmptinessHidden";
+import {srcUrl} from "../mySettings";
+import {currentUserInfo} from "../components/Profile/profile";
 
 const formName = "groupAuthorizationForm";
 
 function isValidForm(): boolean {
     return !isEmptyField(formName, "University") && !isEmptyField(formName, "Faculty")
-        && !isEmptyField(formName, "Group");
+        && !isEmptyField(formName, "GroupName");
 }
 
 function GroupRegistrationPage() {
@@ -20,16 +22,25 @@ function GroupRegistrationPage() {
             return false;
         }
 
-
-        ReactDOM.render(
+        let form: any = document.forms.namedItem(formName);
+        let formData = new FormData(form);
+        debugger;
+        fetch(`${srcUrl}/Groups`, {
+            method: "post",
+            credentials: "include",
+            body: formData
+        }).then(res => res.json())
+            .then((result)=> {
+            /*ReactDOM.render(
             Page.UserRegistrationPage(),
-            document.getElementById('root')
-        );
+            document.getElementById('root')*/
+                window.location.href = window.location.origin + "/UserRegistration/" + result.groupId;
+        });
     }
 
     return (
         <div id="groupAuthorization">
-            <form id="groupAuthorizationForm" onChange={() => {
+            <form name={formName} id="groupAuthorizationForm" onChange={() => {
                 if (!isValidForm()) {
                     // @ts-ignore
                     document.querySelector('.registrationButton').setAttribute("disabled", "true")
@@ -37,6 +48,9 @@ function GroupRegistrationPage() {
                     // @ts-ignore
                     document.querySelector('.registrationButton').removeAttribute("disabled")
                 }
+            }} onSubmit={(e) => {
+                e.preventDefault();
+                sendAuth();
             }}>
                 <button id="toAuthorizationForm" onClick={() => {
                     ReactDOM.render(
@@ -54,12 +68,10 @@ function GroupRegistrationPage() {
                     warnEmptinessHidden(formName, "Faculty", "facultyMessage")
                 }}/>
                 <span className="authorizationContentStatus" id="groupMessage">Поле не может быть пустым</span>
-                <input name="Group" className="groupAuthorizationInput" placeholder="Группа" onChange={() => {
-                    warnEmptinessHidden(formName, "Group", "groupMessage")
+                <input name="GroupName" className="groupAuthorizationInput" placeholder="Имя группы" onChange={() => {
+                    warnEmptinessHidden(formName, "GroupName", "groupMessage")
                 }}/>
-                <button id="toUserRegistration" className={'registrationButton'} onClick={() => {
-                    sendAuth();
-                }}>ПРОДОЛЖИТЬ
+                <button id="toUserRegistration" className={'registrationButton'} type={"submit"}>ПРОДОЛЖИТЬ
                 </button>
             </form>
         </div>

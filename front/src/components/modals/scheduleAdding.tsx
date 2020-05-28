@@ -54,7 +54,7 @@ function scheduleAdding() {
                               // @ts-ignore
                               document.querySelector('.sendingButton').removeAttribute("disabled")
                           }
-                      }}>
+                      }} >
                     <a className="close" onClick={close}>
                         &times;
                     </a>
@@ -128,7 +128,7 @@ function scheduleAdding() {
                         <p className="scheduleRadio"><input name="RepeatCount" value="30" type="radio"/>Раз в месяц</p>
                     </div>
                     <div className="modalFooter">
-                        <button className="sendingButton" id="scheduleAddingButton" onClick={onSubmit}>Добавить</button>
+                        <button className="sendingButton" id="scheduleAddingButton" onClick={()=>onSubmit()}>Добавить</button>
                     </div>
                 </form>
 

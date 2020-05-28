@@ -170,23 +170,23 @@ namespace ClassRoomAPI.Controllers
             {
                 case 1:
                     {
-                        if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.Date) == 0)
+                        if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.Date && e.GroupId != groupId) == 0)
                         {
                             schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate.Date, Lessons = new List<Lesson>(), GroupId = groupId});
                         }
-                        schedulesCollection.UpdateOne(s => s.DayDate == lesson.CreateDate.Date, update);
+                        schedulesCollection.UpdateOne(s => s.DayDate == lesson.CreateDate.Date && s.GroupId == groupId, update);
                         break;
                     }
                 case 7:
                     {
                         for (var i = 0; i < 30; i++)
                         {
-                            if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddDays(7 * i).Date) == 0)
+                            if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddDays(7 * i).Date && e.GroupId != groupId) == 0)
                             {
                                 schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate.AddDays(7 * i).Date, Lessons = new List<Lesson>(), GroupId = groupId });
                             }
                             date = lesson.CreateDate.AddDays(7 * i).Date;
-                            schedulesCollection.UpdateOne(s => s.DayDate == date, update);
+                            schedulesCollection.UpdateOne(s => s.DayDate == date && s.GroupId == groupId, update);
                         }
                         break;
                     }
@@ -194,12 +194,12 @@ namespace ClassRoomAPI.Controllers
                     {
                         for (var i = 0; i < 15; i++)
                         {
-                            if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddDays(14 * i).Date) == 0)
+                            if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddDays(14 * i).Date && e.GroupId != groupId) == 0)
                             {
                                 schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate.AddDays(14 * i).Date, Lessons = new List<Lesson>(), GroupId = groupId });
                             }
                             date = lesson.CreateDate.AddDays(14 * i).Date;
-                            schedulesCollection.UpdateOne(s => s.DayDate == date, update);
+                            schedulesCollection.UpdateOne(s => s.DayDate == date && s.GroupId == groupId, update);
                         }
                         break;
                     }
@@ -208,12 +208,12 @@ namespace ClassRoomAPI.Controllers
 
                         for (var i = 0; i < 7; i++)
                         {
-                            if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddMonths(i).Date) == 0)
+                            if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddMonths(i).Date && e.GroupId != groupId) == 0)
                             {
                                 schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate.AddMonths(i).Date, Lessons = new List<Lesson>(), GroupId = groupId });
                             }
                             date = lesson.CreateDate.AddMonths(i).Date;
-                            schedulesCollection.UpdateOne(s => s.DayDate == date, update);
+                            schedulesCollection.UpdateOne(s => s.DayDate == date && s.GroupId == groupId, update);
                         }
                         break;
                     }
@@ -266,11 +266,12 @@ namespace ClassRoomAPI.Controllers
                 return NotFound("Lesson with this id not found");
             }
             lesson.Update(value);
+            var currUser = usersCollection.Find(u => u.Id == Guid.Parse(HttpContext.Session.GetString("userId"))).FirstOrDefault();
             var push = Builders<ScheduleDay>.Update.Push(d => d.Lessons, lesson);
             if (all)
             {
-                UpdateAll(lesson, delete, false, Guid.Empty);
-                UpdateAll(lesson, push, false, Guid.Empty);
+                UpdateAll(lesson, delete, false, currUser.GroupId);
+                UpdateAll(lesson, push, false, currUser.GroupId);
             }
             else
             {
@@ -312,13 +313,14 @@ namespace ClassRoomAPI.Controllers
                 return NotFound("Lesson with this id not found");
             }
             var delete = Builders<ScheduleDay>.Update.PullFilter(d => d.Lessons, l => l.Id == id);
+            var currUser = usersCollection.Find(u => u.Id == Guid.Parse(HttpContext.Session.GetString("userId"))).FirstOrDefault();
             if (all)
             {
-                UpdateAll(lesson, delete, true, Guid.Empty);
+                UpdateAll(lesson, delete, true, currUser.GroupId);
             }
             else
             {
-                schedulesCollection.UpdateOne(n => n.DayDate == dateTime, delete);
+                schedulesCollection.UpdateOne(n => n.DayDate == dateTime && n.GroupId == currUser.GroupId, delete);
             }
             return NoContent();
         }

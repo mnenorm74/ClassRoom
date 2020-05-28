@@ -35,7 +35,7 @@ namespace ClassRoomAPI.Controllers
         /// </remarks>
         [HttpPost]
         [Produces("application/json")]
-        public IActionResult Post([FromBody] GroupDTO value)
+        public IActionResult Post([FromForm] GroupDTO value)
         {
             var group = new Group(value);
             group.GroupId = Guid.NewGuid();
@@ -64,10 +64,10 @@ namespace ClassRoomAPI.Controllers
         {
             var arr = new List<UpdateDefinition<Group>>();
             var update = Builders<Group>.Update;
-            if (value.GroupLeaderId != Guid.Empty)
-            {
-                arr.Add(update.Set(n => n.GroupLeaderId, value.GroupLeaderId));
-            }
+            //if (value.GroupLeaderId != Guid.Empty)
+            //{
+            //    arr.Add(update.Set(n => n.GroupLeaderId, value.GroupLeaderId));
+            //}
             if (value.GroupName != null)
             {
                 arr.Add(update.Set(n => n.GroupName, value.GroupName));

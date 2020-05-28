@@ -20,7 +20,7 @@ function NewsItem({author, pubDate, article, /*comments,*/ id, title}: { author:
                     setComments(addComments(result, id) );
                     setIsLoadComments(true);
                 })
-    },[isAddComments]);
+    },[isAddComments, isLoadComments]);
    /* let newsComments = typeof comments == "undefined"
         ? <div id="commentsContainer"/>
         : <div id="commentsContainer">
@@ -47,6 +47,7 @@ function NewsItem({author, pubDate, article, /*comments,*/ id, title}: { author:
         let res : any = JSON.stringify({"Content" : content});
         console.dir(res, "CONTENT11");
         //setIsLoadComments(false);
+        setIsAddComments(false);
         fetch(`${srcUrl}/News/${id}/comments`, {
             method: 'post',
             credentials: "include",
@@ -54,8 +55,9 @@ function NewsItem({author, pubDate, article, /*comments,*/ id, title}: { author:
                 "Content-Type" : "application/json"
             },
             body: res,
-        }).then((res) => {
+        }).then(() => {
             setIsAddComments(true);
+            setIsLoadComments(false);
             //window.location.reload();
         });
     }
@@ -96,7 +98,7 @@ function NewsItem({author, pubDate, article, /*comments,*/ id, title}: { author:
                 {/*<div id="commentOwnerPhoto"/>*/}{/*className='avatar'*/}
                 <img className='avatar bigAvatar' src={"data:image/png;base64," + currentUserInfo.avatar} alt=""/>
                 <textarea className="commentField"/>
-                <button onClick={onSubmit} id="commentSendButton"/>
+                <button onClick={() => onSubmit()} id="commentSendButton"/>
                 {/*<textarea id="commentField"/>
                 <button id="commentSendButton"/>*/}
             </div>

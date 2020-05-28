@@ -32,7 +32,7 @@ function SchedulePage() {
 
     function showButton() {
         if (isLoadedSchedules) {
-            //console.log(news, "NEWS!!!");
+            console.log(currentUserInfo.isLeader, "NEWS!!!");
             return (currentUserInfo.isLeader) ? scheduleAdding : null;
         } else {
             return null;
