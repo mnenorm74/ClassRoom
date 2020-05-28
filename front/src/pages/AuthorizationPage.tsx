@@ -36,7 +36,7 @@ function AuthorizationPage() {
                 {/*<form id="authorizationWindow" name={"authForm"}>*/}
                     <input id="loginInput" name="Username" placeholder="Логин"/>
                     <input id="passwordInput" type="password" name="Password" placeholder="Пароль"/>
-                <input id="rememberMe" name="RememberMe" type="checkbox" value={0}/>
+                <label><input id="rememberMe" name="RememberMe" type="checkbox" value={0}/> Запомнить меня</label>
                 {/*</form>*/}
                 <button id="authorizationButton" onClick={sendAuth}>ВОЙТИ</button>
                 <span id="registrationLink" onClick={() => {

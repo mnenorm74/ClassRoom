@@ -11,7 +11,7 @@ const Card = ({id} : {id:any}) => <div className="card" id="newsOptionsField">
     </div>
 </div>;
 
-function newsOptions(id:any) {
+function NewsOptions({id}:{id:string}) {
     return (
         <Popup
             trigger={<button className='newsOptions'/>}
@@ -23,4 +23,4 @@ function newsOptions(id:any) {
     )
 }
 
-export default newsOptions
+export default NewsOptions

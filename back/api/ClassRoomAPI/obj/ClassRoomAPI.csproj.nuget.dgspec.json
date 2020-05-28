@@ -1,21 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bursi\\OneDrive\\Desktop\\6\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj": {}
+    "C:\\Users\\dimpo\\WebstormProjects\\class-room\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bursi\\OneDrive\\Desktop\\6\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj": {
+    "C:\\Users\\dimpo\\WebstormProjects\\class-room\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bursi\\OneDrive\\Desktop\\6\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
+        "projectUniqueName": "C:\\Users\\dimpo\\WebstormProjects\\class-room\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
         "projectName": "ClassRoomAPI",
-        "projectPath": "C:\\Users\\bursi\\OneDrive\\Desktop\\6\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
-        "packagesPath": "C:\\Users\\bursi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bursi\\OneDrive\\Desktop\\6\\ClassRoom\\back\\api\\ClassRoomAPI\\obj\\",
+        "projectPath": "C:\\Users\\dimpo\\WebstormProjects\\class-room\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
+        "packagesPath": "C:\\Users\\dimpo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dimpo\\WebstormProjects\\class-room\\back\\api\\ClassRoomAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\bursi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\dimpo\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"

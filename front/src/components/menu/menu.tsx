@@ -14,7 +14,7 @@ function Menu() {
     return (
         <div id="menu">
             <div id="itemContainer">
-                <div id="applicationLogo"/>
+                <div id="applicationLogo">ClassRoom</div>
                 <NavLink to="/main" className={'navButton'} activeClassName={'active'}>Главная</NavLink>
                 <NavLink to="/storage" className={'navButton'}>Хранилище</NavLink>
                 <NavLink to="/news" className={'navButton'}>Новости</NavLink>

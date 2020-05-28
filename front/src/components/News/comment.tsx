@@ -4,7 +4,7 @@ import GroupUsers from "../group/groupDB";
 import {getUser} from "../../fetches/users";
 import {addDaysTag} from "../../fetches/mainPage";
 import {formatDateNews} from "../../fetches/news";
-import newsOptions from "../modals/newsOptions";
+import NewsOptions from "../modals/newsOptions";
 import commentOptions from "../modals/commentOptions";
 
 function Comment(comment: { authorId: string, content: string, date: string }) {
