@@ -64,6 +64,10 @@
     margin-right: 2vw;
 }
 
+#savingButton{
+    visibility: hidden;
+}
+
 
 .optionContainer{
     display: flex;
