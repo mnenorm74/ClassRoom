@@ -54,7 +54,7 @@ function Profile() {
 
     function showUserAvatar() {
         if(isLoadedUser) {
-            return <img className='avatar' src={avatar} alt=""/>;
+            return <img className='avatar' src={avatar} alt="avatar"/>;
         } else {
             return null;
         }

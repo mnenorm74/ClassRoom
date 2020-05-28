@@ -84,7 +84,7 @@ function NewsItem({author, pubDate, article, /*comments,*/ id, title}: { author:
             <p className='newsArticle newsText'>{article}</p>
             {showComments()}
             <div id="commentsAdding">
-                {/*<div id="commentOwnerPhoto"/>*/}
+                {/*<div id="commentOwnerPhoto"/>*/}{/*className='avatar'*/}
                 <img className='avatar' src={"data:image/png;base64," + currentUserInfo.avatar} alt=""/>
                 <textarea className="commentField"/>
                 <button onClick={onSubmit} id="commentSendButton"/>
