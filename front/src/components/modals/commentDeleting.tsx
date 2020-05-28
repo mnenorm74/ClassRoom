@@ -1,9 +1,17 @@
 import React from "react";
 import Popup from "reactjs-popup";
+import {srcUrl} from "../../mySettings";
 
 const formName = "commentDeleting";
 
-function commentDeleting(){
+function commentDeleting(id : any, CommId : any){
+    function onSubmit() {
+        fetch(`${srcUrl}/${id}/comments/${CommId}`, {
+            method: 'delete',
+            credentials: "include"
+        });
+
+    }
     return (<Popup trigger={<p className="lessonOption">Удалить</p>} modal className={'deleting'}>
         {close => (
             <form name={formName}>
@@ -23,4 +31,4 @@ function commentDeleting(){
     </Popup>);
 }
 
-export default commentDeleting()
+export default commentDeleting

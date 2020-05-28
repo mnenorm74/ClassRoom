@@ -12,25 +12,26 @@ function newsDeleting(id : any) {
 
     }
 
-function newsDeleting() {
-    return (<Popup trigger={<p className="lessonOptionItem">Удалить</p>} modal className={'deleting'}>
-        {close => (
-            <form>
-            <div className="modal" id="deletingModal">
-                <a className="close" onClick={close}>
-                    &times;
-                </a>
-                <div className="header" id="deletingHeader">Удалить новость</div>
-                <div id="deletingOptions">
-                    <span id="deletingText">Вы уверены, что хотите удалить новость?</span>
-                </div>
-                <div className="modalFooter">
-                    <button className="sendingButton" onClick={onSubmit}>Удалить</button>
-                </div>
-            </div>
-            </form>
-        )}
-    </Popup>);
+    function newsDeleting() {
+        return (<Popup trigger={<p className="lessonOptionItem">Удалить</p>} modal className={'deleting'}>
+            {close => (
+                <form>
+                    <div className="modal" id="deletingModal">
+                        <a className="close" onClick={close}>
+                            &times;
+                        </a>
+                        <div className="header" id="deletingHeader">Удалить новость</div>
+                        <div id="deletingOptions">
+                            <span id="deletingText">Вы уверены, что хотите удалить новость?</span>
+                        </div>
+                        <div className="modalFooter">
+                            <button className="sendingButton" onClick={onSubmit}>Удалить</button>
+                        </div>
+                    </div>
+                </form>
+            )}
+        </Popup>);
+    }
 }
 
 export default newsDeleting
