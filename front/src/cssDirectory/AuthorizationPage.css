@@ -17,16 +17,17 @@
 }
 
 #loginInput{
-    margin-top: 7%;
+    margin-top: 2%;
     width: 80%;
     height: 8%;
+    font-size: 100%;
 }
 
 #passwordInput{
-    margin-top: 7%;
-    margin-bottom: 7%;
+    margin-top: 1%;
     width: 80%;
     height: 8%;
+    font-size: 100%;
 }
 
 #authorizationButton{
@@ -36,6 +37,7 @@
     background-color: #746BDE;
     color: white;
     cursor: pointer;
+    font-size: 100%;
 }
 
 #registrationLink{
@@ -48,3 +50,27 @@
     margin-top: 5%;
     font-size: 150%;
 }
+
+#loginMessage, #passwordMessage{
+    color: red;
+    margin-top: 1%;
+    align-self: flex-start;
+    margin-left: 10%;
+}
+
+.authorizationLine{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.check{
+    margin: 3%;
+}
+
+#textRemember{
+    margin-right: 10%;
+}
+
+

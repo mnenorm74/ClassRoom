@@ -23,23 +23,44 @@
 .userAuthorizationField{
     width: 80%;
     height: 5%;
-    margin-top: 7%;
+    margin-top: 1%;
+    font-size: 120%;
+
+    /*margin-top: 1%;
+    width: 80%;
+    height: 8%;*/
 }
 
 #registerUserButton{
     width: 80%;
     margin-top: 7%;
-    height: 7%;
+    margin-bottom: 5%;
+    height: 8%;
     background-color: #746BDE;
     color: white;
 }
 
-#toGroupAuthorizationForm{
+#toGroupForm{
     background-image: url("../icons/Back.svg");
+    background-repeat: no-repeat;
     width: 4vh;
     height: 4vh;
-    border-radius: 50%;
-    align-self: flex-start;
     margin-top: 2%;
     margin-left: 2%;
+    border-radius: 50%;
+    align-self: flex-start;
+}
+
+#userRegistrationForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#surnameMessage, #nameMessage, #patronymicMessage, #emailMessage, #loginMessage, #passwordMessage, #passwordRepeatMessage{
+    color: red;
+    margin-top: 1%;
+    align-self: flex-start;
+    margin-left: 10%;
 }

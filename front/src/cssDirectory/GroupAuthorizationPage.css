@@ -9,6 +9,7 @@
 
 #toAuthorizationForm{
     background-image: url("../icons/Back.svg");
+    background-repeat: no-repeat;
     width: 4vh;
     height: 4vh;
     margin-top: 2%;
@@ -27,7 +28,7 @@
 }
 
 .groupAuthorizationInput{
-    margin-top: 7%;
+    margin-top: 1%;
     width: 80%;
     height: 8%;
 }
@@ -42,4 +43,11 @@
     height: 12%;
     background-color: #746BDE;
     color: white;
+}
+
+#universityMessage, #facultyMessage, #groupMessage{
+    color: red;
+    margin-top: 1%;
+    align-self: flex-start;
+    margin-left: 10%;
 }
