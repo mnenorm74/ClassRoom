@@ -36,7 +36,7 @@ function AuthorizationPage() {
             .then(response => {
                 console.log(response);
                 if (response.status === 200) {
-                    window.location.reload();
+                    setTimeout(() => window.location.reload(), 500);
                 }
 
             })

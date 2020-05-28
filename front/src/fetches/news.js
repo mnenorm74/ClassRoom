@@ -5,7 +5,9 @@ import React from "react";
 export function getNews () {
     console.log("fetchNews");
     let page = 1;
-    return fetch(`${srcUrl}/News?page=${page}&count=${20}`)
+    return fetch(`${srcUrl}/News?page=${page}&count=${20}`, {
+        credentials: "include"
+    })
 }
 
 export function addNewsTag(source) {
