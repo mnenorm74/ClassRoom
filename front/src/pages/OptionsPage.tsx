@@ -64,11 +64,11 @@ function OptionsPage() {
                         <input name="Email" className="optionInput" id="newEmail" onChange={() => {
                             warnEmail('EmailChange', "Email", "userEmailMessage")
                         }}/>
+                        <button className={'optionsButton'} id={'emailSend'} onClick={() => {
+                            onSubmitEmail()
+                        }}>Применить
+                        </button>
                     </div>
-                    <button className={'optionsButton'} id={'emailSend'} onClick={() => {
-                        onSubmitEmail()
-                    }}>Применить
-                    </button>
                 </form>
 
 
@@ -95,12 +95,26 @@ function OptionsPage() {
                                onChange={() => {
                                    warnEmptiness('LoginChange', "Login", 'userLoginMessage')
                                }}/>
+                        <button className={'optionsButton'} id={'loginSend'} onClick={() => {
+                            onSubmitLogin()
+                        }}>Применить
+                        </button>
                     </div>
-                    <button className={'optionsButton'} id={'loginSend'} onClick={() => {
-                        onSubmitLogin()
-                    }}>Применить
-                    </button>
                 </form>
+
+
+                <div className="optionContainer">
+                    <form name={'photoChanging'} className="optionContainer">
+                        <span className="optionHeader">Фото</span>
+                        <input type="file" id="newPhoto"/>
+                        <button className={'optionsButton'} id={'photoChangeButton'}>Сменить фото</button>
+                    </form>
+                </div>
+            </div>
+
+
+            <div className="optionContainer">
+                <button className={'optionsButton'}>Удалить аккаунт</button>
 
 
                 <div className="passwordContainer">
@@ -142,19 +156,6 @@ function OptionsPage() {
                         </button>
                     </form>
                 </div>
-
-
-                <div className="optionContainer">
-                    <form name={'photoChanging'}>
-                        <span className="optionHeader">Фото</span>
-                        <input type="file" id="newPhoto"/>
-                        <button className={'optionsButton'}>Сменить фото</button>
-                    </form>
-                </div>
-            </div>
-
-            <div className="optionContainer">
-                <button className={'optionsButton'}>Удалить аккаунт</button>
             </div>
         </div>
     )
