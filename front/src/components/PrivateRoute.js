@@ -40,8 +40,8 @@ function PrivateRoute({component, path}) {
                     <ReactLoading type={"spinningBubbles"} color='#BA68C8' width={'10%'} className={'loading'}/>
                 </div>
 
-                : code === 200 ?
-                    <>
+                : code === 200
+                    ? <>
                         <Menu/>
                         <div id="pageContainer">
                             <Route component={component} path={path}/>

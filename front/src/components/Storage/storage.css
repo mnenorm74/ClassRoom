@@ -1,12 +1,14 @@
 #storageContainer {
-    width: 20vh;
-    height: 20vh;
+    /*width: 20vh;*/
+    /*height: 20vh;*/
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 1vw;
+    cursor: pointer;
 }
 
-#folderIcon{
+#folderIcon {
     height: 15vh;
     width: 15vh;
     border-radius: 50%;
@@ -15,7 +17,7 @@
     background-size: cover;
 }
 
-#fileIcon{
+#fileIcon {
     height: 15vh;
     width: 15vh;
     border-radius: 50%;
@@ -24,5 +26,19 @@
     background-size: cover;
 }
 
+.contextItem {
+    cursor: pointer;
+    text-align: center;
+    padding: 1vh;
+}
 
+.contextItem:hover {
+    background: rgba(72, 10, 136, 0.8);
+}
 
+.contextMenu {
+
+    border-radius: 1vh;
+    color: white;
+    background: rgba(154, 102, 224, 0.6);
+}

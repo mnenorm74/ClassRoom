@@ -12,7 +12,10 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
-
+#icons{
+    display: flex;
+    flex-wrap: wrap;
+}
 #header {
     display: flex;
     flex-direction: row;

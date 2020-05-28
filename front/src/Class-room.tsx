@@ -29,7 +29,7 @@ function ClassRoom() {
                 <PrivateRoute path="/news" component={Page.NewsPage}/>
                 <PrivateRoute path="/schedule" component={Page.SchedulePage}/>
                 <PrivateRoute path="/groupList" component={Page.GroupListPage}/>
-                <Route path="/userRegistration/:id" component={Page.UserRegistrationPage}/>
+                <Route exact path="/userRegistration/:id" component={Page.UserRegistrationPage}/>
             </Switch>
         </Router>
     );
