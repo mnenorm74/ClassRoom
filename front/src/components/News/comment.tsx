@@ -7,7 +7,7 @@ import {formatDateNews} from "../../fetches/news";
 import newsOptions from "../modals/newsOptions";
 import commentOptions from "../modals/commentOptions";
 
-function Comment(comment: { authorId: string, content: string, date: string }) {
+function Comment(comment:any, id:any) {
     const [isLoadedAuthor, setIsLoadedAuthor] = useState(false);
     const [author, setAuthor]: [any, any] = useState([]);
 
@@ -36,9 +36,9 @@ function Comment(comment: { authorId: string, content: string, date: string }) {
                 {/*<span id="commentAuthor">{`${author.Name} ${author.Surname}`}</span>*/}
                 <div className={'commentHeader'}>
                     {showAuthors()}
-                    {commentOptions}
+                    {commentOptions(id, comment.id)}
                 </div>
-                <span id="commentContent">{comment.content}</span>
+                <p id="commentContent">{comment.content}</p>
                 <span id="commentDate">{formatDateNews(comment.date)}</span>
             </div>
         </div>

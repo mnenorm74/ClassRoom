@@ -15,7 +15,7 @@ function newsChanging(id: any) {
     function onSubmit() {
         if (!isValidForm()) {
             // @ts-ignore
-            document.querySelector('.sendingButton').setAttribute("disabled", "true")
+            document.querySelector('.sendingButton').setAttribute("disabled", "true");
             return;
         }
         let form: any = document.forms.namedItem(formName);

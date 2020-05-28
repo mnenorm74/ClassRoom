@@ -9,7 +9,7 @@ function isValidForm(): boolean {
     return !isEmptyField(formName, "changingCommentContent");
 }
 
-function commentChanging(){
+function commentChanging(id : any, commId : any){
     function onSubmit() {
         if (!isValidForm()) {
             // @ts-ignore
@@ -53,4 +53,4 @@ function commentChanging(){
     </Popup>);
 }
 
-export default commentChanging()
+export default commentChanging

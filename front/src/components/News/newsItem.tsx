@@ -14,7 +14,7 @@ function NewsItem({author, pubDate, article, comments, id}: { author: string, pu
         </div>
         : <div id="commentsContainer">
             {comments.map((comment: any) => (
-                Comment(comment)
+                Comment(comment, id)
             ))}
         </div>;
 
@@ -23,8 +23,9 @@ function NewsItem({author, pubDate, article, comments, id}: { author: string, pu
             return;
         }*/
         let content: any = document.querySelector("#commentField");
-        console.log(content);
+        console.dir(content.value, "CONTENT");
         let res : any = JSON.stringify({"Content" : content.value});
+        console.dir(res, "CONTENT11");
         fetch(`${srcUrl}/News/${id}/comments`, {
             method: 'post',
             credentials: "include",
