@@ -58,7 +58,7 @@ function OptionsPage() {
                     <span className="optionHeader">E-mail</span>
                     <span className="optionHeader">Текущий e-mail</span>
                 </div>
-                <span className="optionHeader" id='userEmailMessage'>E-mail в формате example@mail.ru</span>
+                <span className="optionMessage" id='userEmailMessage'>E-mail в формате example@mail.ru</span>
                 <div className="optionContainer" id="emailChanging">
                     <span className="optionHeader">Новый e-mail</span>
                     <input name="Email" className="optionInput" id="newEmail" disabled={true} onChange={()=>{
@@ -69,7 +69,7 @@ function OptionsPage() {
                     <span className="optionHeader">Логин</span>
                     <span className="optionHeader">Текущий логин</span>
                 </div>
-                <span className="optionHeader" id='userLoginMessage'>Логин не может быть пустым</span>
+                <span className="optionMessage" id='userLoginMessage'>Логин не может быть пустым</span>
                 <div className="optionContainer" id="loginChanging">
                     <span className="optionHeader">Новый логин</span>
                     <input name="Login" type="text" className="optionInput" id="newLogin" disabled={true} onChange={()=>{

@@ -99,4 +99,9 @@
 .column{
     display: flex;
     flex-direction: column;
+    width: 80%;
+}
+
+#userEmailMessage, #userLoginMessage{
+    margin-left: 20%;
 }
