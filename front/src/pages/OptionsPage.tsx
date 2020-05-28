@@ -3,36 +3,61 @@ import "../cssDirectory/optionsPage.css"
 import CurrentUser from "../СurrentUserInfoDB";
 import groupDB from "../components/group/groupDB"
 
-function OptionsPage(){
-    let id = CurrentUser.Id;
-    let userData = (groupDB.filter(user => user.Id === id))[0];
+function unblockField(selector: string) {
+    //@ts-ignore
+    document.querySelector(selector).removeAttribute("disabled")
+}
 
-    return(
+function unblockFields() {
+    unblockField("#newEmail");
+    unblockField("#newLogin");
+    unblockField("#oldPassword");
+    unblockField("#newPassword");
+    unblockField("#newPasswordRepeated");
+    unblockField("#newPhoto");
+    unblockField("#savingButton");
+}
+
+function OptionsPage() {
+
+    return (
         <div id="optionsContent">
-            <div id="optionContainer">
+            <p id="optionsHeader">Настройки профиля</p>
+            <div className="optionContainer">
                 <span className="optionHeader">E-mail</span>
-                <input id="optionInput" placeholder={userData.Email}/>
+                <span className="optionHeader">Текущий e-mail</span>
             </div>
-            <div id="optionContainer">
+            <div className="optionContainer" id="emailChanging">
+                <span className="optionHeader">Новый e-mail</span>
+                <input className="optionInput" id="newEmail" disabled={true}/>
+            </div>
+            <div className="optionContainer">
                 <span className="optionHeader">Логин</span>
-                <input type="text" id="optionInput" placeholder={userData.Username}/>
+                <span className="optionHeader">Текущий логин</span>
+            </div>
+            <div className="optionContainer" id="loginChanging">
+                <span className="optionHeader">Новый логин</span>
+                <input type="text" className="optionInput" id="newLogin" disabled={true}/>
             </div>
             <div id="passwordContainer">
                 <span className="optionHeader">Изменить пароль</span>
                 <div id="passwordFields">
-                    <input type="password" placeholder="Старый пароль" id="optionInput"/>
-                    <input type="password" placeholder="Новый пароль" id="optionInput"/>
-                    <input type="password" placeholder="Новый пароль" id="optionInput"/>
+                    <input type="password" placeholder="Старый пароль" className="optionInput" id="oldPassword"
+                           disabled={true}/>
+                    <input type="password" placeholder="Новый пароль" className="optionInput" id="newPassword"
+                           disabled={true}/>
+                    <input type="password" placeholder="Новый пароль" className="optionInput" id="newPasswordRepeated"
+                           disabled={true}/>
                 </div>
             </div>
-            <div id="optionContainer">
-                <span className="optionHeader">Изменить фото</span>
-                <button id="photoAdding">
-                    <span id="addingHeader">Загрузить</span>
-                </button>
+            <div className="optionContainer">
+                <span className="optionHeader">Фото</span>
+                <input type="file" id="newPhoto" disabled={true}/>
             </div>
-            <div id="optionContainer">
+            <div className="optionContainer">
                 <button id="deletingAccountButton">Удалить аккаунт</button>
+                <button id="changingAccountButton" onClick={() => unblockFields()}>Изменить аккаунт</button>
+                <button id="savingButton" disabled={true}>Применить</button>
             </div>
         </div>
     )
