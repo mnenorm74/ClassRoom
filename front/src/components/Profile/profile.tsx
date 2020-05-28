@@ -12,9 +12,9 @@ import {
     NavLink
 } from "react-router-dom";
 import {srcUrl} from "../../mySettings";
-import {getUser} from "../../fetches/users";
+import {addUserTags, getUser} from "../../fetches/users";
 import {addNewsTag, getNews} from "../../fetches/news";
-export let currentUserAvatar : any;
+export let currentUserInfo : any;
 
 function Profile() {
     const [user, setUser]: [any, any] = useState([]);
@@ -24,11 +24,12 @@ function Profile() {
         getUser()
             .then(res => res.json())
             .then(result => {
-                currentUserAvatar = result;
-                setUser(<img className='avatar' src={"data:image/png;base64," + result.avatar} alt=""/>);
+                currentUserInfo = result;
+                setUser(addUserTags(result));
                 setIsLoadedUser(true);
             })
     },[]);
+
 
     function logOut() {
         fetch(`${srcUrl}/account/logout`, {
@@ -54,10 +55,6 @@ function Profile() {
         <>
             {/*<img className='avatar' src={"data:image/png," + user.avatar} alt=""/>*/}
             {showUserInfo()}
-            <div className="userData">
-                <span>{CurrentUser.Name}</span>
-                <span>{CurrentUser.Surname}</span>
-            </div>
             <div className='optionsContainer'>
                 <img className='optionsLogo' src={Logo.settingsLogo} alt="" onClick={() => {
                     ReactDOM.render(

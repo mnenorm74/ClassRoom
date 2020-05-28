@@ -7,6 +7,7 @@ namespace ClassRoomAPI.EnteringModels
 {
     public class CommentView
     {
+        public Guid Id { get; set; }
         public string Content { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
         public string Name { get; set; }

@@ -48,7 +48,7 @@ namespace ClassRoomAPI.Controllers
             //var a = System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + "\\..\\..\\defaultAvatar.png");
             
             //var encodeAvatar = StorageController.Base64Encode(/*user.Avatar.ToString()*/a.ToString());
-            return new ObjectResult(new CurrentUser() { Id = user.Id, Name = user.Name, Surname = user.Surname, Avatar = user.Avatar });
+            return new ObjectResult(new CurrentUser() { Id = user.Id, Name = user.Name, Surname = user.Surname, Avatar = user.Avatar, Email = user.Email, Username = user.Username });
         }
 
         [HttpGet("{id}")]

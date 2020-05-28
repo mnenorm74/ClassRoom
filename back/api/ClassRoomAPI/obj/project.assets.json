@@ -7823,19 +7823,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ivanosess\\.nuget\\packages\\": {}
+    "C:\\Users\\Наталья\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\C# Programs\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
+      "projectUniqueName": "E:\\Web\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
       "projectName": "ClassRoomAPI",
-      "projectPath": "E:\\C# Programs\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
-      "packagesPath": "C:\\Users\\Ivanosess\\.nuget\\packages\\",
-      "outputPath": "E:\\C# Programs\\ClassRoom\\back\\api\\ClassRoomAPI\\obj\\",
+      "projectPath": "E:\\Web\\ClassRoom\\back\\api\\ClassRoomAPI\\ClassRoomAPI.csproj",
+      "packagesPath": "C:\\Users\\Наталья\\.nuget\\packages\\",
+      "outputPath": "E:\\Web\\ClassRoom\\back\\api\\ClassRoomAPI\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Ivanosess\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Наталья\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7902,7 +7906,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
       }
     }
   },

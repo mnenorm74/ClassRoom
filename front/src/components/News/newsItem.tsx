@@ -4,7 +4,7 @@ import Comment from "./comment";
 import NewsOptions from "../modals/newsOptions";
 import {srcUrl} from "../../mySettings";
 import {addComments, addNewsTag, getComments, getNews} from "../../fetches/news";
-import {currentUserAvatar} from "../Profile/profile";
+import {currentUserInfo} from "../Profile/profile";
 
 function NewsItem({author, pubDate, article, /*comments,*/ id, title}: { author: string, pubDate: string, article: string, /*comments: any,*/ id:any, title:any }) {
     const [isAddComments, setIsAddComments] = useState(false);
@@ -32,9 +32,18 @@ function NewsItem({author, pubDate, article, /*comments,*/ id, title}: { author:
         /*if (!isValidForm()) {
             return;
         }*/
-        let content: any = document.querySelector("#commentField");
-        console.dir(content.value, "CONTENT");
-        let res : any = JSON.stringify({"Content" : content.value});
+        let textAreas: any = document.querySelectorAll(".commentField");
+        let content = "";
+        for(let i = 0; i < textAreas.length; i++) {
+            if(textAreas[i].value != "") {
+                content = textAreas[i].value;
+                textAreas[i].value = "";
+                break;
+            }
+        }
+
+        console.dir(content, "CONTENT");
+        let res : any = JSON.stringify({"Content" : content});
         console.dir(res, "CONTENT11");
         //setIsLoadComments(false);
         fetch(`${srcUrl}/News/${id}/comments`, {
@@ -45,10 +54,7 @@ function NewsItem({author, pubDate, article, /*comments,*/ id, title}: { author:
             },
             body: res,
         }).then((res) => {
-
-            setIsAddComments(false);
             setIsAddComments(true);
-            content.value = "";
             //window.location.reload();
         });
     }
@@ -79,8 +85,8 @@ function NewsItem({author, pubDate, article, /*comments,*/ id, title}: { author:
             {showComments()}
             <div id="commentsAdding">
                 {/*<div id="commentOwnerPhoto"/>*/}
-                <img className='avatar' src={"data:image/png;base64," + currentUserAvatar.avatar} alt=""/>
-                <textarea id="commentField"/>
+                <img className='avatar' src={"data:image/png;base64," + currentUserInfo.avatar} alt=""/>
+                <textarea className="commentField"/>
                 <button onClick={onSubmit} id="commentSendButton"/>
                 {/*<textarea id="commentField"/>
                 <button id="commentSendButton"/>*/}

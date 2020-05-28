@@ -24,3 +24,14 @@ export function addUsersTag(source) {
     }
     return tags;
 }
+
+export function addUserTags(source) {
+    return (
+        <>
+        <img className='avatar' src={"data:image/png;base64," + source.avatar} alt=""/>
+        <div className="userData">
+        <span>{source.name}</span>
+        <span>{source.surname}</span>
+        </div>
+        </>)
+}
