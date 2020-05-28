@@ -15,6 +15,7 @@ import {srcUrl} from "../../mySettings";
 import {addUserTags, getUser} from "../../fetches/users";
 import {addNewsTag, getNews} from "../../fetches/news";
 export let currentUserInfo : any;
+let avatar : any;
 
 function Profile() {
     const [user, setUser]: [any, any] = useState([]);
@@ -25,6 +26,7 @@ function Profile() {
             .then(res => res.json())
             .then(result => {
                 currentUserInfo = result;
+                avatar = "data:image/png;base64," + result.avatar;
                 setUser(addUserTags(result));
                 setIsLoadedUser(true);
             })
@@ -44,8 +46,15 @@ function Profile() {
 
     function showUserInfo() {
         if(isLoadedUser) {
-            console.log(user, "USER");
             return user;
+        } else {
+            return null;
+        }
+    }
+
+    function showUserAvatar() {
+        if(isLoadedUser) {
+            return <img className='avatar' src={avatar} alt=""/>;
         } else {
             return null;
         }
@@ -66,23 +75,28 @@ function Profile() {
         <>
             <div className={'userInfo'}>
 
-                <img className='avatar' src={Logo.teaPot} alt=""/>
+                {showUserAvatar()}
                 <div className='optionsContainer'>
-                    <img className='optionsLogo' src={Logo.settingsLogo} alt="" onClick={() => {
+                    {/*<img className='optionsLogo' src={Logo.settingsLogo} alt="" onClick={() => {
                         ReactDOM.render(
                             Page.OptionsPage(),
                             document.getElementById('pageContainer')
                         );
-                    }}/>
+                    }}/>*/}
+                    <Link to={'/profile'} >
+                        <img className='optionsLogo' src={Logo.settingsLogo} alt="" onClick={() => {}}/>
+                    </Link>
+
                     <img className='optionsLogo' src={Logo.logOutLogo} alt="" onClick={() => {
                         logOut()
                     }}/>
                 </div>
             </div>
-            <div className="userData">
+            {/*<div className="userData">
                 <span>{CurrentUser.Name}</span>
                 <span>{CurrentUser.Surname}</span>
-            </div>
+            </div>*/}
+            {showUserInfo()}
 
         </>
     )

@@ -90,6 +90,7 @@ return (
                 <PrivateRoute path="/news" component={Page.NewsPage}/>
                 <PrivateRoute path="/schedule" component={Page.SchedulePage}/>
                 <PrivateRoute path="/groupList" component={Page.GroupListPage}/>
+                <PrivateRoute path="/profile" component={Page.OptionsPage}/>
                 <Route exact path="/userRegistration/:id" component={Page.UserRegistrationPage}/>
             </Switch>
         </Router>
