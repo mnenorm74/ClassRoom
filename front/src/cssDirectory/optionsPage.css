@@ -23,7 +23,7 @@
     margin-bottom: 3vh;
 }
 
-#passwordContainer{
+.passwordContainer{
     display: flex;
     flex-direction: row;
 }
@@ -61,11 +61,12 @@
     height: 6vh;
     width: 20vw;
     border-radius: 10%;
-    margin-right: 2vw;
+    margin-right: 3vw;
 }
 
 #savingButton{
     visibility: hidden;
+    margin-top: 2vh;
 }
 
 
@@ -88,4 +89,14 @@
     flex-direction: row;
     background-image: url("../icons/Cloud.svg");
     background-repeat: no-repeat;
+}
+
+#userEmailMessage, #userLoginMessage, #userPasswordMessage, #newPasswordMessage, #newEqualPasswordMessage{
+    color: red;
+    font-size: 100%;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
 }
