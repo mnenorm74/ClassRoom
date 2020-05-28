@@ -27,35 +27,33 @@ function UserRegistrationPage() {
     let {id} = useParams();
 
     function sendRegistration() {
-        if (!isValidForm()) {
-            // @ts-ignore
-            document.querySelector('#registerUserButton').setAttribute("disabled", "true")
-            return false;
-        }
-        // let form = document.getElementById("authForm");
-        let form: any = document.forms.namedItem("registration");
+        //if (!isValidForm()) {
+        // @ts-ignore
+        document.querySelector('#registerUserButton').setAttribute("disabled", "true");
+        let form: any = document.forms.namedItem(formName);
         let formData = new FormData(form);
-        fetch(`${srcUrl}/users`, {
-            method: 'POST',
-            headers: {
-                // 'Accept': 'multipart/form-data',
-                // 'Content-Type': 'multipart/form-data',
-            },
-            body: formData,
-        })
-            .then(response => {
-                console.log(response);
-                if (response.status === 200) {
-                    window.location.reload();
-                }
-
-            })
+        formData.append('GroupId', id);
+        fetch(`${srcUrl}/users`,
+            {
+                method: "post",
+                credentials: "include",
+                body: formData
+            }).then(res => {
+            if (res.status === 200)
+                window.location.href = window.location.origin + '/main'
+        });
+        //return false;
+        // }
+        // let form = document.getElementById("authForm");
     }
 
 
     return (
         <div id="userAuthorization">
-            <form id="userAuthorizationWindow" name={formName} onChange={() => {
+            <form id="userAuthorizationWindow" name={formName} onSubmit={(e) => {
+                e.preventDefault();
+                sendRegistration();
+            }} /*onChange={() => {
                 if (!isValidForm()) {
                     // @ts-ignore
                     document.querySelector('#registerUserButton').setAttribute("disabled", "true")
@@ -63,7 +61,7 @@ function UserRegistrationPage() {
                     // @ts-ignore
                     document.querySelector('#registerUserButton').removeAttribute("disabled")
                 }
-            }}>
+            }}*/>
                 <button id="toGroupForm" onClick={() => {
                     ReactDOM.render(
                         Page.GroupRegistrationPage(),
@@ -73,8 +71,8 @@ function UserRegistrationPage() {
 
                 <span id="userAuthorizationWindowHeader">РЕГИСТРАЦИЯ</span>
                 <>
-                    <input name="Patronymic" className="userAuthorizationField" placeholder="Отчество" disabled
-                           value={"Группа: "+id}/>
+                    <input name="GroupId" className="userAuthorizationField" placeholder="Группа" disabled
+                           value={id}/>
                     <span className="authorizationContentStatus" id="surnameMessage">Поле не может быть пустым</span>
                     <input name="Surname" className="userAuthorizationField" placeholder="Фамилия" onChange={() => {
                         warnEmptinessHidden(formName, "Surname", "surnameMessage")
@@ -99,17 +97,17 @@ function UserRegistrationPage() {
                     <span className="authorizationContentStatus" id="passwordMessage">Пароль должен быть не менее 6 символов</span>
                     <input name="Password" className="userAuthorizationField" placeholder="Пароль" type="password"
                            onChange={() => {
-                               warnPassword(formName, "Password", "passwordMessage")
-                               warnEqualPasswords(formName, "Password", "PasswordRepeat", "passwordRepeatMessage")
+                               warnPassword(formName, "Password", "passwordMessage");
+                               warnEqualPasswords(formName, "Password", "ConfirmPassword", "passwordRepeatMessage")
                            }}/>
                     <span className="authorizationContentStatus"
                           id="passwordRepeatMessage">Пароли должны совпадать</span>
-                    <input name="PasswordRepeat" className="userAuthorizationField" placeholder="Пароль"
+                    <input name="ConfirmPassword" className="userAuthorizationField" placeholder="Пароль"
                            type="password" onChange={() => {
-                        warnEqualPasswords(formName, "Password", "PasswordRepeat", "passwordRepeatMessage")
+                        warnEqualPasswords(formName, "Password", "ConfirmPassword", "passwordRepeatMessage")
                     }}/>
                 </>
-                <button id="registerUserButton" onClick={sendRegistration}>РЕГИСТРАЦИЯ</button>
+                <button id="registerUserButton" type={"submit"} /*onClick={sendRegistration}*/>РЕГИСТРАЦИЯ</button>
             </form>
         </div>
     )

@@ -122,7 +122,7 @@ namespace ClassRoomAPI.Controllers
         /// </remarks>
         [HttpPost("{path}")]
         [Produces("application/json")]
-        public IActionResult Post(string path, IFormFile file)
+        public IActionResult Post(string path, [FromForm]IFormFile file)
         {
             var decodePath = "";
             var currUser = Guid.Parse(HttpContext.Session.GetString("userId"));
@@ -152,6 +152,7 @@ namespace ClassRoomAPI.Controllers
                 file.CopyTo(fileS);
                 var newFile = new FilePath() { Path = currGroup.GroupId + "\\" + decodePath, IsFile = true, CreateDate = DateTime.Now };
                 filesCollection.InsertOne(newFile);
+                fileS.Close();
                 return Created("/storage/"+ path, newFile);
             }
             else if(Directory.Exists(dirInfo.Parent.FullName))

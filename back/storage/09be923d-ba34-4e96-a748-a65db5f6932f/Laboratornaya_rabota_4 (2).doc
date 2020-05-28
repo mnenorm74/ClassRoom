@@ -1,0 +1,42 @@
+System.ArgumentNullException: Value cannot be null. (Parameter 'input')
+   at System.Guid.Parse(String input)
+   at ClassRoomAPI.Controllers.StorageController.Get(String path) in E:\C# Programs\ClassRoom\back\api\ClassRoomAPI\Controllers\StorageController.cs:line 47
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+
+HEADERS
+=======
+Accept: */*
+Accept-Encoding: br, gzip, deflate
+Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: Webstorm-efcd2ae5=0426d0ee-52e6-4ec2-a679-79641eb493b8,.ClassRoom.Session=CfDJ8Pgg6opTadtBoheCEaTINF1WpGNxgdzCzqehLecGm5SPHvdCzO9QW8ZZsPumpIvTZdgh1LNrT8NkFZf99TWzxinIzPRk2d8jvtTnT0wALXGWl%2BnOVh5OVrFPfbBvZNRuDCqC%2BFFZJD4JhYHn%2BxFe3iFsxkt0QbEEI7WV1Q2WIIMB,.AspNetCore.Identity.Application=CfDJ8Pgg6opTadtBoheCEaTINF2-EvR-8I_QgsZEXSGwvWQ_phfcFblM3lJCLSHuN-yXyvWLctsOHz4hg-cxcpcbPqGpvBsGGbp_FKpzcBB2qCPOLd0sf2ls08nK7ge9Zi6K9igQ8LXeuJZeIw6SV1GzQ-Po8dUWa4tFigcwDec19oO5oHlIvQbD0rrQVhLK37t_eleQh6k9DclerlZolJXDM2dU9vR0JiqxvRK1jC19EZM7K1e_ai5FEfhwWoIS5kcYtoY6DPiB9QTrJUyw_dEc7MQkQv9PtJBtfjR1tUV-cpF4V3lILRK0Ht1jr4NoCQaZdYW0X3AJmv6dGnma0TdDLe_KWzyFj7MNK6RapRA37_aaFP67KYZUc8wpSc22uJKo6FgLV8cy45LWEuVNXSq95Qm9pTebXVNeUt_Y1mzwZzKuSYsvpjN27nu2p1hvFwQskAhLdG1OMk0IZoSXTol8F6NvMCYvk9N-uCmODKE8PbVZ2xHQ1dd3QqHRTGv6eT8QwnMLQVMjbwHzuZB2VWPFkfSMMVR7UMoljGbBxcULIoDwkuJGnkxpDjepow7LaSNMhA
+Host: localhost:5001
+Referer: http://localhost:3000/storage
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36 OPR/68.0.3618.125
+Origin: http://localhost:3000
+:method: GET
+:authority: localhost:5001
+:scheme: https
+:path: /storage/TGFib3JhdG9ybmF5YV9yYWJvdGFfNC5kb2M=
+sec-fetch-site: cross-site
+sec-fetch-mode: cors
+sec-fetch-dest: empty
