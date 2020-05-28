@@ -40,35 +40,23 @@ function ClassRoom() {
                 <div id="pageContainer">
                     <Switch>
                         <Redirect exact from="/" to="/main"/>
-                        <Route path="/main">
-                            <Page.MainPage/>
-                        </Route>
-                        <Route path="/storage">
-                            <Page.StoragePage/>
-                        </Route>
-                        <Route path="/news">
-                            <Page.NewsPage/>
-                        </Route>
-                        <Route path="/schedule">
-                            <Page.SchedulePage/>
-                        </Route>
-                        <Route path="/groupList">
-                            <Page.GroupListPage/>
-                        </Route>
+                        <Route path="/main" component={Page.MainPage}/>
+                        <Route path="/storage" component={Page.StoragePage}/>
+                        <Route path="/news" component={Page.NewsPage}/>
+                        <Route path="/schedule" component={Page.SchedulePage}/>
+                        <Route path="/groupList" component={Page.GroupListPage}/>
                     </Switch>
                 </div>
             </Router>)
         }
         if (code === 100) {
-            return <div style={{margin: "20% auto",textAlign: 'center', width: '100vw'}}>
-                <ReactLoading type={"spinningBubbles"} color='#BA68C8' width={'10%'} className={'loading'} />
+            return <div style={{margin: "20% auto", textAlign: 'center', width: '100vw'}}>
+                <ReactLoading type={"spinningBubbles"} color='#BA68C8' width={'10%'} className={'loading'}/>
             </div>
         } else {
             return (<Router>
                 <Switch>
-                    <Route path="/">
-                        <Page.AuthorizationPage/>
-                    </Route>
+                    <Route path="/" component={Page.AuthorizationPage}/>
                 </Switch>
             </Router>)
         }

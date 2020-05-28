@@ -9,6 +9,7 @@ import warnEmail from "../validation/warnEmail";
 import isEmail from "../validation/isEmail";
 import warnPassword from "../validation/warnPassword";
 import warnEqualPasswords from "../validation/warnEqualPasswords";
+import {useParams} from "react-router-dom"
 
 
 const formName = "registration";
@@ -23,6 +24,7 @@ function isValidForm(): boolean {
 
 
 function UserAuthorizationPage() {
+    let { id } = useParams();
     function sendRegistration() {
         if (!isValidForm()) {
             // @ts-ignore
@@ -52,6 +54,7 @@ function UserAuthorizationPage() {
 
     return (
         <div id="userAuthorization">
+            <div>Это {id}</div>
             <form id="userAuthorizationWindow" name={formName} onChange={() => {
                 if (!isValidForm()) {
                     // @ts-ignore
