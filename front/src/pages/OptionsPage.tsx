@@ -6,25 +6,6 @@ import warnPassword from "../validation/warnPassword";
 import warnEqualPasswords from "../validation/warnEqualPasswords";
 import isEmail from "../validation/isEmail";
 import isEmptyField from "../validation/isEmptyField";
-import isValidPassword from "../validation/isValidPassword";
-
-const formName = '';
-
-function unblockField(selector: string) {
-    //@ts-ignore
-    document.querySelector(selector).removeAttribute("disabled")
-}
-
-function unblockFields() {
-    unblockField("#newEmail");
-    unblockField("#newLogin");
-    unblockField("#oldPassword");
-    unblockField("#newPassword");
-    unblockField("#newPasswordRepeated");
-    unblockField("#newPhoto");
-    unblockField("#savingButton");
-    document.getElementById('savingButton')!.style.visibility = 'visible';
-}
 
 function showForm(id: string) {
     document.getElementById(id)!.style.display = 'block';
@@ -166,7 +147,7 @@ function OptionsPage() {
                 <div className="optionContainer">
                     <form name={'photoChanging'}>
                         <span className="optionHeader">Фото</span>
-                        <input type="file" id="newPhoto" disabled={true}/>
+                        <input type="file" id="newPhoto"/>
                         <button className={'optionsButton'}>Сменить фото</button>
                     </form>
                 </div>
