@@ -28,6 +28,7 @@
 #commentContent{
     font-size: 120%;
     word-break: break-word;
+    margin: 1vh 0;
 }
 
 #commentDate{

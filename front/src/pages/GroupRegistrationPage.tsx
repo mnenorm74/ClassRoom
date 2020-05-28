@@ -12,7 +12,7 @@ function isValidForm(): boolean {
         && !isEmptyField(formName, "Group");
 }
 
-function GroupAuthorizationPage() {
+function GroupRegistrationPage() {
     function sendAuth() {
         if (!isValidForm()) {
             // @ts-ignore
@@ -22,7 +22,7 @@ function GroupAuthorizationPage() {
 
 
         ReactDOM.render(
-            Page.UserAuthorizationPage(),
+            Page.UserRegistrationPage(),
             document.getElementById('root')
         );
     }
@@ -66,4 +66,4 @@ function GroupAuthorizationPage() {
     )
 }
 
-export default GroupAuthorizationPage
+export default GroupRegistrationPage

@@ -84,7 +84,7 @@ function AuthorizationPage() {
                 <button id="authorizationButton" onClick={sendAuth}>ВОЙТИ</button>
                 <span id="registrationLink" onClick={() => {
                     ReactDOM.render(
-                        Page.GroupAuthorizationPage(),
+                        Page.GroupRegistrationPage(),
                         document.getElementById('root')
                     )
                 }}>Зарегистрировать группу</span>

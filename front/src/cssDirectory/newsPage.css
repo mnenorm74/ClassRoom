@@ -35,6 +35,7 @@
     height: 5vh;
     background-image: url("../icons/Plus.svg");
     background-size: cover;
+    cursor: pointer;
 }
 
 #newsContent{

@@ -9,6 +9,7 @@ import warnEmail from "../validation/warnEmail";
 import isEmail from "../validation/isEmail";
 import warnPassword from "../validation/warnPassword";
 import warnEqualPasswords from "../validation/warnEqualPasswords";
+import {useParams} from "react-router-dom"
 
 
 const formName = "registration";
@@ -22,7 +23,9 @@ function isValidForm(): boolean {
 }
 
 
-function UserAuthorizationPage() {
+function UserRegistrationPage() {
+    let {id} = useParams();
+
     function sendRegistration() {
         if (!isValidForm()) {
             // @ts-ignore
@@ -63,13 +66,15 @@ function UserAuthorizationPage() {
             }}>
                 <button id="toGroupForm" onClick={() => {
                     ReactDOM.render(
-                        Page.GroupAuthorizationPage(),
+                        Page.GroupRegistrationPage(),
                         document.getElementById('root')
                     );
                 }}/>
 
                 <span id="userAuthorizationWindowHeader">РЕГИСТРАЦИЯ</span>
                 <>
+                    <input name="Patronymic" className="userAuthorizationField" placeholder="Отчество" disabled
+                           value={"Группа: "+id}/>
                     <span className="authorizationContentStatus" id="surnameMessage">Поле не может быть пустым</span>
                     <input name="Surname" className="userAuthorizationField" placeholder="Фамилия" onChange={() => {
                         warnEmptinessHidden(formName, "Surname", "surnameMessage")
@@ -110,4 +115,4 @@ function UserAuthorizationPage() {
     )
 }
 
-export default UserAuthorizationPage
+export default UserRegistrationPage
