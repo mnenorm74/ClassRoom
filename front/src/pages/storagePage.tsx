@@ -141,7 +141,7 @@ function StoragePage(/*storageElements?: any[]*/) {
                             <p id="title">Текущий семестр</p>
                         </div>
                         <div id="rightHeaderPart">
-                            {storageAddingModal}
+                            {storageAddingModal(path)}
                         </div>
                     </div>
                     <div id="icons" onClick={takeFile}>

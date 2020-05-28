@@ -3,6 +3,7 @@ import Popup from "reactjs-popup";
 import isEmptyField from "../../validation/isEmptyField";
 import warnEmptiness from "../../validation/warnEmptiness";
 import "../../cssDirectory/storagePage.css"
+import {srcUrl} from "../../mySettings";
 
 const formName = "storageAdding";
 
@@ -24,28 +25,58 @@ function checkRadioState() {
     }
 }
 
-function storageAddingModal() {
-    let fileLoaded = false;
+function storageAddingModal(path: string) {
+    let fileLoaded = true;
 
     function onSubmit() {
-        if (!isValidForm(fileLoaded)) {
-            // @ts-ignore
-            document.querySelector('.sendingButton').setAttribute("disabled", "true")
-            return;
+        // @ts-ignore
+        document.querySelector('.sendingButton').setAttribute("disabled", "true");
+
+        let form: any = document.forms.namedItem(formName);
+        let formData = new FormData();
+        formData.append('file', form['fileAdding'].files[0]);
+
+        debugger;
+
+        console.log(form);
+
+        // @ts-ignore
+        if (document.getElementById("radioFolderType").checked) {
+            fetch(`${srcUrl}/storage/${btoa(atob(path) + form['folderName'].value)}`, {
+                method: "post",
+                credentials: "include"
+            });
+        } else {
+            let resultPath = '';
+            if(path === "IA==")
+                resultPath = btoa(atob(path) + form['fileAdding'].files[0].name);
+            else
+                resultPath = btoa(atob(path) + '\\' + form['fileAdding'].files[0].name);
+            fetch(`${srcUrl}/storage/${resultPath}`, {
+                method: "post",
+                credentials: "include",
+                body: formData
+            });
         }
+        // if (!isValidForm(fileLoaded)) {
+        //
+        // }
     }
 
     return (<Popup trigger={<button id="newsAdding"/>} modal>
         {close => (
-            <form name={formName} className="modal" onChange={() => {
-                if (!isValidForm(fileLoaded)) {
-                    // @ts-ignore
-                    document.querySelector('.sendingButton').setAttribute("disabled", "true")
-                } else {
-                    // @ts-ignore
-                    document.querySelector('.sendingButton').removeAttribute("disabled")
-                }
-            }}>
+            <form name={formName} className="modal" onSubmit={onSubmit}/*onSubmit={(e) => {
+                e.preventDefault();
+                window.location.reload();
+            }} onChange={() => {
+                // if (!isValidForm(fileLoaded)) {
+                //     // @ts-ignore
+                //     document.querySelector('.sendingButton').setAttribute("disabled", "true")
+                // } else {
+                //     // @ts-ignore
+                //     document.querySelector('.sendingButton').removeAttribute("disabled")
+                // }
+            }}*/>
                 <a className="close" onClick={close}>
                     &times;
                 </a>
@@ -63,7 +94,7 @@ function storageAddingModal() {
                             <label className="label">
                                 <i className="loadIcon"/>
                                 <span className="title">Добавить файл</span>
-                                <input name="fileAdding" type="file" onChange={() => fileLoaded = !fileLoaded}/>
+                                <input name="fileAdding" type="file"/>
                             </label>
                         </div>
                         <div className="modalFooter" id="storageArchiveSendFile">
@@ -78,7 +109,8 @@ function storageAddingModal() {
                                    warnEmptiness(formName, "folderName", "folderAddingName")
                                }}/>
                         <div className="modalFooter" id="storageArchiveSendFolder">
-                            <button type="submit" id="storageAddingButton" className="sendingButton" onClick={onSubmit}>Добавить
+                            <button type="submit" id="storageAddingButton" className="sendingButton"
+                                /*onClick={onSubmit}*/>Добавить
                             </button>
                         </div>
                     </div>
@@ -89,4 +121,4 @@ function storageAddingModal() {
 }
 
 
-export default storageAddingModal()
+export default storageAddingModal
