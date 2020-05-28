@@ -94,6 +94,8 @@ function OptionsPage() {
         }).then(()=> window.location.reload());
     }
 
+    
+
     return (
         <div id="optionsContent">
             <div id="userOptions">
@@ -179,8 +181,8 @@ function OptionsPage() {
             </div>
 
 
-            <div className="optionContainer" id={'optionsButtons'}>
-                <button className={'optionsButton'}>Удалить аккаунт</button>
+            <div className="optionContainer">
+                <button className={'optionsButton'} onClick={deleteUser}>Удалить аккаунт</button>
 
 
                 <div className="passwordContainer">
