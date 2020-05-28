@@ -119,10 +119,6 @@
     display: none;
 }
 
-#newPhoto{
-    margin-left: 10%;
-}
-
 #emailSend, #loginSend{
     margin-bottom: 2%;
     margin-left: 3%;
@@ -134,4 +130,18 @@
 
 #newPhoto{
     align-self: center;
+}
+
+#photoChangingLine{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#photoChangeButton{
+    width: 10vw;
+}
+
+#optionsButtons {
+    margin-top: 5%;
 }

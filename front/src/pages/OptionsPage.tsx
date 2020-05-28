@@ -10,9 +10,9 @@ import {srcUrl} from "../mySettings";
 import {currentUserInfo} from "../components/Profile/profile";
 
 function showForm(id: string) {
-    if(document.getElementById(id)!.style.display !== 'block'){
-        document.getElementById(id)!.style.display = 'block'}
-    else{
+    if (document.getElementById(id)!.style.display !== 'block') {
+        document.getElementById(id)!.style.display = 'block'
+    } else {
         document.getElementById(id)!.style.display = 'none'
     }
 }
@@ -24,14 +24,14 @@ function OptionsPage() {
     const [login, setLogin] = useState('');
 
     useEffect(() => {
-      //  fetch(`${srcUrl}/account`)
-    },[]);
+        //  fetch(`${srcUrl}/account`)
+    }, []);
 
     function onSubmitEmail() {
         // @ts-ignore
         if (!isEmail(document.forms['EmailChange']["newEmail"].value)) {
             document.querySelector('#emailSend')!.setAttribute("disabled", "true");
-            let form : any = document.forms.namedItem('EmailChange');
+            let form: any = document.forms.namedItem('EmailChange');
             let formData = new FormData(form);
             fetch(`${srcUrl}/account/changeEmail`, {
                 method: "post",
@@ -65,9 +65,9 @@ function OptionsPage() {
         }
     }
 
-    function onSubmitPhoto(){
+    function onSubmitPhoto() {
         // @ts-ignore
-        if (!document.forms["photoChanging"]["Photo"].value){
+        if (!document.forms["photoChanging"]["Photo"].value) {
             document.querySelector('#photoChangeButton')!.setAttribute("disabled", "true")
         }
         let a : any = document.querySelector("#newPhoto");
@@ -159,29 +159,28 @@ function OptionsPage() {
                 </form>
 
 
-                <div className="optionContainer">
                     <form name={'photoChanging'} className="optionContainer">
                         <span className="optionHeader">Фото</span>
-                        <input name="Photo" type="file" id="newPhoto" onChange={()=>{
-                            // @ts-ignore
-                            if (!document.forms["photoChanging"]["Photo"].value){
-                                document.querySelector('#photoChangeButton')!.setAttribute("disabled", "true")
-                            }
-                            else{
+                        <div id={'photoChangingLine'}>
+                            <input name="Photo" type="file" id="newPhoto" onChange={() => {
                                 // @ts-ignore
-                                document.querySelector('#photoChangeButton').removeAttribute("disabled")
-                            }
-                        }}/>
-
-
+                                if (!document.forms["photoChanging"]["Photo"].value) {
+                                    document.querySelector('#photoChangeButton')!.setAttribute("disabled", "true")
+                                } else {
+                                    // @ts-ignore
+                                    document.querySelector('#photoChangeButton').removeAttribute("disabled")
+                                }
+                            }}/>
+                            <button className={'optionsButton'} id={'photoChangeButton'} onClick={onSubmitPhoto}>Сменить
+                                фото
+                            </button>
+                        </div>
                     </form>
-                    <button className={'optionsButton'} id={'photoChangeButton'} onClick={onSubmitPhoto}>Сменить фото</button>
-                </div>
             </div>
 
 
-            <div className="optionContainer">
-                <button className={'optionsButton'} onClick={onSubmitDelete}>Удалить аккаунт</button>
+            <div className="optionContainer" id={'optionsButtons'}>
+                <button className={'optionsButton'}>Удалить аккаунт</button>
 
 
                 <div className="passwordContainer">
@@ -200,7 +199,8 @@ function OptionsPage() {
                         }
                     }}>
                         <div id="passwordFields">
-                            <input name="oldPassword" type="password" placeholder="Старый пароль" className="optionInput"
+                            <input name="oldPassword" type="password" placeholder="Старый пароль"
+                                   className="optionInput"
                                    id="oldPassword"/>
                             <span className="optionHeader" id='newPasswordMessage'>Пароль не менее 6 символов</span>
                             <input name="NewPassword" type="password" placeholder="Новый пароль" className="optionInput"
