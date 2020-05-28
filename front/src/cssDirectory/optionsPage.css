@@ -122,3 +122,16 @@
 #newPhoto{
     margin-left: 10%;
 }
+
+#emailSend, #loginSend{
+    margin-bottom: 2%;
+    margin-left: 3%;
+}
+
+#photoChangeButton{
+    width: 15vw;
+}
+
+#newPhoto{
+    align-self: center;
+}
