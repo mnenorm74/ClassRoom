@@ -22,7 +22,7 @@ function Comment(comment:any, id:any/*, authorComment:any*/) {
     return (
         <div id="commentContainer">
             {/*<div id="commentPhoto"/>*/}
-            <img className='avatar' src={"data:image/png;base64," + comment.avatar} alt=""/>
+            <img className='avatar littleAvatar' src={"data:image/png;base64," + comment.avatar} alt=""/>
 
             <div id="commentBody">
                 {/*<span id="commentAuthor">{`${author.Name} ${author.Surname}`}</span>*/}

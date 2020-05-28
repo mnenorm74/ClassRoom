@@ -1,6 +1,6 @@
 #storageContainer {
-    /*width: 20vh;*/
-    /*height: 20vh;*/
+    width: 20vh;
+    height: 20vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,22 +8,32 @@
     cursor: pointer;
 }
 
+#name {
+    word-break: break-all;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+}
+
 #folderIcon {
+    background-color: #31243A;
+    background-image: url("../../icons/folderIcon.png");
+}
+
+.icon {
     height: 15vh;
     width: 15vh;
     border-radius: 50%;
-    background-color: #31243A;
-    background-image: url("../../icons/folderIcon.png");
+    flex-shrink: 0;
     background-size: cover;
 }
 
 #fileIcon {
-    height: 15vh;
-    width: 15vh;
-    border-radius: 50%;
     background-color: #8ED0FF;
     background-image: url("../../icons/fileIcon.png");
-    background-size: cover;
 }
 
 .contextItem {

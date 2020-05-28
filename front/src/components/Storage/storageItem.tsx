@@ -10,7 +10,7 @@ function StorageItem({type, name, path}: {type: boolean, name: string, path: str
     return (
         <ContextMenuTrigger id="same_unique_identifier">
         <div id="storageContainer" data-path={path} data-isFile={type}>
-            <div id={iconType}/>
+            <div id={iconType} className={'icon'}/>
             <div id="name">{name}</div>
         </div>
             <ContextMenu className={'contextMenu'} id="same_unique_identifier">

@@ -5,7 +5,17 @@
     margin-bottom: 2vh;
 }
 
-#commentPhoto{
+.bigAvatar{
+    width: 10vh;
+    height: 10vh;
+}
+
+.littleAvatar {
+    width: 6vh;
+    height: 6vh;
+}
+
+#commentPhoto {
     width: 7vh;
     height: 7vh;
     border-radius: 50%;
@@ -13,25 +23,25 @@
     flex-shrink: 0;
 }
 
-#commentBody{
+#commentBody {
     display: flex;
     flex-direction: column;
     margin-left: 1vw;
     width: 100%;
 }
 
-#commentAuthor{
+#commentAuthor {
     color: #572287;
     font-weight: bold;
 }
 
-#commentContent{
+#commentContent {
     font-size: 120%;
     word-break: break-word;
     margin: 1vh 0;
 }
 
-#commentDate{
+#commentDate {
     margin-top: 1vh;
     font-size: 70%;
 }
