@@ -1,4 +1,4 @@
-#optionsContent{
+#optionsContent {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,46 +6,45 @@
     margin: 3vh 2vw 5vh 0;
 }
 
-#optionContainer{
+#optionContainer {
     display: flex;
     flex-direction: row;
 }
 
-.optionHeader{
+.optionHeader {
     flex-basis: 20%;
     font-size: 3vh;
     cursor: default;
 }
 
-.optionInput{
+.optionInput {
     flex-basis: 70%;
     font-size: 3vh;
     margin-bottom: 3vh;
 }
 
-.passwordContainer{
+.passwordContainer {
     display: flex;
     flex-direction: row;
 }
 
-#passwordFields{
+#passwordFields {
     display: flex;
     flex-direction: column;
     flex-basis: 70%;
 }
 
 
-
-#addingHeader{
+#addingHeader {
     margin-left: 15%;
 }
 
-#deletingAccountButton{
+#deletingAccountButton {
     background: none;
     font-size: 3vh;
 }
 
-#optionsHeader{
+#optionsHeader {
     align-self: center;
     font-size: 150%;
     margin-bottom: 5vh;
@@ -53,7 +52,7 @@
     font-weight: bold;
 }
 
-#deletingAccountButton, #changingAccountButton, #savingButton{
+#deletingAccountButton, #changingAccountButton, #savingButton {
     cursor: pointer;
     font-size: 150%;
     background-color: #4AB9F8;
@@ -64,19 +63,29 @@
     margin-right: 3vw;
 }
 
-#savingButton{
+#savingButton {
     visibility: hidden;
     margin-top: 2vh;
 }
 
+.optionsButton {
+    cursor: pointer;
+    font-size: 100%;
+    background-color: #4AB9F8;
+    color: white;
+    height: 5vh;
+    width: 10vw;
+    border-radius: 10%;
+    margin-right: 3vw;
+}
 
-.optionContainer{
+.optionContainer {
     display: flex;
     flex-direction: row;
     margin-top: 2vh;
 }
 
-#photoAdding{
+#photoAdding {
     margin-bottom: 3vh;
     height: 10vh;
     flex-basis: 70%;
@@ -91,17 +100,25 @@
     background-repeat: no-repeat;
 }
 
-#userEmailMessage, #userLoginMessage, #userPasswordMessage, #newPasswordMessage, #newEqualPasswordMessage{
+#userEmailMessage, #userLoginMessage, #userPasswordMessage, #newPasswordMessage, #newEqualPasswordMessage {
     color: red;
     font-size: 100%;
 }
 
-.column{
+.column {
     display: flex;
     flex-direction: column;
     width: 80%;
 }
 
-#userEmailMessage, #userLoginMessage{
+#userEmailMessage, #userLoginMessage {
     margin-left: 20%;
+}
+
+#emailForm, #LoginForm, #PasswordForm{
+    display: none;
+}
+
+#newPhoto{
+    margin-left: 10%;
 }
