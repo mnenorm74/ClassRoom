@@ -5,12 +5,13 @@
     text-align: center;
     border-radius: 50%;
     flex: none;
+    margin-right: 0.3vw;
 }
 
 .lesson{
     display: flex;
     font-size: 0.8rem;
-    margin-bottom: 0.5vh;
+    margin-bottom: 0.7vh;
     width: 100%;
 }
 .lesson>span{

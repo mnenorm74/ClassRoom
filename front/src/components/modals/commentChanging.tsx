@@ -2,6 +2,7 @@ import React from "react";
 import isEmptyField from "../../validation/isEmptyField";
 import Popup from "reactjs-popup";
 import warnEmptiness from "../../validation/warnEmptiness";
+import {srcUrl} from "../../mySettings";
 
 const formName = "commentChanging";
 
@@ -16,6 +17,16 @@ function commentChanging(id : any, commId : any){
             document.querySelector('.sendingButton').setAttribute("disabled", "true")
             return;
         }
+        let content : any = document.querySelector("#addingNewsContent");
+        let res : any = JSON.stringify({"Content" : content.value});
+        fetch(`${srcUrl}/News/${id}/comments/${commId}`, {
+            method: 'put',
+            credentials: "include",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: res,
+        })
     }
 
     return (<Popup trigger={<p className="lessonOption">Изменить</p>} modal className={'deleting'}>

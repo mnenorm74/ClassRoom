@@ -71,7 +71,10 @@ namespace ClassRoomAPI.Controllers
                 //var files = dirInfo.GetFiles();
                 //var directories = dirInfo.GetDirectories();
                 // или найти в базе все пути к файлам ??
-                var paths = filesCollection.Find(p => p.Path.StartsWith(decodePath) && !p.Path.Contains("/")).ToList();
+                var startPath = currGroup.GroupId.ToString() + '\\' + decodePath;
+                var paths = filesCollection.Find(p => p.Path.StartsWith(startPath)/*p.Path.Count(ch=>ch.Equals('\\')) == 1*//*.Contains("\\")*/).ToList();
+                paths = paths.Where(a => !a.Path.Skip(startPath.Length + 1).Contains('\\') && startPath.Length != a.Path.Length).ToList();
+                //paths = paths.Where(a => !a.Path.Substring(currGroup.GroupId.ToString().Length + decodePath.Length + 1).Contains("\\")).ToList();
                 //foreach(var file in files)
                 //{
                 //    var splitPath = file.FullName.Split("storage\\");
@@ -143,7 +146,7 @@ namespace ClassRoomAPI.Controllers
                 file.CopyTo(fileS);
                 var newFile = new FilePath() { Path = currGroup.GroupId + "\\" + decodePath, IsFile = true, CreateDate = DateTime.Now };
                 filesCollection.InsertOne(newFile);
-                return Created("/storage/"+path, newFile);
+                return Created("/storage/"+ path, newFile);
             }
             else if(Directory.Exists(dirInfo.Parent.FullName))
             {

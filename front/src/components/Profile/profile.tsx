@@ -15,6 +15,7 @@ import {srcUrl} from "../../mySettings";
 function Profile() {
     function logOut() {
         fetch(`${srcUrl}/account/logout`, {
+            credentials: "include",
             method: 'post'
         }).then(res => {
             if(res.status === 200){

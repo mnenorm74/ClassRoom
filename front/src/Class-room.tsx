@@ -77,37 +77,6 @@ function ClassRoom() {
     return (
         <>
             {showPage()}
-            {/*{tiZaregalsa === 'ded' ? <Router>
-                    <Menu/>
-                    <div id="pageContainer">
-                        <Switch>
-                            <Redirect exact from="/" to="/main"/>
-                            <Route path="/main">
-                                <Page.MainPage/>
-                            </Route>
-                            <Route path="/storage">
-                                <Page.StoragePage/>
-                            </Route>
-                            <Route path="/news">
-                                <Page.NewsPage/>
-                            </Route>
-                            <Route path="/schedule">
-                                <Page.SchedulePage/>
-                            </Route>
-                            <Route path="/groupList">
-                                <Page.GroupListPage/>
-                            </Route>
-                        </Switch>
-                    </div>
-                </Router> :
-                <Router>
-                    <Switch>
-
-                        <Route path="/">
-                            <Page.AuthorizationPage/>
-                        </Route>
-                    </Switch>
-                </Router>}*/}
         </>
     );
 }

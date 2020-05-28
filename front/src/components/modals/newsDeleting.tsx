@@ -4,7 +4,9 @@ import '../News/news.css'
 import {srcUrl} from "../../mySettings";
 
 function newsDeleting(id: any) {
+
     function onSubmit() {
+        console.log(id, "NewsId");
         fetch(`${srcUrl}/News/${id}`, {
             method: 'delete',
             credentials: "include"
@@ -14,6 +16,7 @@ function newsDeleting(id: any) {
 
     return (<Popup trigger={<p className="lessonOptionItem">Удалить</p>} modal className={'deleting'}>
         {close => (
+            <>
             <form>
                 <div className="modal" id="deletingModal">
                     <a className="close" onClick={close}>
@@ -28,6 +31,8 @@ function newsDeleting(id: any) {
                     </div>
                 </div>
             </form>
+
+            </>
         )}
     </Popup>);
 
