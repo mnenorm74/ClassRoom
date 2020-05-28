@@ -144,14 +144,14 @@ namespace ClassRoomAPI.Controllers
             {
                 var fileS = new FileStream(newPath, FileMode.Create);
                 file.CopyTo(fileS);
-                var newFile = new FilePath() { Path = currGroup.GroupId + "/" + decodePath, IsFile = true, CreateDate = DateTime.Now };
+                var newFile = new FilePath() { Path = currGroup.GroupId + "\\" + decodePath, IsFile = true, CreateDate = DateTime.Now };
                 filesCollection.InsertOne(newFile);
                 return Created("/storage/"+ path, newFile);
             }
             else if(Directory.Exists(dirInfo.Parent.FullName))
             {
                 dirInfo.Create();
-                var newDir = new FilePath() { Path = currGroup.GroupId + "/" + decodePath, IsFile = false, CreateDate = DateTime.Now };
+                var newDir = new FilePath() { Path = currGroup.GroupId + "\\" + decodePath, IsFile = false, CreateDate = DateTime.Now };
                 filesCollection.InsertOne(newDir);
                 return Created("/storage/" + path, newDir);
             }
