@@ -11,7 +11,7 @@ function isValidForm(): boolean {
     return !isEmptyField(formName, "changingNewsHeader") && !isEmptyField(formName, "Content");
 }
 
-function newsChanging(id : any) {
+function newsChanging(id: any) {
     function onSubmit() {
         if (!isValidForm()) {
             // @ts-ignore
@@ -26,49 +26,50 @@ function newsChanging(id : any) {
             credentials: "include",
             body: formData
         });
-
-        return (<Popup trigger={<p className="lessonOption">Изменить</p>} modal className={'deleting'}>
-            {close => (
-                <form name={formName} className="modal"
-                      onChange={() => {
-                          if (!isValidForm()) {
-                              // @ts-ignore
-                              document.querySelector('.sendingButton').setAttribute("disabled", "true")
-                          } else {
-                              // @ts-ignore
-                              document.querySelector('.sendingButton').removeAttribute("disabled")
-                          }
-                      }}>
-
-                    <a className="close" onClick={close}>
-                        &times;
-                    </a>
-                    <div className="header" id="deletingHeader">Изменить новость</div>
-                    <div className="content">
-                        <div className='modalFieldHeader'>
-                            <span className="modalContentHeader">Заголовок</span>
-                            <span className="modalContentStatus" id="newsChangingHeaderValidation">Заголовок не может быть пустым</span>
-                        </div>
-                        <input name="Title" type="text" id="changingNewsHeader" onChange={() => {
-                            warnEmptiness(formName, "Title", "newsChangingHeaderValidation")
-                        }}/>
-                        <div className='modalFieldHeader'>
-                            <span className="modalContentHeader">Содержание</span>
-                            <span className="modalContentStatus" id="newsChangingContentValidation">Содержание не может быть пустым</span>
-                        </div>
-                        <textarea id="addingNewsContent" name={"Content"} onChange={() => {
-                            warnEmptiness(formName, "Content", "newsChangingContentValidation")
-                        }}/>
-                    </div>
-                    <div className="modalFooter" id="changingFooter">
-                        <button type="submit" className="sendingButton" id="newsChangingButton"
-                                onClick={onSubmit}>Изменить
-                        </button>
-                    </div>
-                </form>
-            )}
-        </Popup>);
     }
+
+    return (<Popup trigger={<p className="lessonOptionItem">Изменить</p>} modal className={'deleting'}>
+        {close => (
+            <form name={formName} className="modal"
+                  onChange={() => {
+                      if (!isValidForm()) {
+                          // @ts-ignore
+                          document.querySelector('.sendingButton').setAttribute("disabled", "true")
+                      } else {
+                          // @ts-ignore
+                          document.querySelector('.sendingButton').removeAttribute("disabled")
+                      }
+                  }}>
+
+                <a className="close" onClick={close}>
+                    &times;
+                </a>
+                <div className="header" id="deletingHeader">Изменить новость</div>
+                <div className="content">
+                    <div className='modalFieldHeader'>
+                        <span className="modalContentHeader">Заголовок</span>
+                        <span className="modalContentStatus" id="newsChangingHeaderValidation">Заголовок не может быть пустым</span>
+                    </div>
+                    <input name="Title" type="text" id="changingNewsHeader" onChange={() => {
+                        warnEmptiness(formName, "Title", "newsChangingHeaderValidation")
+                    }}/>
+                    <div className='modalFieldHeader'>
+                        <span className="modalContentHeader">Содержание</span>
+                        <span className="modalContentStatus" id="newsChangingContentValidation">Содержание не может быть пустым</span>
+                    </div>
+                    <textarea id="addingNewsContent" name={"Content"} onChange={() => {
+                        warnEmptiness(formName, "Content", "newsChangingContentValidation")
+                    }}/>
+                </div>
+                <div className="modalFooter" id="changingFooter">
+                    <button type="submit" className="sendingButton" id="newsChangingButton"
+                            onClick={onSubmit}>Изменить
+                    </button>
+                </div>
+            </form>
+        )}
+    </Popup>);
+
 }
 
 export default newsChanging
