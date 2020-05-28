@@ -68,7 +68,7 @@
     background-image: url("../../icons/Send.svg");
 }
 
-#commentField {
+.commentField {
     margin-left: 2vw;
     margin-right: 2vw;
     height: 10vh;

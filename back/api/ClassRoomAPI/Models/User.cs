@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ClassRoomAPI.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,6 +20,17 @@ namespace ClassRoomAPI.Models
             Patronymic = user.Patronymic;
             GroupId = user.GroupId;
             Email = user.Email;
+        }
+        public User(RegisterViewModel model)
+        {
+            GroupId = model.GroupId; //???
+            Name = model.Name;
+            Surname = model.Surname;
+            Avatar = File.ReadAllBytes(Directory.GetCurrentDirectory() + "\\..\\..\\defaultAvatar.png");
+            Username = model.Username;
+            Patronymic = model.Patronymic;
+            Email = model.Email;
+            Id = Guid.NewGuid();
         }
         public User()
         {

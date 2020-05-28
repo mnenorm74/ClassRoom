@@ -11,6 +11,7 @@ namespace ClassRoomAPI.Models
         public Guid Id { get; set; }
         [BsonDateTimeOptions(DateOnly = true)]
         public DateTime DayDate { get; set; }
+        public Guid GroupId { get; set; }
         public IEnumerable<Lesson> Lessons { get; set; } = new List<Lesson>();
     }
 }

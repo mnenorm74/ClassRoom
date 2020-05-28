@@ -1,7 +1,6 @@
 import {srcUrl} from "../mySettings";
 import ScheduleDay from "../components/Schedule/scheduleDay";
 import React from "react";
-import {getUser} from "../fetches/users";
 import {getComments} from "../fetches/news";
 import NewsItem from "../components/News/newsItem";
 import {formatDateNews} from "./news";
@@ -61,19 +60,8 @@ export function addNewsTag(source, author, comments) {
     return res;
 }
 
-async function responseAuthor(news) {
-    let promise = await getUser(news.authorId);
-    let author = await promise.json();
-    console.log(author, "AUTHOR");
-    return author;
-}
 
-async function responseComments(news) {
-    let promise = await getComments(news.id);
-    let comments = await promise.json();
-    console.log(comments);
-    return comments;
-}
+
 
 
 

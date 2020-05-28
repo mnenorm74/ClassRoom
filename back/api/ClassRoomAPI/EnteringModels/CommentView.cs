@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ClassRoomAPI.Models
+namespace ClassRoomAPI.EnteringModels
 {
-    public class CurrentUser
+    public class CommentView
     {
         public Guid Id { get; set; }
-        public string Username { get; set; }
+        public string Content { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
         public string Name { get; set; }
         public string Surname { get; set; }
         public byte[] Avatar { get; set; }
-        public string Email { get; set; }
     }
 }

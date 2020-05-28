@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using AspNetCore.Identity.Mongo.Model;
 using ClassRoomAPI.EnteringModels;
@@ -23,6 +25,7 @@ namespace ClassRoomAPI.Controllers
         private readonly SignInManager<MongoUser> _signInManager;
         private readonly UserManager<MongoUser> _userManager;
         private readonly IMongoCollection<Group> groupsCollection;
+
         public UsersController(IMongoDatabase db,
             UserManager<MongoUser> userManager,
             SignInManager<MongoUser> signInManager)
@@ -33,6 +36,7 @@ namespace ClassRoomAPI.Controllers
             _signInManager = signInManager;
         }
 
+        
         [HttpGet("current")]
         public IActionResult GetCurrent()
         {
@@ -41,7 +45,10 @@ namespace ClassRoomAPI.Controllers
             {
                 return NotFound("User with this id not found");
             }
-            return new ObjectResult(new CurrentUser() { Id = user.Id, Name = user.Name, Surname = user.Surname, Avatar = user.Avatar });
+            //var a = System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + "\\..\\..\\defaultAvatar.png");
+            
+            //var encodeAvatar = StorageController.Base64Encode(/*user.Avatar.ToString()*/a.ToString());
+            return new ObjectResult(new CurrentUser() { Id = user.Id, Name = user.Name, Surname = user.Surname, Avatar = user.Avatar, Email = user.Email, Username = user.Username });
         }
 
         [HttpGet("{id}")]
@@ -88,17 +95,7 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Post([FromForm]RegisterViewModel model)
         {
-            var user = new User
-            {
-                GroupId = model.GroupId, //???
-                Name = model.Name,
-                Surname = model.Surname,
-                Avatar = model.Avatar != null ? model.Avatar : new byte[] { },
-                Username = model.Username,
-                Patronymic = model.Patronymic,
-                Email = model.Email,
-                Id = Guid.NewGuid()
-            };
+            var user = new User(model);
             var update = Builders<Group>.Update.Push(g => g.Users, user.Id);
             var updateRes = groupsCollection.UpdateOne(g => g.GroupId == user.GroupId, update);
             if (updateRes.MatchedCount == 0)

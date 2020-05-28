@@ -52,6 +52,9 @@ function newsAdding() {
                                   // @ts-ignore
                                   document.querySelector('.sendingButton').removeAttribute("disabled")
                               }
+                          }} onSubmit={(e)=>{
+                              e.preventDefault();
+                              window.location.reload();
                           }}>
                         <a className="close" onClick={close}>
                             &times;

@@ -12,6 +12,7 @@ import {
     useRouteMatch
 } from "react-router-dom";
 import ReactLoading from 'react-loading';
+import PrivateRoute from "./components/PrivateRoute";
 //import Cookies from 'js-cookie'
 import {srcUrl} from "./mySettings";
 import {useEffect} from "react";
@@ -19,7 +20,7 @@ import {useState} from "react";
 
 
 function ClassRoom() {
-    const [code, setCode]: [any, any] = useState(100);
+    /*const [code, setCode]: [any, any] = useState(100);
 
     useEffect(() => {
         setTimeout(() => {
@@ -28,7 +29,7 @@ function ClassRoom() {
                     credentials: "include",
                 })
                 .then(res => setCode(res.status));
-        }, 1000);
+        }, 500);
 
     }, []);
 
@@ -55,6 +56,9 @@ function ClassRoom() {
                         <Route path="/groupList">
                             <Page.GroupListPage/>
                         </Route>
+                        <Route path="/profile">
+                            <Page.OptionsPage/>
+                        </Route>
                     </Switch>
                 </div>
             </Router>)
@@ -72,12 +76,24 @@ function ClassRoom() {
                 </Switch>
             </Router>)
         }
-    }
+    }*/
 
-    return (
-        <>
-            {showPage()}
-        </>
+    
+
+
+return (
+        <Router>
+            <Switch>
+                <Redirect exact from="/" to="/main"/>
+                <PrivateRoute path="/main" component={Page.MainPage}/>
+                <PrivateRoute path="/storage" component={Page.StoragePage}/>
+                <PrivateRoute path="/news" component={Page.NewsPage}/>
+                <PrivateRoute path="/schedule" component={Page.SchedulePage}/>
+                <PrivateRoute path="/groupList" component={Page.GroupListPage}/>
+                <PrivateRoute path="/profile" component={Page.OptionsPage}/>
+                <Route exact path="/userRegistration/:id" component={Page.UserRegistrationPage}/>
+            </Switch>
+        </Router>
     );
 }
 

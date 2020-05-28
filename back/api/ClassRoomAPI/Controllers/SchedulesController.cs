@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using ClassRoomAPI.EnteringModels;
 using ClassRoomAPI.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -17,9 +18,11 @@ namespace ClassRoomAPI.Controllers
     {
 
         private readonly IMongoCollection<ScheduleDay> schedulesCollection;
+        private readonly IMongoCollection<User> usersCollection;
         public SchedulesController(IMongoDatabase db)
         {
             schedulesCollection = db.GetCollection<ScheduleDay>("schedules");
+            usersCollection = db.GetCollection<User>("users");
         }
 
         [HttpGet]
@@ -42,14 +45,18 @@ namespace ClassRoomAPI.Controllers
             {
                 return UnprocessableEntity("Invalid parameter: count < 0");
             }
-            var q = schedulesCollection.Find(e => true).ToList();
+            var userGroupId = usersCollection
+                .Find(a => a.Id == Guid.Parse(HttpContext.Session.GetString("userId")))
+                .FirstOrDefault()
+                .GroupId;
+            //var q = schedulesCollection.Find(e => e.GroupId == userGroupId).ToList();
             //foreach (var e in q)
             //{
                 for (var i = 0; i < count; i++)
                 {
                     //var a1 = date.AddDays(i);
                     //var s = new DateTime();
-                    var day = schedulesCollection.Find(a => a.DayDate == date.AddDays(i).Date).FirstOrDefault();
+                    var day = schedulesCollection.Find(a => a.DayDate == date.AddDays(i).Date && a.GroupId == userGroupId).FirstOrDefault();
                     //var day2 = schedulesCollection.Find(a => a.Date.Year == date.AddDays(i).Year && a.Date.Month == date.AddDays(i).Month && a.Date.Day == date.AddDays(i).Day).FirstOrDefault();
                     //var a = date.AddDays(i).ToLongDateString();
 
@@ -107,7 +114,11 @@ namespace ClassRoomAPI.Controllers
             {
                 return UnprocessableEntity("Invalid format of date: " + e.Message);
             }
-            var result = schedulesCollection.Find(a => a.DayDate == dateTime).FirstOrDefault();
+            var userGroupId = usersCollection
+                .Find(a => a.Id == Guid.Parse(HttpContext.Session.GetString("userId")))
+                .FirstOrDefault()
+                .GroupId;
+            var result = schedulesCollection.Find(a => a.DayDate == dateTime && a.GroupId == userGroupId).FirstOrDefault();
             //result.Lessons.OrderBy(e => e.StartTime.Split(':').Cast<int>().First()).ThenBy(a => a.StartTime.Split(':').Cast<int>().Last());
             return new ObjectResult(result);
         }
@@ -135,6 +146,7 @@ namespace ClassRoomAPI.Controllers
             {
                 return Forbid();
             }
+            var currUser = usersCollection.Find(u=>u.Id == Guid.Parse(HttpContext.Session.GetString("userId"))).FirstOrDefault();
             var lesson = new Lesson(value);
             var parseDate = value.CreateDate.Split('-', '/', '\\', '.', '_', ':').Select(e => int.Parse(e)).ToList();
             lesson.CreateDate = new DateTime(parseDate[0], parseDate[1], parseDate[2]).Date;
@@ -144,13 +156,13 @@ namespace ClassRoomAPI.Controllers
             //    schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), Date = lesson.CreateDate, Lessons = new List<Lesson>() });
             //}
             var update = Builders<ScheduleDay>.Update.Push(s => s.Lessons, lesson);
-            UpdateAll(lesson, update, true);
+            UpdateAll(lesson, update, true, currUser.GroupId);
             //schedulesCollection.UpdateOne(s => s.Date == lesson.Date, update);
             //var a = schedulesCollection.Find(a => a.Date == lesson.CreateDate.AddDays(7)).FirstOrDefault();
             return Created("/schedules", lesson);
         }
 
-        private void UpdateAll(Lesson lesson, UpdateDefinition<ScheduleDay> update, bool needCreate)
+        private void UpdateAll(Lesson lesson, UpdateDefinition<ScheduleDay> update, bool needCreate, Guid groupId)
         {
             var date = new DateTime();
             switch (lesson.RepeatCount)
@@ -159,7 +171,7 @@ namespace ClassRoomAPI.Controllers
                     {
                         if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate) == 0)
                         {
-                            schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate, Lessons = new List<Lesson>() });
+                            schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate, Lessons = new List<Lesson>(), GroupId = groupId});
                         }
                         schedulesCollection.UpdateOne(s => s.DayDate == lesson.CreateDate, update);
                         break;
@@ -170,7 +182,7 @@ namespace ClassRoomAPI.Controllers
                         {
                             if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddDays(7 * i)) == 0)
                             {
-                                schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate.AddDays(7 * i), Lessons = new List<Lesson>() });
+                                schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate.AddDays(7 * i), Lessons = new List<Lesson>(), GroupId = groupId });
                             }
                             date = lesson.CreateDate.AddDays(7 * i);
                             schedulesCollection.UpdateOne(s => s.DayDate == date, update);
@@ -183,7 +195,7 @@ namespace ClassRoomAPI.Controllers
                         {
                             if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddDays(14 * i)) == 0)
                             {
-                                schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate.AddDays(14 * i), Lessons = new List<Lesson>() });
+                                schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate.AddDays(14 * i), Lessons = new List<Lesson>(), GroupId = groupId });
                             }
                             date = lesson.CreateDate.AddDays(14 * i);
                             schedulesCollection.UpdateOne(s => s.DayDate == date, update);
@@ -197,7 +209,7 @@ namespace ClassRoomAPI.Controllers
                         {
                             if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddMonths(i)) == 0)
                             {
-                                schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate.AddMonths(i), Lessons = new List<Lesson>() });
+                                schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate.AddMonths(i), Lessons = new List<Lesson>(), GroupId = groupId });
                             }
                             date = lesson.CreateDate.AddMonths(i);
                             schedulesCollection.UpdateOne(s => s.DayDate == date, update);
@@ -256,8 +268,8 @@ namespace ClassRoomAPI.Controllers
             var push = Builders<ScheduleDay>.Update.Push(d => d.Lessons, lesson);
             if (all)
             {
-                UpdateAll(lesson, delete, false);
-                UpdateAll(lesson, push, false);
+                UpdateAll(lesson, delete, false, Guid.Empty);
+                UpdateAll(lesson, push, false, Guid.Empty);
             }
             else
             {
@@ -301,7 +313,7 @@ namespace ClassRoomAPI.Controllers
             var delete = Builders<ScheduleDay>.Update.PullFilter(d => d.Lessons, l => l.Id == id);
             if (all)
             {
-                UpdateAll(lesson, delete, true);
+                UpdateAll(lesson, delete, true, Guid.Empty);
             }
             else
             {

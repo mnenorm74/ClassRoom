@@ -1,12 +1,12 @@
 import {srcUrl} from "../mySettings";
-import NewsItem from "../components/News/newsItem";
 import React from "react";
-import {formatDateNews} from "./news";
 import GroupUser from "../components/group/groupUser";
 
-export function getUser (id) {
+export function getUser () {
     console.log("fetchUser");
-    return fetch(`${srcUrl}/Users/${id}`);
+    return fetch(`${srcUrl}/Users/current`, {
+        credentials: "include"
+    });
 }
 
 export function getGroup() {
@@ -20,7 +20,15 @@ export function addUsersTag(source) {
     let tags = [];
     //console.log(source, "123USERS")
     for(let i = 0; i < source.length; i++) {
-        tags.push(<GroupUser name={`${source[i].surname} ${source[i].name} ${source[i].patronymic}`} email={source[i].email}/>)
+        tags.push(<GroupUser name={`${source[i].surname} ${source[i].name} ${source[i].patronymic}`} email={source[i].email} avatar={source[i].avatar}/>)
     }
     return tags;
+}
+
+export function addUserTags(source) {
+    return (
+        <div className="userData">
+        <span>{source.name}</span>
+        <span>{source.surname}</span>
+        </div>)
 }

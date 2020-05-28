@@ -14,10 +14,12 @@ function commentDeleting(id : any, CommId : any){
         });
 
     }
+
     return (<Popup trigger={<p className="lessonOption">Удалить</p>} modal className={'deleting'}>
         {close => (
             <>
-            <form name={formName}>
+
+            <form name={formName} >
                 <div className="modal" id="deletingModal">
                     <a className="close" onClick={close}>
                         &times;

@@ -6,6 +6,7 @@ import {srcUrl} from "../mySettings";
 import warnEmptiness from "../validation/warnEmptiness";
 import isEmptyField from "../validation/isEmptyField";
 import warnEmptinessHidden from "../validation/warnEmptinessHidden";
+//import set = Reflect.set;
 
 const formName = "authForm";
 
@@ -14,6 +15,7 @@ function isValidForm(): boolean {
 }
 
 function AuthorizationPage() {
+
     function sendAuth() {
         if (!isValidForm()) {
             // @ts-ignore
@@ -33,18 +35,22 @@ function AuthorizationPage() {
             },
             body: formData,
         })
-            .then(response => {
+            /*.then(response => {
                 console.log(response);
                 if (response.status === 200) {
-                    window.location.reload();
+                    setTimeout(()=>window.location.reload(), 500)
                 }
 
-            })
+            })*/
     }
 
     return (
         <div id="authorizationPage">
-            <form name={formName} id={"authorizationWindow"} onChange={() => {
+            <form name={formName} id={"authorizationWindow"} onSubmit = {(e) => {
+                e.preventDefault();
+                window.location.reload();
+            }
+            } onChange={() => {
                 if (!isValidForm()) {
                     // @ts-ignore
                     document.querySelector('#authorizationButton').setAttribute("disabled", "true")
@@ -78,7 +84,7 @@ function AuthorizationPage() {
                 <button id="authorizationButton" onClick={sendAuth}>ВОЙТИ</button>
                 <span id="registrationLink" onClick={() => {
                     ReactDOM.render(
-                        Page.GroupAuthorizationPage(),
+                        Page.GroupRegistrationPage(),
                         document.getElementById('root')
                     )
                 }}>Зарегистрировать группу</span>

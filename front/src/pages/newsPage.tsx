@@ -3,7 +3,6 @@ import NewsItem from "../components/News/newsItem";
 import News from "../components/News/newsDB";
 import '../cssDirectory/newsPage.css';
 import Popup from "reactjs-popup";
-import {getUser} from "../fetches/users";
 import {addNewsTag, formatDateNews, getComments, getNews} from "../fetches/news";
 import newsAdding from "../components/modals/newsAdding";
 

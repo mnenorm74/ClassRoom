@@ -15,13 +15,15 @@
 
 #menuOptions{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     font-size: 1.3rem;
     color: white;
     padding-left: 0.5vw;
     margin-bottom: 3vh;
-    cursor: pointer;
-    align-items: flex-end;
+}
+.userInfo{
+    display: flex;
+    align-items: center;
 }
 
 #applicationLogo{

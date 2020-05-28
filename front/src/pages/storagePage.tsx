@@ -10,6 +10,7 @@ import {getLastFiles} from "../fetches/storage";
 import {Switch} from "react-router";
 import {Link} from "react-router-dom";
 import {IStorageContentIconPaged} from "../projectTypes";
+import storageAddingModal from "../components/modals/storageAddingModal";
 
 function StoragePage(/*storageElements?: any[]*/) {
     const [isLoadedFiles, setIsLoadedFiles] = useState(false);
@@ -75,7 +76,7 @@ function StoragePage(/*storageElements?: any[]*/) {
     function takeFile(event: any) {
         let target = event.target.closest('div');
         console.log(target, "OOO DAAAAA");
-        if (target.id == 'storageContainer') {
+        if (target.id === 'storageContainer') {
             if (target.dataset.isfile === 'true') {
                 fetch(`${srcUrl}/storage/${btoa(target.dataset.path.split('\\').splice(1).join('\\'))}`, {
                     credentials: "include"
@@ -98,7 +99,7 @@ function StoragePage(/*storageElements?: any[]*/) {
     }
 
     function choosePage() {
-        if (path == '')
+        if (path === '')
             return (
                 <div id="storageContent">
                     <div id="header">
@@ -123,13 +124,13 @@ function StoragePage(/*storageElements?: any[]*/) {
                     <div id="header">
                         <div id="leftHeaderPart">
                             <button id="toMainStoragePageButton" onClick={() => {
-                                if (path != 'IA==') {
+                                if (path !== 'IA==') {
                                     console.log(atob(path), "ЫЫЫЫЫЫ");
                                     let pathNow = atob(path);
                                     if (pathNow.split('\\').length === 1)
                                         pathNow = 'IA==';
                                     else
-                                        pathNow = btoa(pathNow.split('\\').slice(0,-1).join('\\'));
+                                        pathNow = btoa(pathNow.split('\\').slice(0, -1).join('\\'));
                                     getPage(pathNow);
                                 } else {
                                     console.log(path, "ЫЫЫЫЫ111Ы");
@@ -140,7 +141,7 @@ function StoragePage(/*storageElements?: any[]*/) {
                             <p id="title">Текущий семестр</p>
                         </div>
                         <div id="rightHeaderPart">
-                            {}
+                            {storageAddingModal}
                         </div>
                     </div>
                     <div id="icons" onClick={takeFile}>
@@ -151,9 +152,9 @@ function StoragePage(/*storageElements?: any[]*/) {
     }
 
 
-    return <div>
+    return <>
         {choosePage()}
-    </div>;
+    </>;
 }
 
 export default StoragePage
