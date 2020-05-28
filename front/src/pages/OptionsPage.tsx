@@ -36,7 +36,7 @@ function OptionsPage() {
         // @ts-ignore
         if (document.forms["PasswordChange"]["PasswordRepeat"].value !== document.forms["PasswordChange"]["Password"].value
             // @ts-ignore
-            && document.forms["PasswordChange"]["PasswordRepeat"].value.length < 6) {
+            || document.forms["PasswordChange"]["PasswordRepeat"].value.length < 6) {
             document.querySelector('#passwordSend')!.setAttribute("disabled", "true")
             return;
         }
@@ -146,7 +146,7 @@ function OptionsPage() {
                         // @ts-ignore
                         if (document.forms["PasswordChange"]["PasswordRepeat"].value !== document.forms["PasswordChange"]["Password"].value
                             // @ts-ignore
-                            && document.forms["PasswordChange"]["PasswordRepeat"].value.length < 6) {
+                            || document.forms["PasswordChange"]["PasswordRepeat"].value.length < 6) {
                             document.querySelector('#passwordSend')!.setAttribute("disabled", "true")
                         } else {
                             document.querySelector('#passwordSend')!.removeAttribute("disabled")
