@@ -3,6 +3,7 @@ import Popup from "reactjs-popup";
 import commentDeleting from "./commentDeleting";
 import commentChanging from "./commentChanging";
 import '../News/news.css'
+import edit from "../../icons/edit-black-18dp.svg"
 
 const Card = ({id, CommId}: {id : any, CommId : any}) => (
     <div className="card" id="newsOptionsField">
@@ -17,8 +18,8 @@ const Card = ({id, CommId}: {id : any, CommId : any}) => (
 function commentOptions(id : any, CommId : any) {
     return (
         <Popup
-            trigger={<button className='commentOptions'/>}
-            position="left top"
+            trigger={<img className='commentOptions' src={edit} alt=""/>}
+            position="right top"
             on="click" className={'options'}
             closeOnDocumentClick={true}>
             <Card id={id} CommId={CommId}/>

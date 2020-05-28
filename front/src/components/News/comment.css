@@ -10,12 +10,14 @@
     height: 7vh;
     border-radius: 50%;
     background-color: #f2cd83;
+    flex-shrink: 0;
 }
 
 #commentBody{
     display: flex;
     flex-direction: column;
     margin-left: 1vw;
+    width: 100%;
 }
 
 #commentAuthor{
@@ -25,7 +27,7 @@
 
 #commentContent{
     font-size: 120%;
-    margin: 0;
+    word-break: break-word;
 }
 
 #commentDate{
