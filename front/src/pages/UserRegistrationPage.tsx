@@ -23,8 +23,9 @@ function isValidForm(): boolean {
 }
 
 
-function UserAuthorizationPage() {
-    let { id } = useParams();
+function UserRegistrationPage() {
+    let {id} = useParams();
+
     function sendRegistration() {
         if (!isValidForm()) {
             // @ts-ignore
@@ -54,7 +55,6 @@ function UserAuthorizationPage() {
 
     return (
         <div id="userAuthorization">
-            <div>Это {id}</div>
             <form id="userAuthorizationWindow" name={formName} onChange={() => {
                 if (!isValidForm()) {
                     // @ts-ignore
@@ -66,13 +66,15 @@ function UserAuthorizationPage() {
             }}>
                 <button id="toGroupForm" onClick={() => {
                     ReactDOM.render(
-                        Page.GroupAuthorizationPage(),
+                        Page.GroupRegistrationPage(),
                         document.getElementById('root')
                     );
                 }}/>
 
                 <span id="userAuthorizationWindowHeader">РЕГИСТРАЦИЯ</span>
                 <>
+                    <input name="Patronymic" className="userAuthorizationField" placeholder="Отчество" disabled
+                           value={"Группа: "+id}/>
                     <span className="authorizationContentStatus" id="surnameMessage">Поле не может быть пустым</span>
                     <input name="Surname" className="userAuthorizationField" placeholder="Фамилия" onChange={() => {
                         warnEmptinessHidden(formName, "Surname", "surnameMessage")
@@ -113,4 +115,4 @@ function UserAuthorizationPage() {
     )
 }
 
-export default UserAuthorizationPage
+export default UserRegistrationPage
