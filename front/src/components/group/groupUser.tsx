@@ -9,7 +9,7 @@ function GroupUser({name, email, avatar, isGroupLeader}:{name:string, email:stri
                 <img id="photo" src={"data:image/png;base64," + avatar} alt="avatar"/>
             </div>
             <div id="information">
-                <span id="name">{name}</span>
+                <span id="nameUserGroup">{name}</span>
                 <span id="email">{email}</span>
             </div>
             <div id="status">{isGroupLeader?"СТАРОСТА":""}</div>
