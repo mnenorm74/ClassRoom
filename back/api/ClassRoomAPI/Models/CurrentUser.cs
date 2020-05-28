@@ -13,5 +13,7 @@ namespace ClassRoomAPI.Models
         public string Surname { get; set; }
         public byte[] Avatar { get; set; }
         public string Email { get; set; }
+        public bool IsLeader { get; set; }
+
     }
 }

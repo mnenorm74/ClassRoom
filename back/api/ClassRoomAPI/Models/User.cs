@@ -28,7 +28,7 @@ namespace ClassRoomAPI.Models
             Surname = model.Surname;
             Avatar = File.ReadAllBytes(Directory.GetCurrentDirectory() + "\\..\\..\\defaultAvatar.png");
             Username = model.Username;
-            Patronymic = model.Patronymic;
+            Patronymic = model.Patronymic == null ? "" : model.Patronymic;
             Email = model.Email;
             Id = Guid.NewGuid();
         }

@@ -46,9 +46,10 @@ namespace ClassRoomAPI.Controllers
                 return NotFound("User with this id not found");
             }
             //var a = System.IO.File.ReadAllBytes(Directory.GetCurrentDirectory() + "\\..\\..\\defaultAvatar.png");
+            var leaderId = groupsCollection.Find(g => g.GroupId == user.GroupId).FirstOrDefault().GroupLeaderId;
             
             //var encodeAvatar = StorageController.Base64Encode(/*user.Avatar.ToString()*/a.ToString());
-            return new ObjectResult(new CurrentUser() { Id = user.Id, Name = user.Name, Surname = user.Surname, Avatar = user.Avatar, Email = user.Email, Username = user.Username });
+            return new ObjectResult(new CurrentUser() { Id = user.Id, Name = user.Name, Surname = user.Surname, Avatar = user.Avatar, Email = user.Email, Username = user.Username, IsLeader = user.Id == leaderId });
         }
 
         [HttpGet("{id}")]
@@ -123,6 +124,28 @@ namespace ClassRoomAPI.Controllers
             return new ObjectResult(user);
         }
 
+        [HttpPatch("{id}/avatars")]
+        [Produces("application/json")]
+        public IActionResult PatchAvatar(Guid id, [FromForm]IFormFile image)
+        {
+            var result = new List<byte>();
+            using (var reader = image.OpenReadStream())
+            {
+                //var fileContent = reader.ReadToEnd();
+                //var image = Image.FromStream(reader)
+                var bytes = new byte[image.Length];
+                for(var i = 0; i < image.Length; i++)
+                {
+                    bytes[i] = (byte)reader.ReadByte();
+                }
+
+                var update = Builders<User>.Update.Set(n => n.Avatar, bytes);
+                usersCollection.UpdateOne(n => n.Id == id, update);
+                result = bytes.ToList();
+            }
+            return new ObjectResult(result);
+        }
+
         /// <remarks>
         /// Sample request:
         ///
@@ -146,10 +169,10 @@ namespace ClassRoomAPI.Controllers
             }
             var arr = new List<UpdateDefinition<User>>();
             var update = Builders<User>.Update;
-            if (value.Avatar != null)
-            {
-                arr.Add(update.Set(n => n.Avatar, value.Avatar));
-            }
+            //if (value.Avatar != null)
+            //{
+            //    arr.Add(update.Set(n => n.Avatar, value.Avatar));
+            //}
             if (value.Name != null)
             {
                 arr.Add(update.Set(n => n.Name, value.Name));

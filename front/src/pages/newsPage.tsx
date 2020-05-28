@@ -5,6 +5,8 @@ import '../cssDirectory/newsPage.css';
 import Popup from "reactjs-popup";
 import {addNewsTag, formatDateNews, getComments, getNews} from "../fetches/news";
 import newsAdding from "../components/modals/newsAdding";
+import CurrentUser from "../СurrentUserInfoDB";
+import {currentUserInfo} from "../components/Profile/profile";
 
 function NewsPage() {
     //const [isLoadedAllNews, setIsLoadedAllNews] = useState(false);
@@ -19,7 +21,7 @@ function NewsPage() {
                     setNews(addNewsTag(result));
                     setIsLoadedNews(true);
                 })
-    },[]);
+    },[news, isLoadedNews]);
 
     function showNews() {
         if (isLoadedNews) {
@@ -29,10 +31,22 @@ function NewsPage() {
             return null;
         }
     }
+
+    function showButton() {
+        if (isLoadedNews) {
+            //console.log(news, "NEWS!!!");
+            return (currentUserInfo.isLeader) ? newsAdding : null;
+        } else {
+            return null;
+        }
+    }
     return (
         <div id="newsContent">
             <div id="newsHeader">
-                {newsAdding}
+                {console.log(currentUserInfo, "USERINFO")}
+                {/*{(currentUserInfo.isLeader) ? newsAdding : null}*/}
+                {showButton()}
+                {/*{newsAdding}*/}
             </div>
             <div id="news">
                 {/*{News.map(news => (

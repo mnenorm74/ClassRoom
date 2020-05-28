@@ -8,15 +8,23 @@ function lessonDeleting(id:any, day:any) {
     function onSubmit() {
         let date = new Date(day);
         let newDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-        fetch(`${srcUrl}/Schedules/${newDate}/${id}`, {
+
+        let form: any = document.forms.namedItem(formName);
+        let formData = new FormData(form);
+        let all: any = formData.get("deleting");
+        formData.delete("deleting");
+        console.log(all, "ALL");
+        fetch(`${srcUrl}/Schedules/${newDate}/${id}?all=${all === "true"}`, {
             method: 'delete',
             credentials: "include"
         });
 
     }
 
+
     return (<Popup trigger={<p className="lessonOptionItem">Удалить</p>} modal className={'deleting'}>
             {close => (
+                <>
                 <form name={formName}>
                 <div className="modal" id="deletingModal">
                     <a className="close" onClick={close}>
@@ -24,8 +32,8 @@ function lessonDeleting(id:any, day:any) {
                     </a>
                     <div className="header" id="deletingHeader">Удалить запись</div>
                     <div id="deletingOptions">
-                        <p className="scheduleRadio"><input name="deleting" type="radio" checked/>Удалить текущую</p>
-                        <p className="scheduleRadio"><input name="deleting" type="radio"/>Удалить все повторяющиеся</p>
+                        <p className="scheduleRadio"><input name="deleting" value={"false"} type="radio" defaultChecked/>Удалить текущую</p>
+                        <p className="scheduleRadio"><input name="deleting" value={"true"} type="radio"/>Удалить все повторяющиеся</p>
                     </div>
                     {/*<p id="deletingMessage">Данная запись будет удалена из всех дней. Вы уверены, что хотите продлжить?</p>*/}
                     <div className="modalFooter" id="deletingFooter">
@@ -34,6 +42,7 @@ function lessonDeleting(id:any, day:any) {
                     </div>
                 </div>
                 </form>
+                </>
             )}
         </Popup>);
 }

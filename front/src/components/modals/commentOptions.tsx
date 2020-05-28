@@ -15,6 +15,10 @@ const Card = ({id, CommId}: {id : any, CommId : any}) => (
     </div>
 );
 
+function showButton() {
+
+}
+
 function commentOptions(id : any, CommId : any) {
     return (
         <Popup

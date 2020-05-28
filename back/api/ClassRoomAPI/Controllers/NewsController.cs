@@ -152,7 +152,7 @@ namespace ClassRoomAPI.Controllers
             for(var i = 0; i < comments.Count; i++)
             {
                 var user = usersCollection.Find(a => a.Id == comments[i].AuthorId).FirstOrDefault();
-                commentsView.Add(new CommentView() { Id=comments[i].Id, Content = comments[i].Content, Date = comments[i].Date, Name = user.Name, Surname = user.Surname, Avatar = user.Avatar });
+                commentsView.Add(new CommentView() { Id=comments[i].Id, Content = comments[i].Content, Date = comments[i].Date, Name = user.Name, Surname = user.Surname, Avatar = user.Avatar, AuthorId=comments[i].AuthorId });
             }
 
             commentsView = commentsView.OrderBy(e => e.Date).ToList();

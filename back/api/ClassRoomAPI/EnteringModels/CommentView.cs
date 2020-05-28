@@ -13,5 +13,6 @@ namespace ClassRoomAPI.EnteringModels
         public string Name { get; set; }
         public string Surname { get; set; }
         public byte[] Avatar { get; set; }
+        public Guid AuthorId { get; set; }
     }
 }

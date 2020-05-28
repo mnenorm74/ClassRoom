@@ -1,4 +1,5 @@
 ﻿using ClassRoomAPI.EnteringModels;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,7 @@ namespace ClassRoomAPI.Models
 
         }
         public Guid Id { get; set; }
+        [BsonDateTimeOptions(DateOnly = true)]
         public DateTime CreateDate { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }

@@ -5,11 +5,12 @@ import {addDaysTag} from "../../fetches/mainPage";
 import {formatDateNews} from "../../fetches/news";
 import NewsOptions from "../modals/newsOptions";
 import commentOptions from "../modals/commentOptions";
+import {currentUserInfo} from "../Profile/profile";
+import scheduleAdding from "../modals/scheduleAdding";
 
-function Comment(comment:any, id:any/*, authorComment:any*/) {
+function Comment(comment: any, id: any/*, authorComment:any*/) {
     /*const [isLoadedAuthor, setIsLoadedAuthor] = useState(false);
     const [author, setAuthor]: [any, any] = useState([]);*/
-
 
 
     /*function showAuthors() {
@@ -18,6 +19,10 @@ function Comment(comment:any, id:any/*, authorComment:any*/) {
         }
         return null;
     }*/
+    function showButton() {
+        console.log(currentUserInfo.id, comment.authorId, "NEWS!!!223");
+        return (currentUserInfo.id === comment.authorId) ? commentOptions(id, comment.id) : null;
+    }
 
     return (
         <div id="commentContainer">
@@ -28,7 +33,7 @@ function Comment(comment:any, id:any/*, authorComment:any*/) {
                 {/*<span id="commentAuthor">{`${author.Name} ${author.Surname}`}</span>*/}
                 <div className={'commentHeader'}>
                     <span id="commentAuthor">{`${comment.name} ${comment.surname}`}</span>
-                    {commentOptions(id, comment.id)}
+                    {showButton()}
                 </div>
                 <p id="commentContent">{comment.content}</p>
                 <span id="commentDate">{formatDateNews(comment.date)}</span>

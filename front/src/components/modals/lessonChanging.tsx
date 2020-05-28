@@ -41,7 +41,7 @@ function lessonChanging(id: any, day: any) {
         let newDate: any = farmatDateForm(date);
         formData.set("CreateDate", newDate);
         fetch(`${srcUrl}/Schedules/${day}/${id}`, {*/
-        fetch(`${srcUrl}/Schedules/${newDate}/${id}?all=${!all}`, {
+        fetch(`${srcUrl}/Schedules/${newDate}/${id}?all=${all === "true"}`, {
             method: 'patch',
             headers: {
                 //'Content-Type': 'multipart/form-data'
@@ -118,10 +118,10 @@ function lessonChanging(id: any, day: any) {
                                 warnEmptiness(formName, "Teacher", "changingTeacherName")
                             }}/>
                             <span className="modalScheduleHeader">Применить для</span>
-                            <p className="scheduleRadio"><input name="deleteRepeating" type="radio" defaultChecked/>Текущей
+                            <p className="scheduleRadio"><input name="deleteRepeating" value={"false"} type="radio" defaultChecked/>Текущей
                                 записи
                             </p>
-                            <p className="scheduleRadio"><input name="deleteRepeating" type="radio"/>Всех повторяющихся
+                            <p className="scheduleRadio"><input name="deleteRepeating" value={"true"} type="radio"/>Всех повторяющихся
                                 записей</p>
                         </div>
                         <div className="modalFooter" id="changingFooter">

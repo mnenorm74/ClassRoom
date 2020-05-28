@@ -5,6 +5,7 @@ import NewsOptions from "../modals/newsOptions";
 import {srcUrl} from "../../mySettings";
 import {addComments, addNewsTag, getComments, getNews} from "../../fetches/news";
 import {currentUserInfo} from "../Profile/profile";
+import scheduleAdding from "../modals/scheduleAdding";
 
 function NewsItem({author, pubDate, article, /*comments,*/ id, title}: { author: string, pubDate: string, article: string, /*comments: any,*/ id:any, title:any }) {
     const [isAddComments, setIsAddComments] = useState(false);
@@ -66,7 +67,14 @@ function NewsItem({author, pubDate, article, /*comments,*/ id, title}: { author:
             return null;
         }
     }
-
+    function showButton() {
+        if (isLoadComments) {
+            //console.log(news, "NEWS!!!");
+            return (currentUserInfo.isLeader) ? <NewsOptions id={id}/> : null;
+        } else {
+            return null;
+        }
+    }
     /*if(isAddComment) {
         // @ts-ignore
         this.forceRefresh();
@@ -77,7 +85,8 @@ function NewsItem({author, pubDate, article, /*comments,*/ id, title}: { author:
                 <div className='infoItem newsText '>{author}</div>
                 <div className='infoItem newsText'>
                     {pubDate}
-                    <NewsOptions id={id}/>
+                    {/*<NewsOptions id={id}/>*/}
+                    {showButton()}
                 </div>
             </div>
             <div className='infoItem newsText title'>{title}</div>

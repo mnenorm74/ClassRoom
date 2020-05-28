@@ -7,6 +7,7 @@ import warnEqualPasswords from "../validation/warnEqualPasswords";
 import isEmail from "../validation/isEmail";
 import isEmptyField from "../validation/isEmptyField";
 import {srcUrl} from "../mySettings";
+import {currentUserInfo} from "../components/Profile/profile";
 
 function showForm(id: string) {
     if(document.getElementById(id)!.style.display !== 'block'){
@@ -69,6 +70,28 @@ function OptionsPage() {
         if (!document.forms["photoChanging"]["Photo"].value){
             document.querySelector('#photoChangeButton')!.setAttribute("disabled", "true")
         }
+        let a : any = document.querySelector("#newPhoto");
+       //let photo : any = a.files[0];
+
+        var formData = new FormData();
+        formData.append("image", a.files[0]);
+
+        /*console.log(photo, typeof photo, "FILE")
+        console.log(blob, typeof blob, "BLOB")*/
+        // @ts-ignore
+
+        fetch(`${srcUrl}/Users/${currentUserInfo.id}/avatars`, {
+            method: "patch",
+            credentials: "include",
+            body: formData
+        }).then(()=> window.location.reload());
+    }
+
+    function onSubmitDelete() {
+        fetch(`${srcUrl}/Users/${currentUserInfo.id}`, {
+            method: "delete",
+            credentials: "include"
+        }).then(()=> window.location.reload());
     }
 
     return (
@@ -149,14 +172,16 @@ function OptionsPage() {
                                 document.querySelector('#photoChangeButton').removeAttribute("disabled")
                             }
                         }}/>
-                        <button className={'optionsButton'} id={'photoChangeButton'} onClick={onSubmitPhoto}>Сменить фото</button>
+
+
                     </form>
+                    <button className={'optionsButton'} id={'photoChangeButton'} onClick={onSubmitPhoto}>Сменить фото</button>
                 </div>
             </div>
 
 
             <div className="optionContainer">
-                <button className={'optionsButton'}>Удалить аккаунт</button>
+                <button className={'optionsButton'} onClick={onSubmitDelete}>Удалить аккаунт</button>
 
 
                 <div className="passwordContainer">
