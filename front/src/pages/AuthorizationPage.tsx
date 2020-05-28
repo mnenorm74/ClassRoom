@@ -82,7 +82,7 @@ function AuthorizationPage() {
                         document.getElementById('root')
                     )
                 }}>Зарегистрировать группу</span>
-            </div>
+            </form>
         </div>
     )
 }
