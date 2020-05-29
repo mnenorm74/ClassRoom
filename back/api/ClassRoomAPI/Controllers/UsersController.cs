@@ -224,9 +224,13 @@ namespace ClassRoomAPI.Controllers
             {
                 return NotFound("User with this id not found");
             }
+            var userIdentity = _userManager.FindByEmailAsync(user.Email).Result;
+
+            _userManager.DeleteAsync(userIdentity);
             var update = Builders<Group>.Update.Pull(g => g.Users, id);
             groupsCollection.UpdateOne(g => g.GroupId == user.GroupId, update);
             usersCollection.DeleteOne(a => a.Id == id);
+            HttpContext.Session.Remove("userId");
             return NoContent();
         }
     }
