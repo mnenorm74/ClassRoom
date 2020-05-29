@@ -9,11 +9,11 @@
 #optionContainer {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .optionHeader {
-    flex-basis: 20%;
-    font-size: 3vh;
+    font-size: 140%;
     cursor: default;
 }
 
@@ -21,6 +21,10 @@
     flex-basis: 70%;
     font-size: 3vh;
     margin-bottom: 3vh;
+}
+
+#newEmail{
+    flex-basis: 50%;
 }
 
 .passwordContainer {
@@ -83,6 +87,8 @@
     display: flex;
     flex-direction: row;
     margin-top: 2vh;
+    width: 80%;
+    justify-content: space-between;
 }
 
 #photoAdding {
@@ -129,7 +135,7 @@
 }
 
 #newPhoto{
-    align-self: center;
+    font-size: 100%;
 }
 
 #photoChangingLine{
@@ -144,4 +150,20 @@
 
 #optionsButtons {
     margin-top: 5%;
+}
+
+#userOptions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#optionsFooter{
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+}
+
+#emailChanging, #loginChanging{
+    width: 100%;
 }
