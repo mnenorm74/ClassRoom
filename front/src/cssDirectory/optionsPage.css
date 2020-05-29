@@ -23,7 +23,7 @@
     margin-bottom: 3vh;
 }
 
-#newEmail{
+#newEmail, #newLogin{
     flex-basis: 50%;
 }
 
