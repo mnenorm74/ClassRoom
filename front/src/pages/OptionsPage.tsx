@@ -23,15 +23,18 @@ function OptionsPage() {
 
     const [email, setEmail] = useState('');
     const [login, setLogin] = useState('');
+    const [isLoaded, setIsLoaded] = useState(false);
 
-    // useEffect(() => {
-    //     getUser()
-    //         .then(res => res.json())
-    //         .then(result => {
-    //             // @ts-ignore
-    //             currentUserInfo = result;
-    //         })
-    // }, []);
+    useEffect(() => {
+        getUser()
+            .then(res => res.json())
+            .then(result => {
+                // @ts-ignore
+                setEmail(result.email);
+                setLogin(result.username);
+                setIsLoaded(true);
+            })
+    }, []);
 
     function onSubmitEmail() {
         // @ts-ignore
@@ -69,16 +72,16 @@ function OptionsPage() {
         // if (document.forms["PasswordChange"]["PasswordRepeat"].value !== document.forms["PasswordChange"]["NewPassword"].value
         //     // @ts-ignore
         //     || document.forms["PasswordChange"]["PasswordRepeat"].value.length < 6) {
-            document.querySelector('#passwordSend')!.setAttribute("disabled", "true");
-            let form: any = document.forms.namedItem('PasswordChange');
-            let formData = new FormData(form);
-            fetch(`${srcUrl}/account/changePassword`, {
-                method: "post",
-                credentials: "include",
-                body: formData
-            }).then(res => res);
-            // }
-     //   }
+        document.querySelector('#passwordSend')!.setAttribute("disabled", "true");
+        let form: any = document.forms.namedItem('PasswordChange');
+        let formData = new FormData(form);
+        fetch(`${srcUrl}/account/changePassword`, {
+            method: "post",
+            credentials: "include",
+            body: formData
+        }).then(res => res);
+        // }
+        //   }
     }
 
     function onSubmitPhoto() {
@@ -96,7 +99,6 @@ function OptionsPage() {
         console.log(blob, typeof blob, "BLOB")*/
         // @ts-ignore
 
-        debugger;
 
         fetch(`${srcUrl}/Users/${currentUserInfo.id}/avatars`, {
             method: "patch",
@@ -119,20 +121,21 @@ function OptionsPage() {
                 <p id="optionsHeader">Настройки профиля</p>
                 <div className="optionContainer">
                     <span className="optionHeader">E-mail</span>
-                    <span className="optionHeader">{email}</span>
+                    <span className="optionHeader">{(isLoaded) ? email : null}</span>
                     <button className={'optionsButton'} id={'emailChangingButton'} onClick={() => {
                         showForm('emailForm')
                     }}>Изменить
                     </button>
                 </div>
-                <form name={'EmailChange'} id={'emailForm'} onSubmit={onSubmitEmail} onChange={() => {
-                    // @ts-ignore
-                    if (!isEmail(document.forms['EmailChange']["newEmail"].value)) {
-                        document.querySelector('#emailSend')!.setAttribute("disabled", "true")
-                    } else {
-                        document.querySelector('#emailSend')!.removeAttribute("disabled")
-                    }
-                }}>
+                <form name={'EmailChange'} id={'emailForm'} className="optionContainer" onSubmit={onSubmitEmail}
+                      onChange={() => {
+                          // @ts-ignore
+                          if (!isEmail(document.forms['EmailChange']["newEmail"].value)) {
+                              document.querySelector('#emailSend')!.setAttribute("disabled", "true")
+                          } else {
+                              document.querySelector('#emailSend')!.removeAttribute("disabled")
+                          }
+                      }}>
                     <span className="optionMessage" id='userEmailMessage'>E-mail в формате example@mail.ru</span>
                     <div className="optionContainer" id="emailChanging">
                         <span className="optionHeader">Новый e-mail</span>
@@ -147,13 +150,13 @@ function OptionsPage() {
 
                 <div className="optionContainer">
                     <span className="optionHeader">Логин</span>
-                    <span className="optionHeader">{login}</span>
+                    <span className="optionHeader">{(isLoaded) ? login : null}</span>
                     <button className={'optionsButton'} id={'LoginChangingButton'} onClick={() => {
                         showForm('LoginForm')
                     }}>Изменить
                     </button>
                 </div>
-                <form name={'LoginChange'} id={'LoginForm'} onChange={() => {
+                <form name={'LoginChange'} id={'LoginForm'} className="optionContainer" onChange={() => {
                     // @ts-ignore
                     if (isEmptyField('LoginChange', "NewLogin")) {
                         document.querySelector('#loginSend')!.setAttribute("disabled", "true")
@@ -176,71 +179,73 @@ function OptionsPage() {
                 </form>
 
 
-                    <form name={'photoChanging'} className="optionContainer" onSubmit={(e) => {
-                        e.preventDefault();
-                        onSubmitPhoto();
-                    }}>
-                        <span className="optionHeader">Фото</span>
-                        <div id={'photoChangingLine'}>
-                            <input name="Photo" type="file" id="newPhoto" onChange={() => {
-                                // @ts-ignore
-                                if (!document.forms["photoChanging"]["Photo"].value) {
-                                    document.querySelector('#photoChangeButton')!.setAttribute("disabled", "true")
-                                } else {
-                                    // @ts-ignore
-                                    document.querySelector('#photoChangeButton').removeAttribute("disabled")
-                                }
-                            }}/>
-                            <button className={'optionsButton'} id={'photoChangeButton'} type={"submit"}>Сменить фото </button>
-                        </div>
-                    </form>
+                <form name={'photoChanging'} className="optionContainer" onSubmit={(e) => {
+                    e.preventDefault();
+                    onSubmitPhoto();
+                }}>
+                    <span className="optionHeader">Фото</span>
+                    <input name="Photo" type="file" id="newPhoto" className={'optionHeader'} onChange={() => {
+                        // @ts-ignore
+                        if (!document.forms["photoChanging"]["Photo"].value) {
+                            document.querySelector('#photoChangeButton')!.setAttribute("disabled", "true")
+                        } else {
+                            // @ts-ignore
+                            document.querySelector('#photoChangeButton').removeAttribute("disabled")
+                        }
+                    }}/>
+                    <button className={'optionsButton'} id={'photoChangeButton'} type={"submit"}>Сменить фото</button>
+                </form>
             </div>
 
+            <div className={"optionContainer"} id={"optionsButton"}>
+                <div id={"optionsFooter"}>
+                    <button className={'optionsButton'} onClick={onSubmitDelete}>Удалить аккаунт</button>
 
-            <div className="optionContainer" id={'optionsButtons'}>
-                <button className={'optionsButton'} onClick={onSubmitDelete}>Удалить аккаунт</button>
 
-
-                <div className="passwordContainer">
-                    <button className={'optionsButton'} id={'passwordShow'} onClick={() => {
-                        showForm('PasswordForm')
-                    }}>Изменить пароль
-                    </button>
-                    <form name={"PasswordChange"} id={'PasswordForm'} onSubmit={onSubmitPassword} onChange={() => {
-                        // @ts-ignore
-                        if (document.forms["PasswordChange"]["PasswordRepeat"].value !== document.forms["PasswordChange"]["NewPassword"].value
-                            // @ts-ignore
-                            || document.forms["PasswordChange"]["PasswordRepeat"].value.length < 6) {
-                            document.querySelector('#passwordSend')!.setAttribute("disabled", "true")
-                        } else {
-                            document.querySelector('#passwordSend')!.removeAttribute("disabled")
-                        }
-                    }}>
-                        <div id="passwordFields">
-                            <input name="oldPassword" type="password" placeholder="Старый пароль"
-                                   className="optionInput"
-                                   id="oldPassword"/>
-                            <span className="optionHeader" id='newPasswordMessage'>Пароль не менее 6 символов</span>
-                            <input name="NewPassword" type="password" placeholder="Новый пароль" className="optionInput"
-                                   id="newPassword"
-                                   onChange={() => {
-                                       warnPassword('PasswordChange', "NewPassword", "newPasswordMessage");
-                                       warnEqualPasswords('PasswordChange', "NewPassword", "PasswordRepeat", 'newEqualPasswordMessage')
-                                   }}/>
-                            <span className="optionHeader" id='newEqualPasswordMessage'>Пароли должны совпадать</span>
-                            <input name="PasswordRepeat" type="password" placeholder="Новый пароль"
-                                   className="optionInput"
-                                   id="newPasswordRepeated"
-                                   onChange={() => {
-                                       warnEqualPasswords('PasswordChange', "NewPassword", "PasswordRepeat", 'newEqualPasswordMessage')
-                                   }}/>
-                        </div>
-                        <button className={'optionsButton'} id={'passwordSend'}>Применить
+                    <div className="passwordContainer">
+                        <button className={'optionsButton'} id={'passwordShow'} onClick={() => {
+                            showForm('PasswordForm')
+                        }}>Изменить пароль
                         </button>
-                    </form>
+                        <form name={"PasswordChange"} id={'PasswordForm'} onSubmit={onSubmitPassword} onChange={() => {
+                            // @ts-ignore
+                            if (document.forms["PasswordChange"]["PasswordRepeat"].value !== document.forms["PasswordChange"]["NewPassword"].value
+                                // @ts-ignore
+                                || document.forms["PasswordChange"]["PasswordRepeat"].value.length < 6) {
+                                document.querySelector('#passwordSend')!.setAttribute("disabled", "true")
+                            } else {
+                                document.querySelector('#passwordSend')!.removeAttribute("disabled")
+                            }
+                        }}>
+                            <div id="passwordFields">
+                                <input name="oldPassword" type="password" placeholder="Старый пароль"
+                                       className="optionInput"
+                                       id="oldPassword"/>
+                                <span className="optionHeader" id='newPasswordMessage'>Пароль не менее 6 символов</span>
+                                <input name="NewPassword" type="password" placeholder="Новый пароль"
+                                       className="optionInput"
+                                       id="newPassword"
+                                       onChange={() => {
+                                           warnPassword('PasswordChange', "NewPassword", "newPasswordMessage");
+                                           warnEqualPasswords('PasswordChange', "NewPassword", "PasswordRepeat", 'newEqualPasswordMessage')
+                                       }}/>
+                                <span className="optionHeader"
+                                      id='newEqualPasswordMessage'>Пароли должны совпадать</span>
+                                <input name="PasswordRepeat" type="password" placeholder="Новый пароль"
+                                       className="optionInput"
+                                       id="newPasswordRepeated"
+                                       onChange={() => {
+                                           warnEqualPasswords('PasswordChange', "NewPassword", "PasswordRepeat", 'newEqualPasswordMessage')
+                                       }}/>
+                            </div>
+                            <button className={'optionsButton'} id={'passwordSend'}>Применить
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     );
 }
+
 export default OptionsPage

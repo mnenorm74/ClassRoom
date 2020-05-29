@@ -254,8 +254,9 @@ namespace ClassRoomAPI.Controllers
                 return UnprocessableEntity("Invalid format of date: " + e.Message);
             }
             var delete = Builders<ScheduleDay>.Update.PullFilter(d => d.Lessons, l => l.Id == id);
+            var currUser = usersCollection.Find(u => u.Id == Guid.Parse(HttpContext.Session.GetString("userId"))).FirstOrDefault();
 
-            var day = schedulesCollection.Find(n => n.DayDate == dateTime).FirstOrDefault();
+            var day = schedulesCollection.Find(n => n.DayDate == dateTime && n.GroupId == currUser.GroupId).FirstOrDefault();
             if (day == null)
             {
                 return NotFound("Lesson with this id not found");
@@ -266,7 +267,7 @@ namespace ClassRoomAPI.Controllers
                 return NotFound("Lesson with this id not found");
             }
             lesson.Update(value);
-            var currUser = usersCollection.Find(u => u.Id == Guid.Parse(HttpContext.Session.GetString("userId"))).FirstOrDefault();
+            
             var push = Builders<ScheduleDay>.Update.Push(d => d.Lessons, lesson);
             if (all)
             {
@@ -275,8 +276,8 @@ namespace ClassRoomAPI.Controllers
             }
             else
             {
-                schedulesCollection.UpdateOne(n => n.DayDate == dateTime, delete);
-                schedulesCollection.UpdateOne(n => n.DayDate == dateTime, push);
+                schedulesCollection.UpdateOne(n => n.DayDate == dateTime && n.GroupId == currUser.GroupId, delete);
+                schedulesCollection.UpdateOne(n => n.DayDate == dateTime && n.GroupId == currUser.GroupId, push);
             }
             return new ObjectResult(lesson);
         }
@@ -301,8 +302,9 @@ namespace ClassRoomAPI.Controllers
             {
                 return UnprocessableEntity("Invalid format of date: " + e.Message);
             }
+            var currUser = usersCollection.Find(u => u.Id == Guid.Parse(HttpContext.Session.GetString("userId"))).FirstOrDefault();
 
-            var day = schedulesCollection.Find(n => n.DayDate == dateTime).FirstOrDefault();
+            var day = schedulesCollection.Find(n => n.DayDate == dateTime && n.GroupId == currUser.GroupId).FirstOrDefault();
             if (day == null)
             {
                 return NotFound("Lesson with this id not found");
@@ -313,7 +315,7 @@ namespace ClassRoomAPI.Controllers
                 return NotFound("Lesson with this id not found");
             }
             var delete = Builders<ScheduleDay>.Update.PullFilter(d => d.Lessons, l => l.Id == id);
-            var currUser = usersCollection.Find(u => u.Id == Guid.Parse(HttpContext.Session.GetString("userId"))).FirstOrDefault();
+           
             if (all)
             {
                 UpdateAll(lesson, delete, true, currUser.GroupId);

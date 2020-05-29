@@ -6,6 +6,7 @@
     align-items: center;
     margin: 1vw;
     cursor: pointer;
+    overflow: hidden;
 }
 
 #name {
@@ -16,7 +17,7 @@
     width: 100%;
     overflow: hidden;
     text-align: center;
-    all: unset;
+    margin: 0;
 }
 
 #folderIcon {
