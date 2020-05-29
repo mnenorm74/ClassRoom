@@ -159,7 +159,10 @@ function OptionsPage() {
                 </form>
 
 
-                    <form name={'photoChanging'} className="optionContainer">
+                    <form name={'photoChanging'} className="optionContainer" onSubmit={(e) => {
+                        e.preventDefault();
+                        onSubmitPhoto();
+                    }}>
                         <span className="optionHeader">Фото</span>
                         <div id={'photoChangingLine'}>
                             <input name="Photo" type="file" id="newPhoto" onChange={() => {
@@ -171,16 +174,14 @@ function OptionsPage() {
                                     document.querySelector('#photoChangeButton').removeAttribute("disabled")
                                 }
                             }}/>
-                            <button className={'optionsButton'} id={'photoChangeButton'} onClick={onSubmitPhoto}>Сменить
-                                фото
-                            </button>
+                            <button className={'optionsButton'} id={'photoChangeButton'} type={"submit"}>Сменить фото </button>
                         </div>
                     </form>
             </div>
 
 
             <div className="optionContainer" id={'optionsButtons'}>
-                <button className={'optionsButton'}>Удалить аккаунт</button>
+                <button className={'optionsButton'} onClick={onSubmitDelete}>Удалить аккаунт</button>
 
 
                 <div className="passwordContainer">

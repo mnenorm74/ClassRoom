@@ -25,7 +25,6 @@ function NewsPage() {
 
     function showNews() {
         if (isLoadedNews) {
-            //console.log(news, "NEWS!!!");
             return news;
         } else {
             return null;
@@ -34,7 +33,6 @@ function NewsPage() {
 
     function showButton() {
         if (isLoadedNews) {
-            //console.log(news, "NEWS!!!");
             return (currentUserInfo.isLeader) ? newsAdding : null;
         } else {
             return null;
@@ -43,16 +41,9 @@ function NewsPage() {
     return (
         <div id="newsContent">
             <div id="newsHeader">
-                {/*{console.log(currentUserInfo, "USERINFO")}*/}
-                {/*{(currentUserInfo.isLeader) ? newsAdding : null}*/}
                 {showButton()}
-                {/*{newsAdding}*/}
             </div>
             <div id="news">
-                {/*{News.map(news => (
-                    <NewsItem author={news.author} pubDate={news.pubDate} article={news.article}
-                              comments={news.comments!}/>
-                ))}*/}
                 {showNews()}
             </div>
         </div>

@@ -30,18 +30,16 @@ function AuthorizationPage() {
             method: 'POST',
             credentials: "include",
             headers: {
-                // 'Accept': 'multipart/form-data',
-                // 'Content-Type': 'multipart/form-data',
             },
             body: formData,
         })
-            /*.then(response => {
+            .then(response => {
                 console.log(response);
                 if (response.status === 200) {
                     setTimeout(()=>window.location.reload(), 500)
                 }
 
-            })*/
+            })
     }
 
     return (

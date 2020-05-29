@@ -170,7 +170,7 @@ namespace ClassRoomAPI.Controllers
             {
                 case 1:
                     {
-                        if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.Date && e.GroupId != groupId) == 0)
+                        if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.Date && e.GroupId == groupId) == 0)
                         {
                             schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate.Date, Lessons = new List<Lesson>(), GroupId = groupId});
                         }
@@ -181,7 +181,7 @@ namespace ClassRoomAPI.Controllers
                     {
                         for (var i = 0; i < 30; i++)
                         {
-                            if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddDays(7 * i).Date && e.GroupId != groupId) == 0)
+                            if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddDays(7 * i).Date && e.GroupId == groupId) == 0)
                             {
                                 schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate.AddDays(7 * i).Date, Lessons = new List<Lesson>(), GroupId = groupId });
                             }
@@ -194,7 +194,7 @@ namespace ClassRoomAPI.Controllers
                     {
                         for (var i = 0; i < 15; i++)
                         {
-                            if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddDays(14 * i).Date && e.GroupId != groupId) == 0)
+                            if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddDays(14 * i).Date && e.GroupId == groupId) == 0)
                             {
                                 schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate.AddDays(14 * i).Date, Lessons = new List<Lesson>(), GroupId = groupId });
                             }
@@ -208,7 +208,7 @@ namespace ClassRoomAPI.Controllers
 
                         for (var i = 0; i < 7; i++)
                         {
-                            if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddMonths(i).Date && e.GroupId != groupId) == 0)
+                            if (needCreate && schedulesCollection.CountDocuments(e => e.DayDate == lesson.CreateDate.AddMonths(i).Date && e.GroupId == groupId) == 0)
                             {
                                 schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), DayDate = lesson.CreateDate.AddMonths(i).Date, Lessons = new List<Lesson>(), GroupId = groupId });
                             }

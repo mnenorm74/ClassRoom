@@ -20,7 +20,6 @@ function GroupListPage() {
 
     function showUsers() {
         if(isLoadedUsers) {
-            //console.log(users, "USERS");
             return users;
         } else {
             return null;
@@ -28,9 +27,6 @@ function GroupListPage() {
     }
     return (
         <div id="groupListContent">
-            {/*{GroupUsers.map(user => (
-                <GroupUser name={`${user.Surname} ${user.Name} ${user.Patronymic}`} email={user.Email}/>
-            ))}*/}
             {showUsers()}
         </div>
     )
