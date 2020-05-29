@@ -35,12 +35,7 @@ function lessonChanging(id: any, day: any) {
         let newDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
         console.log(newDate, "DAYY");
         console.log(id, "ID");
-        //fetch(`${srcUrl}/Schedules/${newDate}/${id}?all=${!all}`, {
 
-        /*let date: any = formData.get("CreateDate");
-        let newDate: any = farmatDateForm(date);
-        formData.set("CreateDate", newDate);
-        fetch(`${srcUrl}/Schedules/${day}/${id}`, {*/
         fetch(`${srcUrl}/Schedules/${newDate}/${id}?all=${all === "true"}`, {
             method: 'patch',
             headers: {

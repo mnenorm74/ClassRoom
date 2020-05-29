@@ -23,16 +23,7 @@ namespace ClassRoomAPI.Controllers
             groupsCollection = db.GetCollection<Group>("groups");
         }
 
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /groups
-        ///     {
-        ///        "groupLeaderId": "guid",
-        ///        "groupName": "string"
-        ///     }
-        ///
-        /// </remarks>
+        
         [HttpPost]
         [Produces("application/json")]
         public IActionResult Post([FromForm] GroupDTO value)
@@ -48,26 +39,14 @@ namespace ClassRoomAPI.Controllers
             return new ObjectResult(group);
         }
 
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     PATCH /groups
-        ///     {
-        ///        "groupLeaderId": "guid",
-        ///        "groupName": "string"
-        ///     }
-        ///
-        /// </remarks>
+        
         [HttpPatch("{id}")]
         [Produces("application/json")]
         public IActionResult Patch(Guid id, [FromBody] GroupDTO value)
         {
             var arr = new List<UpdateDefinition<Group>>();
             var update = Builders<Group>.Update;
-            //if (value.GroupLeaderId != Guid.Empty)
-            //{
-            //    arr.Add(update.Set(n => n.GroupLeaderId, value.GroupLeaderId));
-            //}
+            
             if (value.GroupName != null)
             {
                 arr.Add(update.Set(n => n.GroupName, value.GroupName));

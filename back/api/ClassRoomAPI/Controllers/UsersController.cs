@@ -78,20 +78,7 @@ namespace ClassRoomAPI.Controllers
             return Json(users);
         }
 
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /users
-        ///     {
-        ///        username="string",
-        ///        name: "string",
-        ///        surname: "string",
-        ///        patronymic: "string",
-        ///        avatar: image (byte[] ?)
-        ///        groupId: "Guid",
-        ///        email="string"
-        ///     }
-        /// </remarks>
+        
         [HttpPost]
         [Produces("application/json")]
         public IActionResult Post([FromForm]RegisterViewModel model)
@@ -122,9 +109,7 @@ namespace ClassRoomAPI.Controllers
                         .FirstOrDefault()
                         .Id
                         .ToString());
-                    //return new ObjectResult(user);
                 }
-                //AddErrors(result);
             }
             return new ObjectResult(user);
         }
@@ -136,8 +121,6 @@ namespace ClassRoomAPI.Controllers
             var result = new List<byte>();
             using (var reader = image.OpenReadStream())
             {
-                //var fileContent = reader.ReadToEnd();
-                //var image = Image.FromStream(reader)
                 var bytes = new byte[image.Length];
                 for(var i = 0; i < image.Length; i++)
                 {
@@ -151,19 +134,7 @@ namespace ClassRoomAPI.Controllers
             return new ObjectResult(result);
         }
 
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     PATCH /users/{id}
-        ///     {
-        ///        username="string",
-        ///        name: "string",
-        ///        surname: "string",
-        ///        patronymic: "string",
-        ///        avatar: image (byte[] ?),
-        ///        email="string"
-        ///     }
-        /// </remarks>
+        
         [HttpPatch("{id}")]
         [Produces("application/json")]
         public IActionResult Patch(Guid id, [FromBody] UserDTO value)
@@ -174,10 +145,6 @@ namespace ClassRoomAPI.Controllers
             }
             var arr = new List<UpdateDefinition<User>>();
             var update = Builders<User>.Update;
-            //if (value.Avatar != null)
-            //{
-            //    arr.Add(update.Set(n => n.Avatar, value.Avatar));
-            //}
             if (value.Name != null)
             {
                 arr.Add(update.Set(n => n.Name, value.Name));

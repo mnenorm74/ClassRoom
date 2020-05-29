@@ -27,8 +27,6 @@ export function addFullDaysTag(source) {
 
 export function addLessonTag(lessons) {
     let result = [];
-    //let copyLessons = lessons;
-    //console.log(lessons, "!!!!!");
     if (lessons.length === 0) {
         return (<p className={'weekendDay'}>В данный день пар нет!</p>)
     }

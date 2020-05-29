@@ -42,7 +42,12 @@ function storageAddingModal(path: string) {
 
         // @ts-ignore
         if (document.getElementById("radioFolderType").checked) {
-            fetch(`${srcUrl}/storage/${btoa(atob(path) + form['folderName'].value)}`, {
+            let resultPath = '';
+            if(path === "IA==")
+                resultPath = btoa(atob(path) + form['folderName'].value);
+            else
+                resultPath = btoa(atob(path) + '\\' + form['folderName'].value);
+            fetch(`${srcUrl}/storage/${resultPath}`, {
                 method: "post",
                 credentials: "include"
             });
@@ -65,18 +70,7 @@ function storageAddingModal(path: string) {
 
     return (<Popup trigger={<button id="newsAdding"/>} modal>
         {close => (
-            <form name={formName} className="modal" onSubmit={onSubmit}/*onSubmit={(e) => {
-                e.preventDefault();
-                window.location.reload();
-            }} onChange={() => {
-                // if (!isValidForm(fileLoaded)) {
-                //     // @ts-ignore
-                //     document.querySelector('.sendingButton').setAttribute("disabled", "true")
-                // } else {
-                //     // @ts-ignore
-                //     document.querySelector('.sendingButton').removeAttribute("disabled")
-                // }
-            }}*/>
+            <form name={formName} className="modal" onSubmit={onSubmit}>
                 <a className="close" onClick={close}>
                     &times;
                 </a>

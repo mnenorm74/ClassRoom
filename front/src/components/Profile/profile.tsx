@@ -59,30 +59,13 @@ function Profile() {
             return null;
         }
     }
-    
-    // return (
-    //     <>
-    //         {/*<img className='avatar' src={"data:image/png," + user.avatar} alt=""/>*/}
-    //         {showUserInfo()}
-    //         <div className='optionsContainer'>
-    //             <NavLink to={'/profile'} >
-    //             <img className='optionsLogo' src={Logo.settingsLogo} alt="" onClick={() => {}}/>
-    //             </NavLink>
-    //             <img className='optionsLogo' src={Logo.logOutLogo} alt="" onClick={() => {logOut()}}/>
-    //         </div>
-    //         </>
+
     return (
         <>
             <div className={'userInfo'}>
 
                 {showUserAvatar()}
                 <div className='optionsContainer'>
-                    {/*<img className='optionsLogo' src={Logo.settingsLogo} alt="" onClick={() => {
-                        ReactDOM.render(
-                            Page.OptionsPage(),
-                            document.getElementById('pageContainer')
-                        );
-                    }}/>*/}
                     <Link to={'/profile'} >
                         <img className='optionsLogo' src={Logo.settingsLogo} alt="" onClick={() => {}}/>
                     </Link>
@@ -92,10 +75,6 @@ function Profile() {
                     }}/>
                 </div>
             </div>
-            {/*<div className="userData">
-                <span>{CurrentUser.Name}</span>
-                <span>{CurrentUser.Surname}</span>
-            </div>*/}
             {showUserInfo()}
 
         </>

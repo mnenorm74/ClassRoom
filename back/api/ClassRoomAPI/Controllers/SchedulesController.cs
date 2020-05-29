@@ -49,25 +49,12 @@ namespace ClassRoomAPI.Controllers
                 .Find(a => a.Id == Guid.Parse(HttpContext.Session.GetString("userId")))
                 .FirstOrDefault()
                 .GroupId;
-            //var q = schedulesCollection.Find(e => e.GroupId == userGroupId).ToList();
-            //foreach (var e in q)
-            //{
+
                 for (var i = 0; i < count; i++)
                 {
-                //var a1 = date.AddDays(i);
-                //var s = new DateTime();
                     var nextDate = date.AddDays(i);
                     var day = schedulesCollection.Find(a => a.DayDate == nextDate.Date && a.GroupId == userGroupId).FirstOrDefault();
-                    //var day2 = schedulesCollection.Find(a => a.Date.Year == date.AddDays(i).Year && a.Date.Month == date.AddDays(i).Month && a.Date.Day == date.AddDays(i).Day).FirstOrDefault();
-                    //var a = date.AddDays(i).ToLongDateString();
-
-
-                    //if (e.DayDate.Equals(date.AddDays(i)))
-                    //{
-                    //    day = e;
-                    //}
-
-
+                    
                     if (day != null)
                     {
                         day.Lessons = day.Lessons.OrderBy(e => int.Parse(e.StartTime.Split('-', '/', '\\', '.', '_', ':').First())).ThenBy(a=> int.Parse(a.StartTime.Split(':').Last()));
@@ -78,26 +65,9 @@ namespace ClassRoomAPI.Controllers
                         days.Add(new ScheduleDay() { Id = Guid.Empty, DayDate = date.AddDays(i), Lessons = new List<Lesson>() });
                     }
                 }
-            //}
-            //if (!Response.Headers.ContainsKey("Access-Control-Allow-Origin"))
-            //var json = JsonSerializer.Serialize(days);
             return new ObjectResult(days);
         }
 
-        //private int Compare(Lesson a, Lesson b)
-        //{
-        //    var timeA = a.StartTime.Split(':').Cast<int>().ToArray();
-        //    var timeB = b.StartTime.Split(':').Cast<int>().ToArray();
-        //    if (timeA[0] > timeB[0]) return 1;
-        //    if (timeA[0] == timeB[0])
-        //    {
-        //        if (timeA[1] > timeB[1]) return 1;
-        //        if (timeA[1] == timeB[1]) return 0;
-        //        if (timeA[1] < timeB[1]) return -1;
-        //    }
-        //    if (timeA[0] < timeB[0]) return -1;
-        //    return 0;
-        //}
 
         [HttpGet("{date}")]
         [Produces("application/json")]
@@ -124,21 +94,7 @@ namespace ClassRoomAPI.Controllers
             return new ObjectResult(result);
         }
 
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /schedules
-        ///     {
-        ///        createDate: "DateTime"
-        ///        startTime: "10:15"
-        ///        endTime: "12:00"
-        ///        title: "string"
-        ///        audience:"string"
-        ///        teacher:"string"
-        ///        repeatCount: 1(один раз) или 7 (каждую неделю) или 14 (каждые 2 недели) или 30 (каждый месяц)
-        ///        type: "lect" или "lab" или "pract"
-        ///     }
-        /// </remarks>
+        
         [HttpPost]
         [Produces("application/json")]
         public IActionResult Post([FromForm] LessonDTOPost value)
@@ -152,14 +108,9 @@ namespace ClassRoomAPI.Controllers
             var parseDate = value.CreateDate.Split('-', '/', '\\', '.', '_', ':').Select(e => int.Parse(e)).ToList();
             lesson.CreateDate = new DateTime(parseDate[0], parseDate[1], parseDate[2]).Date;
             lesson.Id = Guid.NewGuid();
-            //if (schedulesCollection.CountDocuments(e => e.Date == lesson.CreateDate) == 0)
-            //{
-            //    schedulesCollection.InsertOne(new ScheduleDay() { Id = Guid.NewGuid(), Date = lesson.CreateDate, Lessons = new List<Lesson>() });
-            //}
             var update = Builders<ScheduleDay>.Update.Push(s => s.Lessons, lesson);
             UpdateAll(lesson, update, true, currUser.GroupId);
-            //schedulesCollection.UpdateOne(s => s.Date == lesson.Date, update);
-            //var a = schedulesCollection.Find(a => a.Date == lesson.CreateDate.AddDays(7)).FirstOrDefault();
+            
             return Created("/schedules", lesson);
         }
 
@@ -220,27 +171,11 @@ namespace ClassRoomAPI.Controllers
             }
         }
 
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     PATCH /schedules/{date}/{id}?all={true}
-        ///     {
-        ///        startTime: "10:15"
-        ///        endTime: "12:00"
-        ///        title: "string"
-        ///        audience:"string"
-        ///        teacher:"string"
-        ///        type: "lect" или "lab" или "pract"
-        ///     }
-        /// </remarks>
+       
         [HttpPatch("{date}/{id}")]
         [Produces("application/json")]
         public IActionResult Patch(string date, Guid id, bool all, [FromForm] LessonDTOPatch value)
         {
-            if (false /*Guid.Parse(HttpContext.Session.GetString("userId")) != староста*/)
-            {
-                return Forbid();
-            }
             var parseDate = new List<int>();
             //var dateTime = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
             var dateTime = new DateTime();
@@ -286,10 +221,6 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Delete(Guid id, string date, bool all)
         {
-            if (false /*Guid.Parse(HttpContext.Session.GetString("userId")) != староста*/)
-            {
-                return Forbid();
-            }
             var parseDate = new List<int>();
             //var dateTime = new DateTime(parseDate[0], parseDate[1], parseDate[2]);
             var dateTime = new DateTime();

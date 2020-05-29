@@ -60,17 +60,7 @@ namespace ClassRoomAPI.Controllers
         }
 
 
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /news
-        ///     {
-        ///        "title": "string",
-        ///        "content": "string",
-        ///        "date": "DateTime"
-        ///     }
-        ///
-        /// </remarks>
+        
         [HttpPost]
         [Produces("application/json")]
         public IActionResult Post([FromForm] NewsDTO value)
@@ -84,17 +74,7 @@ namespace ClassRoomAPI.Controllers
             return Created("/schedules", news);
         }
 
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     PATCH /news/{id}
-        ///     {
-        ///        "title": "string",
-        ///        "content": "string",
-        ///        "date": "DateTime"
-        ///     }
-        ///
-        /// </remarks>
+        
         [HttpPatch("{id}")]
         [Produces("application/json")]
         public IActionResult Patch(Guid id, [FromForm] NewsDTO value)
@@ -160,16 +140,7 @@ namespace ClassRoomAPI.Controllers
             return Json(commentsView);
         }
 
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /news/{id}/comments
-        ///     {
-        ///        "content": "string",
-        ///        "date": "DateTime"
-        ///     }
-        ///
-        /// </remarks>
+        
         [HttpPost("{id}/comments")]
         [Produces("application/json")]
         public IActionResult Post(Guid id, [FromBody] CommentDTO value)
@@ -189,16 +160,7 @@ namespace ClassRoomAPI.Controllers
             return Created("/news/{id}/comments", comment);
         }
 
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     PUT /news/{id}/comments/{CommId}
-        ///     {
-        ///        "content": "string",
-        ///        "date": "DateTime"
-        ///     }
-        ///
-        /// </remarks>
+        
         [HttpPut("{id}/comments/{CommId}")]
         [Produces("application/json")]
         public IActionResult Put(Guid id, Guid CommId, [FromBody] CommentDTO value)

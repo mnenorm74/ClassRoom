@@ -51,22 +51,11 @@ function SchedulePage() {
                         setWeek(currentWeek - 1)
                 }}/>
                 <div id={'scheduleContainer'}>
-                    {/*<ScheduleDayFull day={'Пн'}/>*/}
-                    {/*<ScheduleDayFull day={'Пн'}/>*/}
-                    {/*<ScheduleDayFull day={'Пн'}/>*/}
-                    {/*<ScheduleDayFull day={'Пн'}/>*/}
                     {showSchedules()}
                 </div>
                 <button className={'arrowButton right'} onClick={() => {
                     setWeek(currentWeek + 1)
-                    /*getSchedules(7, currentWeek)
-                        .then(res => res.json())
-                        .then(
-                            (result: any) => {
-                                setScheduleDays(addFullDaysTag(result));
-                                setIsLoadedSchedules(true);
-                            }
-                        );*/
+
                 }}/>
             </div>
         </>

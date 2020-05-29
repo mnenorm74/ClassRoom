@@ -26,9 +26,7 @@ function StoragePage(/*storageElements?: any[]*/) {
             });
     }, []);
 
-    /*if (typeof storageElements == "undefined") {
-    storageElements = StorageElements;
-}*/
+
 
     function getPage(path: string) {
         console.log(path, 'PATHTEST');
@@ -66,7 +64,7 @@ function StoragePage(/*storageElements?: any[]*/) {
     function showStorage() {
         if (isLoadedFiles) {
             console.log(files, "scheduleDays!!!");
-            // setIsLoadedPage(true);
+
             return files;
         } else {
             return null;

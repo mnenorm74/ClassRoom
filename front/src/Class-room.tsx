@@ -20,66 +20,6 @@ import {useState} from "react";
 
 
 function ClassRoom() {
-    /*const [code, setCode]: [any, any] = useState(100);
-
-    useEffect(() => {
-        setTimeout(() => {
-            fetch(`${srcUrl}/Account`,
-                {
-                    credentials: "include",
-                })
-                .then(res => setCode(res.status));
-        }, 500);
-
-    }, []);
-
-    function showPage() {
-        console.log(code, "CODE");
-        if (code === 200) {
-            return (<Router>
-                <Menu/>
-                <div id="pageContainer">
-                    <Switch>
-                        <Redirect exact from="/" to="/main"/>
-                        <Route path="/main">
-                            <Page.MainPage/>
-                        </Route>
-                        <Route path="/storage">
-                            <Page.StoragePage/>
-                        </Route>
-                        <Route path="/news">
-                            <Page.NewsPage/>
-                        </Route>
-                        <Route path="/schedule">
-                            <Page.SchedulePage/>
-                        </Route>
-                        <Route path="/groupList">
-                            <Page.GroupListPage/>
-                        </Route>
-                        <Route path="/profile">
-                            <Page.OptionsPage/>
-                        </Route>
-                    </Switch>
-                </div>
-            </Router>)
-        }
-        if (code === 100) {
-            return <div style={{margin: "20% auto",textAlign: 'center', width: '100vw'}}>
-                <ReactLoading type={"spinningBubbles"} color='#BA68C8' width={'10%'} className={'loading'} />
-            </div>
-        } else {
-            return (<Router>
-                <Switch>
-                    <Route path="/">
-                        <Page.AuthorizationPage/>
-                    </Route>
-                </Switch>
-            </Router>)
-        }
-    }*/
-
-    
-
 
 return (
         <Router>

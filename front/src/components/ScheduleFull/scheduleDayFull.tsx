@@ -16,10 +16,6 @@ function ScheduleDayFull({day, lessons}: { day: string, lessons: any[] }) {
 
     return (<div id={'ScheduleDayFullContainer'}>
         <p id={'day'}>{formatDayWeek(day) + ', ' + formatDaySignature(day)}</p>
-        {/*<LessonFull/>
-        <LessonFull/>
-        <LessonFull/>
-        <LessonFull/>*/}
         {showLessons()}
     </div>)
 }

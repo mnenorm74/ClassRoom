@@ -14,9 +14,6 @@ function Lesson({order, name, type}:{order:string, name:string, type:string}) {
         case 'lab':
             style+='lab';
             break;
-        // case LessonType.Seminar:
-        //     style+='seminar'
-        //     break
     }
     return (
         <div className='lesson'>

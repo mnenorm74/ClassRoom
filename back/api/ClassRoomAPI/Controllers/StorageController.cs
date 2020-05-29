@@ -69,24 +69,10 @@ namespace ClassRoomAPI.Controllers
             else if (Directory.Exists(newPath))
             {
                 var dirInfo = new DirectoryInfo(newPath);
-                //var filePaths = new List<FilePath>();
-                //var files = dirInfo.GetFiles();
-                //var directories = dirInfo.GetDirectories();
-                // или найти в базе все пути к файлам ??
                 var startPath = currGroup.GroupId.ToString() + '\\' + decodePath;
                 var paths = filesCollection.Find(p => p.Path.StartsWith(startPath)/*p.Path.Count(ch=>ch.Equals('\\')) == 1*//*.Contains("\\")*/).ToList();
                 paths = paths.Where(a => !a.Path.Skip(startPath.Length + 1).Contains('\\') && startPath.Length != a.Path.Length).ToList();
-                //paths = paths.Where(a => !a.Path.Substring(currGroup.GroupId.ToString().Length + decodePath.Length + 1).Contains("\\")).ToList();
-                //foreach(var file in files)
-                //{
-                //    var splitPath = file.FullName.Split("storage\\");
-                //    filePaths.Add(new FilePath() { Path = splitPath[1], CreateDate = file.CreationTime });
-                //}
-                //foreach (var dir in directories)
-                //{
-                //    var splitPath = dir.FullName.Split("storage\\");
-                //    filePaths.Add(new FilePath() { Path = splitPath[1], CreateDate = dir.CreationTime });
-                //}
+                
                 return new ObjectResult(paths);
             }
             return NotFound("This directory or file was not found");
@@ -112,14 +98,7 @@ namespace ClassRoomAPI.Controllers
             return new ObjectResult(result);
         }
 
-        /// <remarks>
-        /// Sample request:
-        ///     POST /storage/{path}, 
-        ///     path - путь зашифрованный с помощью base64.
-        ///     
-        ///     Если путь заканчивается на файл: IFormFile.
-        ///     Если путь заканчиваетсяна каталог: без тела.
-        /// </remarks>
+        
         [HttpPost("{path}")]
         [Produces("application/json")]
         public IActionResult Post(string path, [FromForm]IFormFile file)
@@ -169,10 +148,6 @@ namespace ClassRoomAPI.Controllers
         [Produces("application/json")]
         public IActionResult Delete(string path)
         {
-            if (false /*Guid.Parse(HttpContext.Session.GetString("userId")) != староста*/)
-            {
-                return Forbid();
-            }
             var decodePath = "";
             try
             {
