@@ -139,6 +139,26 @@ namespace ClassRoomAPI.Controllers
             return NotFound();
         }
 
+        [HttpPost("changeLogin")]
+        public IActionResult ChangeEmail([FromForm]ChangeLoginModel model)
+        {
+            var id = HttpContext.Session.GetString("userId");
+            var email = usersCollection.Find(a => a.Id == Guid.Parse(id)).FirstOrDefault().Email;
+            var user = _userManager.FindByEmailAsync(email).Result;
+            if (user != null)
+            {
+                user.UserName = model.NewLogin;
+                var update = Builders<User>.Update.Set(s => s.Username, model.NewLogin);
+                usersCollection.UpdateOne(a => a.Email == email, update);
+                var result = _userManager.UpdateAsync(user).Result;
+                if (result.Succeeded)
+                {
+                    return Ok();
+                }
+            }
+            return NotFound();
+        }
+
         [HttpPost("logout")]
         //[ValidateAntiForgeryToken]
         public IActionResult Logout()

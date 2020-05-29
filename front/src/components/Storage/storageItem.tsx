@@ -23,7 +23,7 @@ function StorageItem({type, name, path}: {type: boolean, name: string, path: str
     return (
         <ContextMenuTrigger id="same_unique_identifier">
         <div id="storageContainer" data-path={path} data-isFile={type}>
-            <img id={iconType}/>
+            <img id={iconType} className={"icon"}/>
             <p id="name">{name}</p>
         </div>
             <ContextMenu className={'contextMenu'} id="same_unique_identifier">
@@ -31,7 +31,7 @@ function StorageItem({type, name, path}: {type: boolean, name: string, path: str
                     Архивировать
                 </MenuItem>
                 <MenuItem divider />
-                <MenuItem className={'contextItem'} data={{foo: 'bar'}} onClick={deleteFile}>
+                <MenuItem className={'contextItem'} data={{foo: 'bar'}} /*onClick={deleteFile}*/>
                     Удалить
                 </MenuItem>
             </ContextMenu>
