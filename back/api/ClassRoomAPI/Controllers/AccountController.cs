@@ -38,7 +38,7 @@ namespace ClassRoomAPI.Controllers
         [HttpGet]
         //[AllowAnonymous]
         //[ValidateAntiForgeryToken]
-        public IActionResult CheckAuthorization()
+        public async Task<IActionResult> CheckAuthorization()
         {
             var test = HttpContext.Session.GetString("userId");
             if (test is null)
@@ -54,12 +54,12 @@ namespace ClassRoomAPI.Controllers
         [HttpPost("login")]
         //[AllowAnonymous]
         //[ValidateAntiForgeryToken]
-        public IActionResult Login([FromForm]LoginViewModel model)
+        public async Task<IActionResult> Login([FromForm]LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var result = _signInManager.PasswordSignInAsync(model.Username, model.Password,
-                    model.RememberMe, lockoutOnFailure: false).Result;
+                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password,
+                    model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     var user = usersCollection

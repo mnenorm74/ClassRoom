@@ -42,7 +42,12 @@ function storageAddingModal(path: string) {
 
         // @ts-ignore
         if (document.getElementById("radioFolderType").checked) {
-            fetch(`${srcUrl}/storage/${btoa(atob(path) + form['folderName'].value)}`, {
+            let resultPath = '';
+            if(path === "IA==")
+                resultPath = btoa(atob(path) + form['folderName'].value);
+            else
+                resultPath = btoa(atob(path) + '\\' + form['folderName'].value);
+            fetch(`${srcUrl}/storage/${resultPath}`, {
                 method: "post",
                 credentials: "include"
             });

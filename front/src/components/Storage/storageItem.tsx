@@ -6,18 +6,21 @@ import {IStorageContentIconPaged} from "../../projectTypes";
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import {srcUrl} from "../../mySettings";
 
-function StorageItem({type, name, path}: {type: boolean, name: string, path: string}) {
+function StorageItem(this: any, {type, name, path}: {type: boolean, name: string, path: string}) {
     let iconType = type  ? "fileIcon" : "folderIcon";
 
     function deleteFile() {
+
         debugger;
+
         fetch(`${srcUrl}/storage/${btoa(path)}`,
             {
                 method: "delete",
                 credentials: "include"
-            })
+            }).then();
     }
 
+    // @ts-ignore
     // @ts-ignore
     // @ts-ignore
     return (
@@ -31,9 +34,9 @@ function StorageItem({type, name, path}: {type: boolean, name: string, path: str
                     Архивировать
                 </MenuItem>
                 <MenuItem divider />
-                <MenuItem className={'contextItem'} data={{foo: 'bar'}} /*onClick={deleteFile}*/>
+                <button className={'contextItem'}>
                     Удалить
-                </MenuItem>
+                </button>
             </ContextMenu>
         </ContextMenuTrigger>
     );
