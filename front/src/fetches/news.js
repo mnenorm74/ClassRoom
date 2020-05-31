@@ -41,5 +41,6 @@ export function addComments(source, id) {
 export function formatDateNews(date) {
     let newDate = new Date(date);
     let month = newDate.getMonth() + 1;
-    return `${newDate.getDate()}.${month < 10 ? '0' + month : month}.${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}`
+    let minutes = newDate.getMinutes();
+    return `${newDate.getDate()}.${month < 10 ? '0' + month : month}.${newDate.getFullYear()} ${newDate.getHours()}:${minutes < 10 ? '0' + minutes : minutes}`
 }

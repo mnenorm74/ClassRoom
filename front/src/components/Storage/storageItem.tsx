@@ -18,7 +18,7 @@ function StorageItem({type, name, path}: {type: boolean, name: string, path: str
             })
     }
 
-    // @ts-ignore
+
     // @ts-ignore
     return (
         <ContextMenuTrigger id="same_unique_identifier">

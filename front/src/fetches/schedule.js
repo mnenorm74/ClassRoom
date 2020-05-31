@@ -6,10 +6,8 @@ import ScheduleDayFull from "../components/ScheduleFull/scheduleDayFull";
 import Lesson from "../components/Schedule/lesson";
 
 export function getSchedules(count, weekCount = 0) {
-    console.log(weekCount)
-    console.log("fetchSchedulesMain");
     let date = new Date();
-    date.setDate(getStartDate().getDate() + weekCount * 7)
+    date.setDate(getStartDate().getDate() + weekCount * 7);
     return fetch(`${srcUrl}/Schedules?startDate=${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}&count=${count}`,
         {
         credentials: "include"
@@ -71,8 +69,10 @@ function determineLessonNumber(startTime) {
 
 function getStartDate() {
     let date = new Date();
-    if (date.getDay() !== 1) {
-        date.setDate(date.getDate() - (date.getDay() - 1))
+    if (date.getDay() !== 1 && date.getDay() !== 0) {
+        date.setDate(date.getDate() - (date.getDay() - 1));
+    } else if(date.getDay() === 0) {
+        date.setDate(date.getDate() - 6);
     }
     return date;
 }

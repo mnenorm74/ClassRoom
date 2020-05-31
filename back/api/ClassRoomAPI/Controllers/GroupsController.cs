@@ -39,7 +39,20 @@ namespace ClassRoomAPI.Controllers
             return new ObjectResult(group);
         }
 
-        
+        [HttpPatch("{id}/leader")]
+        [Produces("application/json")]
+        public IActionResult PatchLeader(Guid id, [FromBody] string idLeader)
+        {
+            var arr = new List<UpdateDefinition<Group>>();
+            var update = Builders<Group>.Update.Set(n => n.GroupLeaderId, Guid.Parse(idLeader));
+
+            //arr.Add(update.Set(n => n.GroupLeaderId, Guid.Parse(idLeader)));
+            var updateResult = groupsCollection.UpdateOne(n => n.GroupId == id, update);
+            
+
+            return new ObjectResult(groupsCollection.Find(n => n.GroupId == id).FirstOrDefault());
+        }
+
         [HttpPatch("{id}")]
         [Produces("application/json")]
         public IActionResult Patch(Guid id, [FromBody] GroupDTO value)
